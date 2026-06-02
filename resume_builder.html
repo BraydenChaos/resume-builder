@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Brayden Clark — Resume Builder</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #e8e6e2; display: flex; height: 100vh; overflow: hidden; }
+.sidebar { width: 268px; min-width: 268px; border-right: 1px solid #d8d5d0; display: flex; flex-direction: column; background: #f5f4f1; overflow: hidden; }
+.sidebar-header { padding: 12px 14px 10px; border-bottom: 1px solid #d8d5d0; }
+.sidebar-header h2 { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.06em; }
+.sidebar-header p { font-size: 10.5px; color: #aaa; margin-top: 3px; line-height: 1.5; }
+.section-list { flex: 1; overflow-y: auto; padding: 8px 8px 4px; }
+.chip-wrap { position: relative; }
+.chip-wrap.is-child { padding-left: 20px; }
+.chip { display: flex; align-items: center; gap: 7px; padding: 7px 9px; border-radius: 7px; border: 1px solid #e0ddd8; background: white; margin-bottom: 4px; user-select: none; font-size: 12px; font-weight: 500; color: #222; position: relative; transition: opacity 0.15s; }
+.chip-wrap.is-child .chip { background: #fafaf8; border-color: #e8e5e0; font-size: 11.5px; }
+.chip.hidden-chip { opacity: 0.35; }
+.chip.is-dragging { opacity: 0.15; }
+.chip-wrap.drop-before > .chip { box-shadow: 0 -2px 0 #4A6CF7; }
+.chip-wrap.drop-after > .chip { box-shadow: 0 2px 0 #4A6CF7; }
+.chip-wrap.drop-child > .chip { outline: 2px solid #4A6CF7; background: #f0f3ff; }
+.chip-wrap.no-child > .chip { outline: 2px dashed #e74c3c; }
+.chip-indent { width: 10px; flex-shrink: 0; color: #ccc; font-size: 11px; }
+.chip-handle { color: #ccc; font-size: 15px; cursor: grab; flex-shrink: 0; }
+.chip-label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chip-eye { background: none; border: none; cursor: pointer; color: #ccc; font-size: 13px; padding: 2px; display: flex; align-items: center; flex-shrink: 0; }
+.chip-eye:hover { color: #555; }
+.chip-unmount { background: none; border: none; cursor: pointer; color: #ccc; font-size: 13px; padding: 2px; display: flex; align-items: center; flex-shrink: 0; }
+.chip-unmount:hover { color: #e74c3c; }
+.chip-del { background: none; border: none; cursor: pointer; color: #ddd; font-size: 13px; padding: 2px; display: flex; align-items: center; flex-shrink: 0; }
+.chip-del:hover { color: #e74c3c; }
+.confirm-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 300; }
+.confirm-box { background: white; border-radius: 10px; border: 1px solid #e0ddd8; width: 340px; padding: 22px 22px 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
+.confirm-box h4 { font-size: 14px; font-weight: 600; color: #111; margin-bottom: 8px; }
+.confirm-box p { font-size: 12.5px; color: #666; line-height: 1.5; margin-bottom: 18px; }
+.confirm-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.btn-danger { background: #c0392b; color: white; border-color: #c0392b; }
+.btn-danger:hover { background: #a93226; }
+.sidebar-actions { padding: 10px; border-top: 1px solid #d8d5d0; display: flex; flex-direction: column; gap: 7px; }
+.variations-panel { padding: 10px 10px 6px; border-top: 1px solid #d8d5d0; }
+.variations-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+.variations-header h3 { font-size: 10.5px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.05em; }
+.btn-save-as { background: none; border: 0.5px dashed #ccc; border-radius: 6px; cursor: pointer; color: #888; font-size: 11px; padding: 3px 8px; display: flex; align-items: center; gap: 4px; }
+.btn-save-as:hover { background: #f0eeea; color: #333; border-color: #aaa; }
+.folder-row { display: flex; gap: 5px; align-items: center; margin-bottom: 8px; }
+.folder-input { flex: 1; padding: 5px 8px; border-radius: 6px; border: 1px solid #e0ddd8; background: white; color: #222; font-size: 11px; font-family: 'SF Mono', 'Consolas', monospace; min-width: 0; }
+.folder-input:focus { outline: none; border-color: #4A6CF7; }
+.folder-input.ls-mode { background: #fafaf8; color: #bbb; }
+.btn-folder-go { background: #111; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; padding: 5px 9px; display: flex; align-items: center; flex-shrink: 0; }
+.btn-folder-go:hover { background: #333; }
+.btn-folder-go:disabled { background: #ccc; cursor: default; }
+.btn-folder-browse { background: white; color: #555; border: 1px solid #e0ddd8; border-radius: 6px; cursor: pointer; font-size: 12px; padding: 5px 8px; display: flex; align-items: center; flex-shrink: 0; }
+.btn-folder-browse:hover { background: #f0eeea; color: #111; }
+.btn-folder-browse:disabled { color: #ccc; cursor: default; }
+.variant-list { display: flex; flex-direction: column; gap: 4px; max-height: 150px; overflow-y: auto; }
+.variant-row { display: flex; align-items: center; gap: 5px; padding: 5px 8px; border-radius: 6px; border: 1px solid #e8e5e0; background: white; }
+.variant-row.active-variant { border-color: #4A6CF7; background: #f0f3ff; }
+.variant-name { flex: 1; font-size: 11.5px; font-weight: 500; color: #222; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.variant-row.active-variant .variant-name { color: #4A6CF7; }
+.variant-load { background: none; border: none; cursor: pointer; color: #aaa; font-size: 12px; padding: 2px 4px; border-radius: 4px; }
+.variant-load:hover { color: #4A6CF7; background: #e8ecff; }
+.variant-del { background: none; border: none; cursor: pointer; color: #ccc; font-size: 12px; padding: 2px 4px; border-radius: 4px; }
+.variant-del:hover { color: #e74c3c; background: #ffeaea; }
+.variant-overwrite { background: none; border: none; cursor: pointer; color: #ccc; font-size: 12px; padding: 2px 4px; border-radius: 4px; }
+.variant-overwrite:hover { color: #e8a020; background: #fff8e8; }
+.no-variants { font-size: 11px; color: #bbb; padding: 4px 2px; }
+.btn { width: 100%; padding: 7px 12px; border-radius: 7px; border: 1px solid #ddd; background: white; color: #222; font-size: 12px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.btn:hover { background: #f0eeea; }
+.btn-primary { background: #111; color: white; border-color: #111; }
+.btn-primary:hover { background: #333; }
+.notice { font-size: 10px; color: #bbb; padding: 5px 14px 10px; line-height: 1.6; }
+.preview-area { flex: 1; overflow-y: auto; padding: 24px 24px 40px; background: #e0ddd8; }
+.pages-wrap { width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+.resume-page {
+  background: white; color: #111;
+  width: 760px;
+  min-height: 984px; /* 8.5:11 ratio at 760px wide = 984px tall */
+  padding: 52px 58px;
+  border-radius: 0;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  font-family: Georgia, serif;
+  position: relative;
+  overflow: hidden;
+}
+.resume-page + .resume-page { margin-top: 0; }
+.page-break-gap {
+  width: 760px; height: 28px;
+  background: #e0ddd8;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.page-break-gap::before {
+  content: '';
+  position: absolute; top: 50%; left: 0; right: 0;
+  border-top: 1px dashed #bbb;
+}
+.page-break-gap .page-label {
+  background: #e0ddd8; padding: 0 10px;
+  font-size: 10px; color: #aaa; position: relative; z-index: 1;
+  font-family: -apple-system, sans-serif;
+}
+.page-overflow-warn {
+  position: absolute; bottom: 8px; right: 12px;
+  font-size: 9px; color: #e74c3c; font-family: -apple-system, sans-serif;
+  opacity: 0.7;
+}
+/* hidden render surface used to measure content */
+#measure-surface {
+  position: fixed; left: -9999px; top: 0;
+  width: 760px; padding: 52px 58px;
+  font-family: Georgia, serif;
+  background: white; color: #111;
+  visibility: hidden; pointer-events: none;
+}
+.r-name { font-size: 26px; font-weight: 700; color: #111; margin-bottom: 2px; }
+.r-title { font-size: 12.5px; color: #555; margin-bottom: 8px; font-style: italic; }
+.r-contact { font-size: 11px; color: #444; display: flex; flex-wrap: wrap; gap: 3px 14px; margin-bottom: 16px; }
+.r-hr { border: none; border-top: 1.5px solid #111; margin-bottom: 16px; }
+.r-section { margin-bottom: 20px; cursor: pointer; border-radius: 4px; }
+.r-section:hover { outline: 2px solid #4A6CF7; outline-offset: 4px; }
+.r-section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #111; margin-bottom: 9px; border-bottom: 0.5px solid #ccc; padding-bottom: 3px; }
+.r-job { margin-bottom: 13px; }
+.r-job-head { display: flex; justify-content: space-between; align-items: baseline; }
+.r-org { font-size: 13px; font-weight: 700; color: #111; }
+.r-dates { font-size: 11px; color: #777; flex-shrink: 0; margin-left: 8px; }
+.r-jobtitle { font-size: 12px; color: #444; margin-bottom: 4px; font-style: italic; }
+.r-bullets { padding-left: 14px; }
+.r-bullets li { font-size: 11.5px; color: #333; line-height: 1.55; margin-bottom: 3px; }
+.r-child-section { margin-bottom: 14px; padding-left: 12px; border-left: 2px solid #eee; cursor: pointer; border-radius: 2px; }
+.r-child-section:hover { border-left-color: #4A6CF7; }
+.r-header-wrap { border-radius: 4px; }
+.r-header-wrap:hover { outline: 2px solid #4A6CF7; outline-offset: 4px; }
+.r-skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+.r-skill-label { font-size: 10.5px; font-weight: 700; color: #111; margin-bottom: 1px; }
+.r-skill-items { font-size: 11px; color: #444; line-height: 1.5; }
+.r-summary { font-size: 12px; color: #333; line-height: 1.62; }
+.r-list { padding-left: 14px; }
+.r-list li { font-size: 11.5px; color: #333; line-height: 1.55; margin-bottom: 3px; }
+.modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+.modal { background: white; border-radius: 12px; border: 1px solid #e0ddd8; width: 640px; max-width: 100%; max-height: 88vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.18); }
+.modal-header { padding: 15px 18px 12px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; }
+.modal-header h3 { font-size: 14px; font-weight: 600; color: #111; }
+.modal-close { background: none; border: none; cursor: pointer; color: #aaa; font-size: 20px; display: flex; align-items: center; }
+.modal-close:hover { color: #333; }
+.modal-body { flex: 1; overflow-y: auto; padding: 16px 18px; display: flex; flex-direction: column; gap: 13px; }
+.field-group { display: flex; flex-direction: column; gap: 5px; }
+.field-label { font-size: 10.5px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.05em; }
+.field-input { width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #ddd; background: white; color: #111; font-size: 13px; font-family: -apple-system, sans-serif; resize: vertical; }
+.field-input:focus { outline: none; border-color: #4A6CF7; }
+.job-editor { border: 1px solid #eee; border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 6px; background: #fafafa; }
+.job-editor-title { font-size: 10.5px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.04em; }
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.bullet-row { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 5px; }
+.bullet-row textarea { flex: 1; min-height: 46px; }
+.del-btn { background: none; border: 1px solid #eee; border-radius: 6px; cursor: pointer; color: #ccc; font-size: 13px; padding: 5px 6px; display: flex; align-items: center; flex-shrink: 0; margin-top: 3px; }
+.del-btn:hover { color: #e74c3c; border-color: #e74c3c; }
+.add-btn { background: none; border: 1px dashed #ddd; border-radius: 7px; cursor: pointer; color: #aaa; font-size: 11.5px; padding: 6px 10px; display: flex; align-items: center; gap: 5px; width: 100%; justify-content: center; margin-top: 2px; }
+.add-btn:hover { background: #f5f5f5; color: #555; }
+.modal-footer { padding: 12px 18px; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 8px; }
+.modal-footer .btn { width: auto; }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h2>Sections</h2>
+    <p>Drag to reorder · drop on center to nest · click to edit</p>
+    <p id="storage-indicator" title="Using browser localStorage (open via server.js for file mode)" style="margin-top:5px;font-size:10px;color:#bbb;">🌐 Browser mode</p>
+  </div>
+  <div class="section-list" id="section-list"></div>
+  <div class="variations-panel">
+    <div class="variations-header">
+      <h3>Variations</h3>
+      <button class="btn-save-as" id="btn-save-as"><i class="ti ti-device-floppy"></i> Save as…</button>
+    </div>
+    <div class="folder-row" id="folder-row">
+      <input class="folder-input ls-mode" id="folder-input" placeholder="variants/2025-june" title="Active variants folder (server mode only)" disabled>
+      <button class="btn-folder-browse" id="btn-folder-browse" title="Browse for folder…" disabled><i class="ti ti-folder-open"></i></button>
+      <button class="btn-folder-go" id="btn-folder-go" title="Switch folder" disabled><i class="ti ti-arrow-right"></i></button>
+    </div>
+    <div class="variant-list" id="variant-list"></div>
+  </div>
+  <div class="sidebar-actions">
+    <button class="btn" id="btn-add-section"><i class="ti ti-plus"></i> Add section</button>
+    <button class="btn" id="btn-reset"><i class="ti ti-refresh"></i> Reset all</button>
+    <button class="btn btn-primary" id="btn-pdf"><i class="ti ti-download"></i> Export PDF</button>
+  </div>
+  <div class="notice">
+    Top / bottom edge → reorder<br>
+    Center of chip → nest as subsection<br>
+    ↩ icon on child → move back to root
+  </div>
+</div>
+
+<div class="preview-area" id="preview-area">
+  <div class="pages-wrap" id="pages-wrap"></div>
+</div>
+<div id="measure-surface"></div>
+
+<!-- Confirm delete dialog -->
+<div class="confirm-backdrop" id="confirm-dialog" style="display:none;">
+  <div class="confirm-box">
+    <h4>Delete section?</h4>
+    <p id="confirm-msg">This will permanently remove this section and any nested subsections.</p>
+    <div class="confirm-actions">
+      <button class="btn" id="confirm-cancel">Cancel</button>
+      <button class="btn btn-danger" id="confirm-ok">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add section modal -->
+<div class="modal-backdrop" id="add-modal" style="display:none;">
+  <div class="modal" style="width:460px;">
+    <div class="modal-header">
+      <h3>Add new section</h3>
+      <button class="modal-close" id="add-modal-close"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <label class="field-label">Section title</label>
+        <input class="field-input" id="new-section-label" placeholder="e.g. Publications, Awards, Side Projects">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Type</label>
+        <select class="field-input" id="new-section-type">
+          <option value="jobs">Jobs / Roles (org, title, bullets)</option>
+          <option value="summary">Text block (free-form paragraph)</option>
+          <option value="list">List (one item per line)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Nest under (optional)</label>
+        <select class="field-input" id="new-section-parent">
+          <option value="">— Root level —</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" id="add-modal-cancel">Cancel</button>
+      <button class="btn btn-primary" id="add-modal-ok">Add section</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Edit section</h3>
+      <button class="modal-close" id="modal-close"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn" id="modal-cancel">Cancel</button>
+      <button class="btn btn-primary" id="modal-save">Save changes</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Header edit modal -->
+<div class="modal-backdrop" id="header-modal" style="display:none;">
+  <div class="modal" style="width:520px;">
+    <div class="modal-header">
+      <h3>Edit header</h3>
+      <button class="modal-close" id="header-modal-close"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body" id="header-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn" id="header-modal-cancel">Cancel</button>
+      <button class="btn btn-primary" id="header-modal-save">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var FIXED_ROOT = ['engagement','certs','refs','skills'];
+
+var MASTER = [
+  { id:'summary', label:'Profile', visible:true, parentId:null, type:'summary',
+    content:'Founder-operator and senior technical leader with 9+ years delivering immersive XR experiences, AI-integrated production pipelines, and performance marketing systems for institutional clients and funded startups. Founded Adventure Portal (XR software platform, NASA/JPL pilot, Telus World of Science) and Chaos Inc. (boutique tech & marketing consultancy). Track record shipping complex multi-platform products on time, managing distributed teams, and translating scientific and mission-critical content into interactive experiences. Equally comfortable as solo engineer, technical director, or embedded fractional lead.' },
+
+  { id:'chaos_studio', label:'Chaos Inc.', visible:true, parentId:null, type:'jobs', jobs:[
+    { org:'Chaos Inc. — Tech & Marketing Consulting Studio', dates:'Aug 2019 – Present', title:'Partner & Studio Lead', bullets:[
+      'Founded and operate a boutique tech and marketing consultancy focused on immersive technology, senior fractional leadership, and performance marketing — handling sales, staffing, project management, and finance.'
+    ]}
+  ]},
+
+  { id:'elixr_head', label:'ELIXR — Head of XR Dev', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
+    { org:'ELIXR Simulations', dates:'Sept 2025 – Present', title:'Fractional Head of XR Development', bullets:[
+      "Embedded as technical lead to build ELIXR's internal XR development capacity from scratch — created department SOPs, hiring frameworks, project management systems, tech stacks, and client communication tools.",
+      'Led XR product discovery and development for major institutional clients including NAIT, the City of Calgary, and the Edmonton Chinatown Association.',
+      'Handled full-lifecycle scoping, risk management, hiring, and client-facing communication across all active projects.'
+    ]}
+  ]},
+
+  { id:'elixr_tpd', label:'ELIXR — Technical Program Director', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
+    { org:'ELIXR Simulations — XR Department Build', dates:'2023 – 2025', title:'Technical Program Director (Fractional)', bullets:[
+      "Built the internal XR development and intern program for a major Canadian not-for-profit from scratch.",
+      'Set up hiring frameworks, project management systems, development pipelines, and documentation libraries.',
+      'Sold, onboarded, led, and delivered projects for institutional clients across AI-enabled VR, mobile XR, and mixed reality.'
+    ]}
+  ]},
+
+  { id:'curling', label:'Wheelchair Curling Simulator', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
+    { org:'Red Deer Polytechnic & Alberta Sports Hall of Fame', dates:'2024', title:'Senior Technical Lead', bullets:[
+      'Led design and development of an immersive projector-based wheelchair curling simulator for permanent installation at the Alberta Sports Hall of Fame.',
+      'Planned on-site UX, led physical installation design, managed development teams across Unity simulation and OpenCV computer vision stone tracking.'
+    ]}
+  ]},
+
+  { id:'wave', label:'City of Calgary — WAVE XR', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
+    { org:'City of Calgary: WAVE Technology Centre', dates:'2024', title:'XR Discovery Project — Senior Technical Lead', bullets:[
+      'Led design and delivery of four proof-of-concept XR projects: VR training simulator, collocated Mixed Reality tool, smart-glasses reporting tool, and 360 video viewer.',
+      'Owned full project lifecycle from discovery and scoping through design, development, testing, and delivery.'
+    ]}
+  ]},
+
+  { id:'nait', label:'NAIT — AI + VR Nursing Tool', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
+    { org:'NAIT: AI + VR Nursing Training Tool', dates:'2023', title:'Senior Technical Lead', bullets:[
+      'Led design and development of an AI-enabled VR tool for training nurses on structured communication protocol (SBAR).',
+      'Implemented an AI assessment loop grading nurses on communication proficiency in real time.'
+    ]}
+  ]},
+
+  { id:'chinatown', label:'Edmonton Chinatown AR App', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
+    { org:'Edmonton Chinatown Heritage Association: AR Art App', dates:'2023', title:'Senior Technical Lead', bullets:[
+      'Led design and development of a phone-based AR app showcasing historic Chinatown art — users scan local murals to reveal 3D AR animations and unlock rewards from local businesses.'
+    ]}
+  ]},
+
+  { id:'fabutan', label:'Fabutan — 90-Location Chain', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
+    { org:"Fabutan — Canada's Largest Tanning Chain (90+ locations)", dates:'2022–2023', title:'Senior Marketing Advisor', bullets:[
+      'Managed full audit and rebuild of marketing department including media buying plans and creative strategy.',
+      'Rebuilt paid media and attribution systems, reducing tracked acquisition cost from $72 to $22.',
+      'Designed and developed an ad automation tool reducing time to publish Meta and Google ads across 90 locations by 60%+.',
+      'Built attribution framework and custom executive reporting dashboards.'
+    ]}
+  ]},
+
+  { id:'vrkade', label:'VRKADE — VR Arcade Chain', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
+    { org:"VRKADE — Western Canada's Largest VR Arcade Chain", dates:'2021–2022', title:'Senior Marketing Lead', bullets:[
+      'Led full-funnel paid media strategy across Meta and Google, reducing customer acquisition cost from $85 to $17.',
+      'Developed high-value partnership with national mall chain driving $100k/year in incremental profit for flagship location.',
+      'Led full rebrand and online marketing overhaul; work featured by HTC.'
+    ]}
+  ]},
+
+  { id:'caccia', label:'Caccia Plumbing', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
+    { org:'Caccia Plumbing — San Francisco', dates:'2021–2023', title:'Growth Marketing Lead', bullets:[
+      'Rebuilt full Google Ads tracking, targeting, and reporting system, raising ROAS from 3.6x to 5.8x over 3 months.',
+      'Shifted reporting focus from top-of-funnel leads to booked and completed jobs via custom ServiceTitan integration.',
+      'Implemented Searchlight for cross-channel attribution across a structured 6-month measurement window.'
+    ]}
+  ]},
+
+  { id:'prophetic', label:'Prophetic AI — GTM', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
+    { org:'Prophetic AI — Land Acquisition SaaS', dates:'2022', title:'GTM & Paid Advertising Lead', bullets:[
+      'Designed and built full go-to-market strategy for an AI-first property development SaaS.',
+      'Built advertising, targeting, and attribution framework; ran test campaigns across Meta, Google, and LinkedIn delivering key KPI targets.'
+    ]}
+  ]},
+
+  { id:'winston', label:'The Winston Golf Course', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
+    { org:'The Winston — Calgary Premium Golf Course', dates:'2021', title:'Growth Marketing Lead', bullets:[
+      'Led strategy to acquire leads for $30k shareholder memberships through paid media and email funnels.',
+      'Reduced cost per qualified lead from $300 to $90 over 6 months.'
+    ]}
+  ]},
+
+  { id:'other_clients', label:'Other Clients', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
+    { org:'Smartcentres — National REIT', dates:'2020', title:'Marketing Automation Consultant', bullets:[
+      'Led UI design of a web-based property exploration portfolio covering 100+ mall properties across Canada.'
+    ]},
+    { org:'Stuttcars / Corvsport — Motorsports Media', dates:'2019–2020', title:'Growth Marketing Lead', bullets:[
+      'Paid campaign added 50k followers and 30k engaged email subscribers; built custom VIN decoding tool for list engagement.'
+    ]},
+    { org:'Valiant Solutions — Window Washing', dates:'2019', title:'Marketing Automation Consultant', bullets:[
+      'Designed custom quoting automation generating personalized branded PDF quotes, estimated 4% revenue lift.'
+    ]}
+  ]},
+
+  { id:'ap', label:'Adventure Portal', visible:true, parentId:null, type:'jobs', jobs:[
+    { org:'Adventure Portal', dates:'2020 – Present', title:'Founder & Principal Technologist', bullets:[
+      'Founded asset-light XR software platform licensing immersive experiences to science centers, museums, and LBE venues — build once, license to hardware-owning operators.',
+      'Led design and development of a collocated free-roam educational VR experience based on the James Webb Space Telescope; ran at Telus World of Science and published to 400+ VR arcades across North America and the EU.',
+      'Active pilot with NASA/JPL delivering real mission science data as interactive XR experiences.',
+      'TWOS pilot metrics: 603 guests · 73.5% utilization · 4.84/5 satisfaction · NPS 84.3.',
+      'Architected multiplayer VR in Unity with FishNet networking: ownership transfer for grabbable objects, NetworkTransform, SyncObject/ScriptableObject two-layer architecture.',
+      'Integrated Claude API, generative AI tooling, and n8n automation into production content and operations pipelines.',
+      'Negotiated LBE partnership structures including time-limited, performance-gated exclusivity terms.',
+      'Invited to speak on LBE panel at GamesCon Canada (Brent Bushnell / Two Bit Circus).'
+    ]}
+  ]},
+
+  { id:'vrcore', label:'VRCORE Education', visible:true, parentId:null, type:'jobs', jobs:[
+    { org:'VRCORE Education', dates:'2017 – 2020', title:'Senior Development & Marketing Lead', bullets:[
+      'Led marketing and development teams from concept to revenue and a $1.2M seed-stage valuation in 6 months.',
+      'Architected the free-roam VR software and marketing strategy that secured a partnership with the ISS National Laboratory.',
+      'Drove sustained ticket demand for multi-location VR attractions through paid media and partnership development.',
+      'Content deployed with operators across the EU, Australia, the US, and Canada.'
+    ]}
+  ]},
+
+  { id:'music', label:'Music Career', visible:true, parentId:null, type:'jobs', jobs:[
+    { org:'Studio & Touring Musician', dates:'Jun 2013 – Oct 2019', title:'Freelance · Various Artists', bullets:[
+      'Led EP production for 2013 Miss Universe Canada, Risa Santos.',
+      'Recorded with platinum record producer Nygel Asselin (Half Moon Run).',
+      'Co-produced and performed a track on MuchMusic.',
+      'Performed 300+ shows on luxury cruise lines across Europe.',
+      'Transitioned to technology entrepreneurship applying performance discipline, systems thinking, and pattern recognition to product development.'
+    ]}
+  ]},
+
+  { id:'skills', label:'Technical Skills', visible:true, parentId:null, type:'skills', groups:[
+    { label:'XR & Real-Time 3D', items:'Unity (advanced), FishNet Networking, PolySpatial, WebXR, Cesium, SignalR, HTC Vive Business, Springboard, HeroZone, VR/AR/MR, UPM packages, MaterialPropertyBlock' },
+    { label:'AI & Automation', items:'Claude API, ComfyUI, generative AI pipelines, n8n, LLM integration, OpenCV, prompt engineering' },
+    { label:'Frontend & Web', items:'React, Next.js, Node, Express, TypeScript, D3.js, Webflow, WordPress, Tailwind, Vercel, Heroku' },
+    { label:'Backend & Data', items:'Supabase, PostgreSQL, REST APIs, Python, SQL, UDP networking' },
+    { label:'Marketing & Analytics', items:'Meta, Google, LinkedIn, TikTok, Spotify, Reddit Ads, HubSpot, CAPI, Searchlight, ServiceTitan, GA4, GTM, Data Studio, SEMRush' },
+    { label:'Creative & Tools', items:'Adobe Suite, Canva, Blender (basic), ClickUp, Monday, Notion, GitHub' }
+  ]},
+
+  { id:'engagement', label:'Professional Engagement', visible:true, parentId:null, type:'list', items:[
+    'Lethbridge Polytechnic — Virtual and Augmented Reality Advisory Committee Member',
+    'VRARA (VR/AR Association) Calgary — Board Member',
+    'ELIXR VR Technical Mentorship Program — Virtual Reality Development Mentor',
+    'GamesCon Canada — LBE Panel Speaker (Brent Bushnell / Two Bit Circus)'
+  ]},
+
+  { id:'certs', label:'Certifications', visible:true, parentId:null, type:'list', items:[
+    'Marketing Analytics Micromasters — UC Berkeley Online (2021)',
+    'Enterprise Selling Certificate — Queens University Online (2021)'
+  ]},
+
+  { id:'refs', label:'References', visible:true, parentId:null, type:'list', items:[
+    'Andrea Urbina, CEO, ELIXR — andrea@elixrsim.com · 780 554 5314',
+    'Doug McNabb, CEO, Fabutan — mcnabb@fablifebrands.com · 403 816 1925',
+    'Cameron Martel, Partner, Monochrome Marketing — cam@werib.com · 403 975 1636',
+    'Micah Howell, GM, VRKADE/VRCORE Education — micahhowell94@gmail.com · 403 998 2699',
+    'Steven Bandola, Cofounder & CTO, VRKADE — bandola.steven@gmail.com · 403 715 3901'
+  ]}
+];
+
+var items = JSON.parse(JSON.stringify(MASTER));
+var dragId = null, editingId = null, editState = null;
+
+function byId(id){ return items.find(function(x){ return x.id===id; }); }
+function roots(){ return items.filter(function(x){ return !x.parentId; }); }
+function kids(pid){ return items.filter(function(x){ return x.parentId===pid; }); }
+function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function renderSidebar(){
+  var list = document.getElementById('section-list');
+  var html = '';
+  roots().forEach(function(r){
+    html += chipHTML(r, false);
+    kids(r.id).forEach(function(c){ html += chipHTML(c, true); });
+  });
+  list.innerHTML = html;
+  setupDrag();
+}
+
+function chipHTML(s, isChild){
+  return '<div class="chip-wrap'+(isChild?' is-child':'')+'" data-id="'+s.id+'">' +
+    '<div class="chip'+(s.visible?'':' hidden-chip')+'" draggable="true">' +
+      (isChild ? '<span class="chip-indent">\u21b3</span>' : '') +
+      '<i class="ti ti-grip-vertical chip-handle"></i>' +
+      '<span class="chip-label">'+esc(s.label)+'</span>' +
+      '<button class="chip-eye" data-eye="'+s.id+'"><i class="ti '+(s.visible?'ti-eye':'ti-eye-off')+'"></i></button>' +
+      (isChild ? '<button class="chip-unmount" data-unmount="'+s.id+'" title="Move to root"><i class="ti ti-corner-up-left"></i></button>' : '') +
+      '<button class="chip-del" data-del="'+s.id+'" title="Delete section"><i class="ti ti-trash"></i></button>' +
+    '</div>' +
+  '</div>';
+}
+
+function clearDrop(){
+  document.querySelectorAll('.chip-wrap').forEach(function(w){ w.classList.remove('drop-before','drop-after','drop-child','no-child'); });
+  document.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('is-dragging'); });
+}
+
+function setupDrag(){
+  document.querySelectorAll('[data-del]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var id = btn.getAttribute('data-del');
+      var s = byId(id);
+      if(!s) return;
+      var childCount = kids(id).length;
+      var msg = childCount > 0
+        ? 'Permanently delete "'+s.label+'" and its '+childCount+' subsection'+(childCount>1?'s':'')+'? This cannot be undone.'
+        : 'Permanently delete "'+s.label+'"? This cannot be undone.';
+      document.getElementById('confirm-msg').textContent = msg;
+      document.getElementById('confirm-dialog').style.display = 'flex';
+      document.getElementById('confirm-ok').onclick = function(){
+        // Remove the section and any children
+        items = items.filter(function(x){ return x.id !== id && x.parentId !== id; });
+        document.getElementById('confirm-dialog').style.display = 'none';
+        renderAll();
+      };
+    });
+  });
+  document.querySelectorAll('[data-eye]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var s = byId(btn.getAttribute('data-eye'));
+      if(s){ s.visible=!s.visible; renderAll(); }
+    });
+  });
+  document.querySelectorAll('[data-unmount]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var s = byId(btn.getAttribute('data-unmount'));
+      if(s){ s.parentId=null; renderAll(); }
+    });
+  });
+
+  document.querySelectorAll('.chip-wrap').forEach(function(wrap){
+    var chip = wrap.querySelector('.chip');
+    chip.addEventListener('dragstart', function(e){
+      dragId = wrap.getAttribute('data-id');
+      e.dataTransfer.effectAllowed='move';
+      e.dataTransfer.setData('text/plain', dragId);
+      setTimeout(function(){ chip.classList.add('is-dragging'); }, 0);
+    });
+    chip.addEventListener('dragend', function(){ dragId=null; clearDrop(); });
+
+    wrap.addEventListener('dragover', function(e){
+      e.preventDefault();
+      if(!dragId || dragId===wrap.getAttribute('data-id')) return;
+      var src = byId(dragId);
+      var tgt = byId(wrap.getAttribute('data-id'));
+      clearDrop();
+      var rect = wrap.getBoundingClientRect();
+      var rel = (e.clientY - rect.top) / rect.height;
+      var srcIsChild = !!src.parentId;
+      var tgtIsChild = !!tgt.parentId;
+      var srcFixed = FIXED_ROOT.indexOf(src.id)>=0;
+      var tgtFixed = FIXED_ROOT.indexOf(tgt.id)>=0;
+      if(srcFixed || tgtIsChild || srcIsChild){
+        wrap.classList.add(rel<0.5?'drop-before':'drop-after');
+      } else {
+        if(rel<0.28) wrap.classList.add('drop-before');
+        else if(rel>0.72) wrap.classList.add('drop-after');
+        else wrap.classList.add(tgtFixed?'no-child':'drop-child');
+      }
+    });
+    wrap.addEventListener('dragleave', function(){ clearDrop(); });
+
+    wrap.addEventListener('drop', function(e){
+      e.preventDefault();
+      if(!dragId || dragId===wrap.getAttribute('data-id')){ clearDrop(); return; }
+      var src = byId(dragId);
+      var tgt = byId(wrap.getAttribute('data-id'));
+      var srcFixed = FIXED_ROOT.indexOf(src.id)>=0;
+      var tgtFixed = FIXED_ROOT.indexOf(tgt.id)>=0;
+      var srcIsChild = !!src.parentId;
+      var tgtIsChild = !!tgt.parentId;
+      var rect = wrap.getBoundingClientRect();
+      var rel = (e.clientY - rect.top) / rect.height;
+      var zone;
+      if(srcFixed||tgtIsChild||srcIsChild){ zone=rel<0.5?'before':'after'; }
+      else { if(rel<0.28) zone='before'; else if(rel>0.72) zone='after'; else zone=tgtFixed?'after':'child'; }
+
+      var si = items.findIndex(function(x){ return x.id===dragId; });
+      var srcItem = items.splice(si,1)[0];
+
+      if(zone==='child'){
+        srcItem.parentId = tgt.id;
+        var ti = items.findIndex(function(x){ return x.id===tgt.id; });
+        var ins = ti+1;
+        while(ins<items.length && items[ins].parentId===tgt.id) ins++;
+        items.splice(ins,0,srcItem);
+      } else {
+        srcItem.parentId = tgt.parentId||null;
+        var ti2 = items.findIndex(function(x){ return x.id===tgt.id; });
+        if(zone==='before'){
+          items.splice(ti2,0,srcItem);
+        } else {
+          var ai = ti2+1;
+          if(!tgtIsChild){ while(ai<items.length && items[ai].parentId===tgt.id) ai++; }
+          items.splice(ai,0,srcItem);
+        }
+      }
+      dragId=null; clearDrop(); renderAll();
+    });
+  });
+}
+
+function sectionBody(s){
+  var html='';
+  if(s.type==='summary'){
+    html+='<div class="r-summary">'+esc(s.content)+'</div>';
+  } else if(s.type==='jobs'){
+    s.jobs.forEach(function(j){
+      html+='<div class="r-job"><div class="r-job-head"><span class="r-org">'+esc(j.org)+'</span><span class="r-dates">'+esc(j.dates)+'</span></div>'+
+        '<div class="r-jobtitle">'+esc(j.title)+'</div>'+
+        '<ul class="r-bullets">'+j.bullets.map(function(b){ return '<li>'+esc(b)+'</li>'; }).join('')+'</ul></div>';
+    });
+  } else if(s.type==='skills'){
+    html+='<div class="r-skills-grid">'+s.groups.map(function(g){
+      return '<div><div class="r-skill-label">'+esc(g.label)+'</div><div class="r-skill-items">'+esc(g.items)+'</div></div>';
+    }).join('')+'</div>';
+  } else if(s.type==='list'){
+    html+='<ul class="r-list">'+s.items.map(function(it){ return '<li>'+esc(it)+'</li>'; }).join('')+'</ul>';
+  }
+  return html;
+}
+
+// US Letter page content height at our screen scale (760px wide, 52px top+bottom padding each)
+var PAGE_H = 984 - 52 - 52; // 880px usable
+
+var HEADER = {
+  name: 'Brayden Clark',
+  title: 'XR Product Founder \u00b7 AI & Immersive Technologist \u00b7 GTM Strategist',
+  contact: [
+    { text: 'brayden.k.clark@outlook.com', url: 'mailto:brayden.k.clark@outlook.com' },
+    { text: '(587) 434-2697', url: '' },
+    { text: 'Calgary, AB', url: '' },
+    { text: 'LinkedIn', url: 'https://linkedin.com/in/braydenclark' },
+    { text: 'GitHub', url: 'https://github.com/braydenclark' }
+  ]
+};
+
+function buildHeaderHTML(){
+  var contactSpans = HEADER.contact.map(function(c){
+    if(c.url) return '<a href="'+esc(c.url)+'" style="color:inherit;text-decoration:none;">'+esc(c.text)+'</a>';
+    return '<span>'+esc(c.text)+'</span>';
+  }).join('');
+  return '<div class="r-header-wrap" id="r-header-click" style="cursor:pointer;" title="Click to edit header">'+
+    '<div class="r-name">'+esc(HEADER.name)+'</div>'+
+    '<div class="r-title">'+esc(HEADER.title)+'</div>'+
+    '<div class="r-contact">'+contactSpans+'</div>'+
+    '</div>'+
+    '<hr class="r-hr">';
+}
+
+function buildHeaderHTMLPrint(){
+  var contactSpans = HEADER.contact.map(function(c){
+    if(c.url) return '<a href="'+esc(c.url)+'" style="color:inherit;text-decoration:none;">'+esc(c.text)+'</a>';
+    return '<span>'+esc(c.text)+'</span>';
+  }).join('');
+  return '<div class="r-name">'+esc(HEADER.name)+'</div>'+
+    '<div class="r-title">'+esc(HEADER.title)+'</div>'+
+    '<div class="r-contact">'+contactSpans+'</div>'+
+    '<hr class="r-hr">';
+}
+
+// A "block" is the smallest unit we paginate by.
+// Each block carries: html, parentId (null = root), sectionId, isParentHeader
+// isParentHeader = true means this is the section title row of a parent that has children —
+// it should never be the last item on a page (orphan prevention).
+function buildBlocks(){
+  var blocks = [];
+  roots().filter(function(r){ return r.visible; }).forEach(function(r){
+    var children = kids(r.id).filter(function(c){ return c.visible; });
+    var hasChildren = children.length > 0;
+    if(hasChildren){
+      // Parent header block (section title + parent's own body, no child sections)
+      blocks.push({
+        id: r.id,
+        isParentHeader: true,
+        html: '<div class="r-section r-section-open" data-id="'+r.id+'"><div class="r-section-title">'+esc(r.label)+'</div>'+sectionBody(r)
+        // NOTE: deliberately left open — will be closed after last child or on page break
+      });
+      // Each child is its own block
+      children.forEach(function(c, ci){
+        var isLast = ci === children.length - 1;
+        blocks.push({
+          id: c.id,
+          isChild: true,
+          isLastChild: isLast,
+          parentId: r.id,
+          html: '<div class="r-child-section" data-id="'+c.id+'">'+sectionBody(c)+'</div>'+(isLast ? '</div>' : '') // close r-section on last child
+        });
+      });
+    } else {
+      // Standalone section — one block, self-contained
+      blocks.push({
+        id: r.id,
+        isParentHeader: false,
+        html: '<div class="r-section" data-id="'+r.id+'"><div class="r-section-title">'+esc(r.label)+'</div>'+sectionBody(r)+'</div>'
+      });
+    }
+  });
+  return blocks;
+}
+
+function renderResume(){
+  var ms = document.getElementById('measure-surface');
+
+  // Build a flat measure surface: each block in its own wrapper so we can measure individually
+  var blocks = buildBlocks();
+
+  // Render all blocks into measure surface, each in a wrapper div with data-bi index
+  var measureHTML = buildHeaderHTML();
+  blocks.forEach(function(b, bi){
+    // For measurement, close any open r-section tags
+    var mhtml = b.html;
+    if(b.isParentHeader) mhtml += '</div>'; // close the open r-section for measurement
+    measureHTML += '<div class="measure-block" data-bi="'+bi+'">'+mhtml+'</div>';
+  });
+  ms.innerHTML = measureHTML;
+
+  // Measure header height
+  var hrEl = ms.querySelector('.r-hr');
+  var msRect = ms.getBoundingClientRect();
+  var headerH = hrEl ? (hrEl.getBoundingClientRect().bottom - msRect.top) : 80;
+
+  // Measure each block
+  var blockHeights = [];
+  ms.querySelectorAll('.measure-block').forEach(function(el, bi){
+    blockHeights[bi] = el.getBoundingClientRect().height;
+  });
+
+  // ── Paginate ──────────────────────────────────────────────────────────────
+  // pages = array of { chunks: [{html, opensSection}] }
+  // We track whether the current page has an open r-section div (from a parent header)
+  var pages = [];
+  var curChunks = [];
+  var curH = headerH;
+  var openSectionOnPage = false; // true = current page has an unclosed r-section
+
+  function newPage(){
+    // If there's an open section, close it before ending the page
+    if(openSectionOnPage && curChunks.length){
+      curChunks[curChunks.length-1].html += '</div>';
+      openSectionOnPage = false;
+    }
+    pages.push(curChunks);
+    curChunks = [];
+    curH = 0;
+  }
+
+  function push(html, h){
+    curChunks.push({ html: html });
+    curH += h;
+  }
+
+  blocks.forEach(function(b, bi){
+    var h = (blockHeights[bi] || 0) + 16; // +16 buffer
+
+    if(b.isParentHeader){
+      // Orphan prevention: if we can't fit header + at least one child, page-break before
+      var nextH = bi+1 < blockHeights.length ? (blockHeights[bi+1]||0)+16 : 0;
+      if(curH + h + nextH > PAGE_H && curChunks.length > 0){
+        newPage();
+      }
+      // Open the section on this page
+      push(b.html, h); // b.html is the open <div class="r-section ...">
+      openSectionOnPage = true;
+
+    } else if(b.isChild){
+      if(curH + h > PAGE_H && curChunks.length > 0){
+        // Close the open section before breaking
+        if(openSectionOnPage && curChunks.length){
+          curChunks[curChunks.length-1].html += '</div>';
+          openSectionOnPage = false;
+        }
+        newPage();
+        // Re-open the parent section header on the new page (continuation)
+        var parent = byId(b.parentId);
+        if(parent){
+          var contHTML = '<div class="r-section r-section-open" data-id="'+parent.id+'">'+
+            '<div class="r-section-title">'+esc(parent.label)+' <span style="font-weight:400;font-style:italic;text-transform:none;font-size:9px;letter-spacing:0;color:#999;">(continued)</span></div>';
+          push(contHTML, 28);
+          openSectionOnPage = true;
+        }
+      }
+      // If last child, the html already has the closing </div> for r-section
+      push(b.html, h);
+      if(b.isLastChild) openSectionOnPage = false;
+
+    } else {
+      // Standalone block
+      if(curH + h > PAGE_H && curChunks.length > 0) newPage();
+      push(b.html, h);
+    }
+  });
+
+  // Close any dangling open section
+  if(openSectionOnPage && curChunks.length){
+    curChunks[curChunks.length-1].html += '</div>';
+  }
+  if(curChunks.length) pages.push(curChunks);
+
+  // ── Render pages ──────────────────────────────────────────────────────────
+  var wrap = document.getElementById('pages-wrap');
+  var pagesHTML = '';
+  pages.forEach(function(chunks, pi){
+    if(pi > 0){
+      pagesHTML += '<div class="page-break-gap"><span class="page-label">Page '+(pi+1)+'</span></div>';
+    }
+    pagesHTML += '<div class="resume-page" id="rpage-'+pi+'">';
+    if(pi === 0) pagesHTML += buildHeaderHTML();
+    chunks.forEach(function(ch){ pagesHTML += ch.html; });
+    pagesHTML += '</div>';
+  });
+  wrap.innerHTML = pagesHTML;
+
+  wrap.querySelectorAll('[data-id]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.stopPropagation(); openEdit(el.getAttribute('data-id')); });
+  });
+
+  // Wire header click
+  var headerEl = document.getElementById('r-header-click');
+  if(headerEl) headerEl.addEventListener('click', openHeaderEdit);
+}
+
+function renderAll(){ renderSidebar(); renderResume(); }
+
+function openEdit(id){
+  var s=byId(id); if(!s) return;
+  editingId=id; editState=deepClone(s);
+  document.getElementById('modal-title').textContent='Edit: '+s.label;
+  buildModalBody(editState);
+  document.getElementById('modal').style.display='flex';
+}
+
+function buildModalBody(state){
+  var body=document.getElementById('modal-body');
+  body.innerHTML='';
+  var lr=document.createElement('div'); lr.className='field-group';
+  lr.innerHTML='<label class="field-label">Section title</label><input class="field-input" id="ed-label" value="'+esc(state.label)+'">';
+  body.appendChild(lr);
+  if(state.type==='summary'){
+    var cr=document.createElement('div'); cr.className='field-group';
+    cr.innerHTML='<label class="field-label">Content</label><textarea class="field-input" id="ed-content" rows="7">'+esc(state.content)+'</textarea>';
+    body.appendChild(cr);
+  } else if(state.type==='list'){
+    var lr2=document.createElement('div'); lr2.className='field-group';
+    lr2.innerHTML='<label class="field-label">Items (one per line)</label>';
+    var ta=document.createElement('textarea'); ta.className='field-input'; ta.id='ed-list';
+    ta.rows=Math.max(4,state.items.length+2); ta.value=state.items.join('\n');
+    lr2.appendChild(ta); body.appendChild(lr2);
+  } else if(state.type==='skills'){
+    state.groups.forEach(function(g,gi){
+      var row=document.createElement('div'); row.className='job-editor';
+      row.innerHTML='<div class="row-2">'+
+        '<div class="field-group"><label class="field-label">Category</label><input class="field-input skill-label-inp" data-gi="'+gi+'" value="'+esc(g.label)+'"></div>'+
+        '<div class="field-group"><label class="field-label">Items</label><input class="field-input skill-items-inp" data-gi="'+gi+'" value="'+esc(g.items)+'"></div>'+
+        '</div>';
+      body.appendChild(row);
+    });
+  } else if(state.type==='jobs'){
+    state.jobs.forEach(function(job,ji){
+      var jd=document.createElement('div'); jd.className='job-editor';
+      var jh='<div class="job-editor-title">Role '+(ji+1)+'</div>'+
+        '<div class="row-2">'+
+          '<div class="field-group"><label class="field-label">Organization</label><input class="field-input job-org-inp" data-ji="'+ji+'" value="'+esc(job.org)+'"></div>'+
+          '<div class="field-group"><label class="field-label">Dates</label><input class="field-input job-dates-inp" data-ji="'+ji+'" value="'+esc(job.dates)+'"></div>'+
+        '</div>'+
+        '<div class="field-group"><label class="field-label">Title</label><input class="field-input job-title-inp" data-ji="'+ji+'" value="'+esc(job.title)+'"></div>'+
+        '<div class="field-group"><label class="field-label">Bullets</label><div class="bullets-container">';
+      job.bullets.forEach(function(b,bi){
+        jh+='<div class="bullet-row"><textarea class="field-input bullet-inp" data-ji="'+ji+'" data-bi="'+bi+'" rows="2">'+esc(b)+'</textarea>'+
+          '<button class="del-btn del-bullet" data-ji="'+ji+'" data-bi="'+bi+'"><i class="ti ti-trash"></i></button></div>';
+      });
+      jh+='</div><button class="add-btn add-bullet" data-ji="'+ji+'"><i class="ti ti-plus"></i> Add bullet</button></div>';
+      jd.innerHTML=jh; body.appendChild(jd);
+    });
+    var ajb=document.createElement('button'); ajb.className='add-btn'; ajb.id='add-job-btn';
+    ajb.innerHTML='<i class="ti ti-plus"></i> Add role'; body.appendChild(ajb);
+    ajb.addEventListener('click',function(){ editState.jobs.push({org:'',dates:'',title:'',bullets:['']}); buildModalBody(editState); });
+  }
+  body.querySelectorAll('.del-bullet').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var ji=parseInt(btn.getAttribute('data-ji')),bi=parseInt(btn.getAttribute('data-bi'));
+      editState.jobs[ji].bullets.splice(bi,1); buildModalBody(editState);
+    });
+  });
+  body.querySelectorAll('.add-bullet').forEach(function(btn){
+    btn.addEventListener('click',function(){ editState.jobs[parseInt(btn.getAttribute('data-ji'))].bullets.push(''); buildModalBody(editState); });
+  });
+}
+
+function collectEdits(){
+  var body=document.getElementById('modal-body');
+  var lel=document.getElementById('ed-label'); if(lel) editState.label=lel.value;
+  if(editState.type==='summary'){ editState.content=document.getElementById('ed-content').value; }
+  else if(editState.type==='list'){ editState.items=document.getElementById('ed-list').value.split('\n').filter(function(l){ return l.trim(); }); }
+  else if(editState.type==='skills'){
+    body.querySelectorAll('.skill-label-inp').forEach(function(el){ editState.groups[parseInt(el.getAttribute('data-gi'))].label=el.value; });
+    body.querySelectorAll('.skill-items-inp').forEach(function(el){ editState.groups[parseInt(el.getAttribute('data-gi'))].items=el.value; });
+  } else if(editState.type==='jobs'){
+    body.querySelectorAll('.job-org-inp').forEach(function(el){ editState.jobs[parseInt(el.getAttribute('data-ji'))].org=el.value; });
+    body.querySelectorAll('.job-dates-inp').forEach(function(el){ editState.jobs[parseInt(el.getAttribute('data-ji'))].dates=el.value; });
+    body.querySelectorAll('.job-title-inp').forEach(function(el){ editState.jobs[parseInt(el.getAttribute('data-ji'))].title=el.value; });
+    body.querySelectorAll('.bullet-inp').forEach(function(el){
+      var ji=parseInt(el.getAttribute('data-ji')),bi=parseInt(el.getAttribute('data-bi'));
+      if(editState.jobs[ji]) editState.jobs[ji].bullets[bi]=el.value;
+    });
+  }
+}
+
+function closeModal(){ document.getElementById('modal').style.display='none'; editingId=null; editState=null; }
+
+document.getElementById('modal-save').addEventListener('click',function(){
+  collectEdits();
+  var idx=items.findIndex(function(x){ return x.id===editingId; });
+  if(idx>=0) items[idx]=editState;
+  closeModal(); renderAll();
+});
+document.getElementById('modal-cancel').addEventListener('click',closeModal);
+document.getElementById('modal-close').addEventListener('click',closeModal);
+document.getElementById('modal').addEventListener('click',function(e){ if(e.target===document.getElementById('modal')) closeModal(); });
+document.getElementById('confirm-cancel').addEventListener('click', function(){
+  document.getElementById('confirm-dialog').style.display = 'none';
+});
+
+// ── Add section modal ────────────────────────────────────────────────────────
+function openAddModal(){
+  // Populate parent dropdown with current root sections that can have children
+  var sel = document.getElementById('new-section-parent');
+  sel.innerHTML = '<option value="">— Root level —</option>';
+  roots().forEach(function(r){
+    if(FIXED_ROOT.indexOf(r.id) < 0){
+      var opt = document.createElement('option');
+      opt.value = r.id;
+      opt.textContent = r.label;
+      sel.appendChild(opt);
+    }
+  });
+  document.getElementById('new-section-label').value = '';
+  document.getElementById('new-section-type').value = 'jobs';
+  document.getElementById('add-modal').style.display = 'flex';
+  setTimeout(function(){ document.getElementById('new-section-label').focus(); }, 50);
+}
+
+function closeAddModal(){
+  document.getElementById('add-modal').style.display = 'none';
+}
+
+document.getElementById('btn-add-section').addEventListener('click', openAddModal);
+document.getElementById('add-modal-close').addEventListener('click', closeAddModal);
+document.getElementById('add-modal-cancel').addEventListener('click', closeAddModal);
+document.getElementById('add-modal').addEventListener('click', function(e){
+  if(e.target === document.getElementById('add-modal')) closeAddModal();
+});
+
+document.getElementById('add-modal-ok').addEventListener('click', function(){
+  var label = document.getElementById('new-section-label').value.trim();
+  if(!label){ document.getElementById('new-section-label').focus(); return; }
+  var type = document.getElementById('new-section-type').value;
+  var parentId = document.getElementById('new-section-parent').value || null;
+  var id = 'custom_' + Date.now();
+
+  var newItem = { id: id, label: label, visible: true, parentId: parentId };
+  if(type === 'jobs'){
+    newItem.type = 'jobs';
+    newItem.jobs = [{ org: label, dates: '', title: '', bullets: [''] }];
+  } else if(type === 'summary'){
+    newItem.type = 'summary';
+    newItem.content = '';
+  } else {
+    newItem.type = 'list';
+    newItem.items = [''];
+  }
+
+  // Insert: if has parent, add after parent's last child; else append to end
+  if(parentId){
+    var parentIdx = items.findIndex(function(x){ return x.id === parentId; });
+    var insertAt = parentIdx + 1;
+    while(insertAt < items.length && items[insertAt].parentId === parentId) insertAt++;
+    items.splice(insertAt, 0, newItem);
+  } else {
+    // Insert before fixed sections at the end
+    var lastNonFixed = items.length;
+    for(var i = items.length-1; i >= 0; i--){
+      if(FIXED_ROOT.indexOf(items[i].id) >= 0) lastNonFixed = i;
+      else break;
+    }
+    items.splice(lastNonFixed, 0, newItem);
+  }
+
+  closeAddModal();
+  renderAll();
+  // Open the edit modal immediately so they can fill it in
+  setTimeout(function(){ openEdit(id); }, 80);
+});
+
+document.getElementById('btn-pdf').addEventListener('click',function(){
+  // Collect all pages in order
+  var pageEls = document.querySelectorAll('.resume-page');
+  var combinedHTML = '';
+  var printHeader = buildHeaderHTMLPrint();
+  pageEls.forEach(function(pg, i){
+    // Strip the interactive header wrapper from page 1, replace with print-safe version
+    var pageContent = pg.innerHTML.replace(/<div class="r-header-wrap"[^>]*>[\s\S]*?<\/div>\s*<hr class="r-hr">/, printHeader);
+    combinedHTML += '<div class="resume-page"' + (i>0 ? ' style="page-break-before:always;"' : '') + '>' + pageContent + '</div>';
+  });
+  var win=window.open('','_blank');
+  win.document.write('<!DOCTYPE html><html><head><title>Brayden Clark \u2014 Resume</title><style>'+
+    '* { box-sizing: border-box; margin: 0; padding: 0; }'+
+    'body { font-family: Georgia,serif; background: white; color: #111; }'+
+    '.resume-page { padding: 44px 52px; width: 100%; }'+
+    '.r-name { font-size: 26px; font-weight: 700; margin-bottom: 2px; }'+
+    '.r-title { font-size: 12.5px; color: #555; margin-bottom: 8px; font-style: italic; }'+
+    '.r-contact { font-size: 11px; color: #444; display: flex; flex-wrap: wrap; gap: 3px 14px; margin-bottom: 16px; }'+
+    '.r-hr { border: none; border-top: 1.5px solid #111; margin-bottom: 16px; }'+
+    '.r-section { margin-bottom: 20px; }'+
+    '.r-section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 9px; border-bottom: 0.5px solid #ccc; padding-bottom: 3px; }'+
+    '.r-job { margin-bottom: 13px; }'+
+    '.r-job-head { display: flex; justify-content: space-between; align-items: baseline; }'+
+    '.r-org { font-size: 13px; font-weight: 700; }'+
+    '.r-dates { font-size: 11px; color: #777; }'+
+    '.r-jobtitle { font-size: 12px; color: #444; margin-bottom: 4px; font-style: italic; }'+
+    '.r-bullets { padding-left: 14px; }'+
+    '.r-bullets li { font-size: 11.5px; color: #333; line-height: 1.55; margin-bottom: 3px; }'+
+    '.r-child-section { margin-bottom: 14px; padding-left: 12px; border-left: 2px solid #eee; }'+
+    '.r-skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }'+
+    '.r-skill-label { font-size: 10.5px; font-weight: 700; margin-bottom: 1px; }'+
+    '.r-skill-items { font-size: 11px; color: #444; line-height: 1.5; }'+
+    '.r-summary { font-size: 12px; color: #333; line-height: 1.62; }'+
+    '.r-list { padding-left: 14px; }'+
+    '.r-list li { font-size: 11.5px; color: #333; line-height: 1.55; margin-bottom: 3px; }'+
+    '@media print { @page { size: letter; margin: 0; } .resume-page { padding: 44px 52px; } }'+
+    '</style></head><body>'+combinedHTML+'</body></html>');
+  win.document.close();
+  setTimeout(function(){ win.print(); },400);
+});
+
+// ── Header edit ───────────────────────────────────────────────────────────────
+function openHeaderEdit(){
+  var body = document.getElementById('header-modal-body');
+  var contactRows = HEADER.contact.map(function(c, i){
+    return '<div class="job-editor" style="gap:8px;padding:10px;">'+
+      '<div class="row-2">'+
+        '<div class="field-group"><label class="field-label">Label</label>'+
+          '<input class="field-input header-contact-text" data-ci="'+i+'" value="'+esc(c.text)+'"></div>'+
+        '<div class="field-group"><label class="field-label">URL (optional)</label>'+
+          '<input class="field-input header-contact-url" data-ci="'+i+'" placeholder="https:// or mailto:" value="'+esc(c.url)+'"></div>'+
+      '</div>'+
+      '<div style="display:flex;justify-content:flex-end;margin-top:4px;">'+
+        '<button class="del-btn header-contact-del" data-ci="'+i+'" title="Remove"><i class="ti ti-trash"></i></button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+
+  body.innerHTML =
+    '<div class="field-group"><label class="field-label">Full name</label>'+
+      '<input class="field-input" id="hdr-name" value="'+esc(HEADER.name)+'"></div>'+
+    '<div class="field-group"><label class="field-label">Title / tagline</label>'+
+      '<input class="field-input" id="hdr-title" value="'+esc(HEADER.title)+'"></div>'+
+    '<div class="field-group" style="margin-top:4px;"><label class="field-label">Contact items</label></div>'+
+    contactRows+
+    '<button class="add-btn" id="hdr-add-contact"><i class="ti ti-plus"></i> Add contact item</button>';
+
+  body.querySelectorAll('.header-contact-del').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      HEADER.contact.splice(parseInt(btn.getAttribute('data-ci')), 1);
+      openHeaderEdit();
+    });
+  });
+  document.getElementById('hdr-add-contact').addEventListener('click', function(){
+    HEADER.contact.push({ text: '', url: '' });
+    openHeaderEdit();
+  });
+
+  document.getElementById('header-modal').style.display = 'flex';
+}
+
+function collectHeaderEdits(){
+  HEADER.name = document.getElementById('hdr-name').value;
+  HEADER.title = document.getElementById('hdr-title').value;
+  document.querySelectorAll('.header-contact-text').forEach(function(el){
+    var i = parseInt(el.getAttribute('data-ci'));
+    if(HEADER.contact[i]) HEADER.contact[i].text = el.value;
+  });
+  document.querySelectorAll('.header-contact-url').forEach(function(el){
+    var i = parseInt(el.getAttribute('data-ci'));
+    if(HEADER.contact[i]) HEADER.contact[i].url = el.value;
+  });
+}
+
+function closeHeaderModal(){
+  document.getElementById('header-modal').style.display = 'none';
+}
+
+document.getElementById('header-modal-save').addEventListener('click', function(){
+  collectHeaderEdits(); closeHeaderModal(); renderAll();
+});
+document.getElementById('header-modal-cancel').addEventListener('click', closeHeaderModal);
+document.getElementById('header-modal-close').addEventListener('click', closeHeaderModal);
+document.getElementById('header-modal').addEventListener('click', function(e){
+  if(e.target === document.getElementById('header-modal')) closeHeaderModal();
+});
+
+// ── Persistence & Variations ──────────────────────────────────────────────────
+var AUTOSAVE_KEY   = 'resume_builder_v1__autosave';
+var VARIANT_PREFIX = 'resume_builder_v1__variant__';
+var currentVariant = null;
+var serverMode     = false; // flips to true if local server is detected
+
+function stateSnapshot(){
+  return { items: JSON.parse(JSON.stringify(items)), header: JSON.parse(JSON.stringify(HEADER)) };
+}
+
+function applyState(saved){
+  if(saved.items && Array.isArray(saved.items)) items = saved.items;
+  if(saved.header && saved.header.name){
+    HEADER.name    = saved.header.name;
+    HEADER.title   = saved.header.title;
+    HEADER.contact = saved.header.contact;
+  }
+}
+
+// ── Storage back-ends ─────────────────────────────────────────────────────────
+
+// --- localStorage back-end ---
+function ls_autoSave(){
+  try { localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(stateSnapshot())); } catch(e){}
+}
+function ls_saveVariant(name, cb){
+  try {
+    localStorage.setItem(VARIANT_PREFIX + name, JSON.stringify(stateSnapshot()));
+    currentVariant = name;
+    if(cb) cb(null);
+  } catch(e){ if(cb) cb(e); }
+}
+function ls_loadVariant(name, cb){
+  try {
+    var raw = localStorage.getItem(VARIANT_PREFIX + name);
+    if(!raw) return cb(new Error('Not found'));
+    applyState(JSON.parse(raw));
+    currentVariant = name;
+    cb(null);
+  } catch(e){ cb(e); }
+}
+function ls_deleteVariant(name, cb){
+  try { localStorage.removeItem(VARIANT_PREFIX + name); currentVariant = null; cb(null); }
+  catch(e){ cb(e); }
+}
+function ls_listVariants(cb){
+  var names = [];
+  try {
+    for(var i=0;i<localStorage.length;i++){
+      var k = localStorage.key(i);
+      if(k && k.indexOf(VARIANT_PREFIX)===0) names.push(k.slice(VARIANT_PREFIX.length));
+    }
+  } catch(e){}
+  cb(null, names.sort());
+}
+function ls_loadAutosave(cb){
+  try {
+    var raw = localStorage.getItem(AUTOSAVE_KEY);
+    if(raw){ applyState(JSON.parse(raw)); cb(null, true); }
+    else cb(null, false);
+  } catch(e){ cb(e, false); }
+}
+
+// --- Server back-end ---
+var API = 'http://localhost:3457';
+
+function srv_autoSave(){
+  fetch(API+'/variants/__autosave__', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(stateSnapshot())
+  }).catch(function(){});
+}
+function srv_saveVariant(name, cb){
+  fetch(API+'/variants/'+encodeURIComponent(name), {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(stateSnapshot())
+  }).then(function(r){ return r.json(); })
+    .then(function(){ currentVariant = name; cb(null); })
+    .catch(cb);
+}
+function srv_loadVariant(name, cb){
+  fetch(API+'/variants/'+encodeURIComponent(name))
+    .then(function(r){ return r.json(); })
+    .then(function(saved){ applyState(saved); currentVariant = name; cb(null); })
+    .catch(cb);
+}
+function srv_deleteVariant(name, cb){
+  fetch(API+'/variants/'+encodeURIComponent(name), { method:'DELETE' })
+    .then(function(){ currentVariant = null; cb(null); })
+    .catch(cb);
+}
+function srv_listVariants(cb){
+  fetch(API+'/variants')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      // filter out internal __autosave__ key
+      var names = (data.variants||[]).filter(function(n){ return n !== '__autosave__'; });
+      cb(null, names);
+    })
+    .catch(function(e){ cb(e, []); });
+}
+function srv_loadAutosave(cb){
+  fetch(API+'/variants/__autosave__')
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(saved){
+      if(saved){ applyState(saved); cb(null, true); }
+      else cb(null, false);
+    })
+    .catch(function(){ cb(null, false); });
+}
+
+// ── Active back-end (switches after ping) ─────────────────────────────────────
+var storage = {
+  autoSave:     ls_autoSave,
+  saveVariant:  ls_saveVariant,
+  loadVariant:  ls_loadVariant,
+  deleteVariant:ls_deleteVariant,
+  listVariants: ls_listVariants,
+  loadAutosave: ls_loadAutosave
+};
+
+function setServerMode(folderName){
+  serverMode = true;
+  storage = {
+    autoSave:     srv_autoSave,
+    saveVariant:  srv_saveVariant,
+    loadVariant:  srv_loadVariant,
+    deleteVariant:srv_deleteVariant,
+    listVariants: srv_listVariants,
+    loadAutosave: srv_loadAutosave
+  };
+  var ind = document.getElementById('storage-indicator');
+  if(ind){ ind.textContent = '📁 File mode'; ind.title = 'Saving to ' + folderName + ' via local server'; }
+
+  // Enable folder input
+  var inp = document.getElementById('folder-input');
+  var goBtn = document.getElementById('btn-folder-go');
+  var browseBtn = document.getElementById('btn-folder-browse');
+  if(inp){
+    inp.disabled = false;
+    inp.classList.remove('ls-mode');
+    inp.value = folderName;
+  }
+  if(goBtn) goBtn.disabled = false;
+  if(browseBtn) browseBtn.disabled = false;
+}
+
+function switchFolder(folderPath){
+  fetch(API+'/folder', {
+    method: 'PUT',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ folder: folderPath })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if(!data.ok){ showToast('Could not switch folder'); return; }
+    var inp = document.getElementById('folder-input');
+    var ind = document.getElementById('storage-indicator');
+    if(inp) inp.value = data.folderName;
+    if(ind) ind.textContent = '📁 ' + data.folderName;
+    showToast('Folder → ' + data.folderName);
+    renderVariantList();
+  })
+  .catch(function(){ showToast('Error switching folder'); });
+}
+
+// Folder go button
+document.getElementById('btn-folder-go').addEventListener('click', function(){
+  var val = document.getElementById('folder-input').value.trim();
+  if(!val) return;
+  switchFolder(val);
+});
+document.getElementById('folder-input').addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){ e.preventDefault(); switchFolder(this.value.trim()); }
+});
+
+// Folder browse button — opens native OS folder picker via server
+document.getElementById('btn-folder-browse').addEventListener('click', function(){
+  fetch(API+'/pick-folder')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(data.cancelled || !data.folder) return;
+      document.getElementById('folder-input').value = data.folder;
+      switchFolder(data.folder);
+    })
+    .catch(function(){ showToast('Folder picker unavailable'); });
+});
+
+// ── UI ────────────────────────────────────────────────────────────────────────
+
+function renderVariantList(){
+  var list = document.getElementById('variant-list');
+  storage.listVariants(function(err, names){
+    if(!names || !names.length){
+      list.innerHTML = '<div class="no-variants">No saved variations yet</div>';
+      return;
+    }
+    list.innerHTML = names.map(function(name){
+      var isActive = name === currentVariant;
+      return '<div class="variant-row'+(isActive?' active-variant':'')+'" >'+
+        '<span class="variant-name" title="'+esc(name)+'">'+esc(name)+'</span>'+
+        (isActive
+          ? '<button class="variant-overwrite" data-overwrite="'+esc(name)+'" title="Overwrite with current"><i class="ti ti-device-floppy"></i></button>'
+          : '<button class="variant-load" data-load="'+esc(name)+'" title="Load"><i class="ti ti-upload"></i></button>'
+        )+
+        '<button class="variant-del" data-vdel="'+esc(name)+'" title="Delete"><i class="ti ti-trash"></i></button>'+
+      '</div>';
+    }).join('');
+
+    list.querySelectorAll('[data-load]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var name = btn.getAttribute('data-load');
+        storage.loadVariant(name, function(err){
+          if(err) return showToast('Error loading "'+name+'"');
+          renderAll(); showToast('Loaded "'+name+'"');
+        });
+      });
+    });
+    list.querySelectorAll('[data-overwrite]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var name = btn.getAttribute('data-overwrite');
+        storage.saveVariant(name, function(err){
+          if(err) return showToast('Error saving');
+          renderVariantList(); showToast('Saved "'+name+'"');
+        });
+      });
+    });
+    list.querySelectorAll('[data-vdel]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var name = btn.getAttribute('data-vdel');
+        if(!confirm('Delete variation "'+name+'"?')) return;
+        storage.deleteVariant(name, function(err){
+          if(err) return showToast('Error deleting');
+          renderVariantList();
+        });
+      });
+    });
+  });
+}
+
+document.getElementById('btn-save-as').addEventListener('click', function(){
+  var name = prompt('Name this variation:', currentVariant || '');
+  if(!name || !name.trim()) return;
+  name = name.trim();
+  storage.saveVariant(name, function(err){
+    if(err) return showToast('Error saving');
+    renderVariantList(); showToast('Saved "'+name+'"');
+  });
+});
+
+function showToast(msg){
+  var t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#111;color:white;'+
+    'padding:8px 14px;border-radius:8px;font-size:12px;font-family:-apple-system,sans-serif;'+
+    'z-index:999;opacity:1;transition:opacity 0.5s;pointer-events:none;';
+  document.body.appendChild(t);
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },500); },2000);
+}
+
+// Patch renderAll to autosave and refresh variant list
+var _renderAll = renderAll;
+renderAll = function(){
+  _renderAll();
+  storage.autoSave();
+  renderVariantList();
+};
+
+// Reset
+var resetBtn = document.getElementById('btn-reset');
+resetBtn.replaceWith(resetBtn.cloneNode(true));
+document.getElementById('btn-reset').addEventListener('click', function(){
+  if(!confirm('Reset to master defaults? This won\'t delete saved variations.')) return;
+  currentVariant = null;
+  items = JSON.parse(JSON.stringify(MASTER));
+  HEADER.name = 'Brayden Clark';
+  HEADER.title = 'XR Product Founder \u00b7 AI & Immersive Technologist \u00b7 GTM Strategist';
+  HEADER.contact = [
+    { text: 'brayden.k.clark@outlook.com', url: 'mailto:brayden.k.clark@outlook.com' },
+    { text: '(587) 434-2697', url: '' },
+    { text: 'Calgary, AB', url: '' },
+    { text: 'LinkedIn', url: 'https://linkedin.com/in/braydenclark' },
+    { text: 'GitHub', url: 'https://github.com/braydenclark' }
+  ];
+  renderAll();
+});
+
+// ── Boot: ping server, load autosave ─────────────────────────────────────────
+fetch(API+'/ping')
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if(d.ok) setServerMode(d.folderName || 'variants');
+  })
+  .catch(function(){}) // no server = stay in localStorage mode
+  .finally(function(){
+    storage.loadAutosave(function(err, restored){
+      renderAll();
+      if(restored) showToast(serverMode ? 'Restored · file mode' : 'Restored · browser mode');
+      else renderVariantList();
+    });
+  });
+
+</script>
+
+</body>
+</html>
