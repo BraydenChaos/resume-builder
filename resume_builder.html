@@ -138,6 +138,24 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .r-summary { font-size: 12px; color: #333; line-height: 1.62; }
 .r-list { padding-left: 14px; }
 .r-list li { font-size: 11.5px; color: #333; line-height: 1.55; margin-bottom: 3px; }
+/* View toggle (Resume / Cover Letter) */
+.view-toggle { width: 760px; margin: 0 auto 14px; display: flex; gap: 6px; align-items: center; }
+.view-toggle .vt-btn { font-family: -apple-system, sans-serif; font-size: 12px; padding: 6px 14px; border: 1px solid #c8c5c0; background: #f2f0ec; color: #555; border-radius: 6px; cursor: pointer; }
+.view-toggle .vt-btn:hover { background: #ebe9e4; }
+.view-toggle .vt-btn.active { background: #111; color: #fff; border-color: #111; }
+.view-toggle .vt-spacer { flex: 1; }
+.view-toggle .vt-edit { font-family: -apple-system, sans-serif; font-size: 12px; padding: 6px 12px; border: 1px solid #c8c5c0; background: #fff; color: #333; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
+.view-toggle .vt-edit:hover { border-color: #4A6CF7; color: #4A6CF7; }
+/* Cover letter */
+.r-letter-body { margin-top: 2px; border-radius: 4px; }
+.r-letter-block { cursor: pointer; }
+.r-letter-block:hover { outline: 2px solid #4A6CF7; outline-offset: 6px; }
+.r-letter-salutation { font-size: 12px; color: #222; line-height: 1.62; margin-bottom: 13px; }
+.r-letter-para { font-size: 12px; color: #333; line-height: 1.68; margin-bottom: 13px; white-space: pre-wrap; }
+.r-letter-signoff { font-size: 12px; color: #222; line-height: 1.62; margin-top: 6px; }
+.r-letter-signname { font-size: 12px; color: #111; font-weight: 700; margin-top: 2px; }
+.r-letter-empty { font-family: -apple-system, sans-serif; color: #999; font-size: 13px; line-height: 1.6; text-align: center; padding: 60px 24px; }
+.r-letter-empty .btn { margin: 16px auto 0; display: inline-flex; }
 .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
 .modal { background: white; border-radius: 12px; border: 1px solid #e0ddd8; width: 640px; max-width: 100%; max-height: 88vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.18); }
 .modal-header { padding: 15px 18px 12px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; }
@@ -160,6 +178,51 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .add-btn:hover { background: #f5f5f5; color: #555; }
 .modal-footer { padding: 12px 18px; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 8px; }
 .modal-footer .btn { width: auto; }
+/* Vertical skills editor — individual chips */
+.skill-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; min-height: 4px; }
+.skill-chip { display: inline-flex; align-items: center; gap: 4px; background: #eef1fe; border: 1px solid #d4dbfb; color: #2b3a8c; font-size: 12px; font-family: -apple-system, sans-serif; padding: 4px 6px 4px 10px; border-radius: 14px; }
+.skill-chip-del { background: none; border: none; cursor: pointer; color: #8b94c9; font-size: 15px; line-height: 1; padding: 0 2px; display: flex; align-items: center; }
+.skill-chip-del:hover { color: #e74c3c; }
+.skill-add-row { display: flex; gap: 6px; align-items: stretch; }
+.skill-add-row .field-input { flex: 1; }
+.skill-add-row .add-btn { width: auto; flex-shrink: 0; padding: 6px 12px; margin-top: 0; }
+.skill-group-del { margin-top: 0; }
+/* Master mode */
+.master-banner { width: 760px; margin: 0 auto 14px; background: #1f2937; color: #fff; border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; gap: 10px; font-family: -apple-system, sans-serif; font-size: 12.5px; }
+.master-banner .mb-dot { width: 8px; height: 8px; border-radius: 50%; background: #f5b53f; flex-shrink: 0; }
+.master-banner .mb-text { flex: 1; line-height: 1.4; }
+.master-banner .mb-text b { font-weight: 700; }
+.master-banner .mb-done { background: #fff; color: #1f2937; border: none; border-radius: 6px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: -apple-system, sans-serif; }
+.master-banner .mb-done:hover { background: #e8eaee; }
+.master-actions { display: flex; gap: 6px; margin-bottom: 8px; }
+.master-actions .btn { width: auto; flex: 1; font-size: 11.5px; }
+#btn-master.master-active { background: #1f2937; color: #fff; border-color: #1f2937; }
+.notes-field textarea { background: #fffdf5; border-color: #ecdca0; }
+.notes-hint { font-size: 10px; color: #b58b00; font-style: italic; margin-top: 2px; }
+.section-note-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #f5b53f; margin-left: 5px; vertical-align: middle; }
+/* Margin guides overlay */
+.resume-page.show-guides::after {
+  content: '';
+  position: absolute;
+  top: var(--mg-top, 52px); right: var(--mg-right, 58px);
+  bottom: var(--mg-bottom, 52px); left: var(--mg-left, 58px);
+  border: 1px dashed rgba(74, 108, 247, 0.5);
+  pointer-events: none;
+  z-index: 5;
+}
+/* Margin controls bar */
+.margin-controls { width: 760px; margin: 0 auto 12px; background: white; border: 1px solid #e0ddd8; border-radius: 8px; padding: 6px 12px; display: flex; align-items: center; gap: 10px; font-family: -apple-system, sans-serif; }
+.mc-label { font-size: 10px; font-weight: 600; color: #bbb; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+.mc-fields { display: flex; gap: 6px; align-items: center; }
+.mc-field { display: flex; align-items: center; gap: 3px; }
+.mc-field span { font-size: 9.5px; color: #bbb; font-weight: 700; text-transform: uppercase; }
+.mc-field input[type=number] { width: 44px; padding: 3px 5px; border-radius: 5px; border: 1px solid #e0ddd8; background: white; font-size: 11.5px; color: #333; font-family: -apple-system, sans-serif; text-align: center; appearance: textfield; -moz-appearance: textfield; }
+.mc-field input[type=number]::-webkit-inner-spin-button { opacity: 1; }
+.mc-field input[type=number]:focus { outline: none; border-color: #4A6CF7; }
+.mc-sep { width: 1px; height: 14px; background: #e0ddd8; flex-shrink: 0; }
+.mc-guides-btn { background: none; border: 1px solid #e0ddd8; border-radius: 5px; cursor: pointer; color: #aaa; font-size: 11px; padding: 3px 9px; font-family: -apple-system, sans-serif; display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: auto; }
+.mc-guides-btn:hover { border-color: #4A6CF7; color: #4A6CF7; }
+.mc-guides-btn.active { background: #eef1fe; border-color: #4A6CF7; color: #4A6CF7; }
 </style>
 </head>
 <body>
@@ -175,6 +238,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="variations-header">
       <h3>Variations</h3>
       <button class="btn-save-as" id="btn-save-as"><i class="ti ti-device-floppy"></i> Save as…</button>
+    </div>
+    <div class="master-actions">
+      <button class="btn" id="btn-master"><i class="ti ti-star"></i> Edit Master</button>
+      <button class="btn" id="btn-new-from-master"><i class="ti ti-copy"></i> New from Master</button>
     </div>
     <div class="folder-row" id="folder-row">
       <input class="folder-input ls-mode" id="folder-input" placeholder="variants/2025-june" title="Active variants folder (server mode only)" disabled>
@@ -196,6 +263,29 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 </div>
 
 <div class="preview-area" id="preview-area">
+  <div class="master-banner" id="master-banner" style="display:none;">
+    <span class="mb-dot"></span>
+    <span class="mb-text"><b>Editing your Master resume.</b> This holds every project and skill plus private notes. Edits here flow into any resume linked to the Master.</span>
+    <button class="mb-done" id="master-banner-done">Done</button>
+  </div>
+  <div class="view-toggle" id="view-toggle">
+    <button class="vt-btn active" id="vt-resume">Resume</button>
+    <button class="vt-btn" id="vt-cover">Cover Letter</button>
+    <span id="link-indicator" class="vt-edit" style="display:none;cursor:default;border-color:#d4dbfb;color:#2b3a8c;background:#eef1fe;"><i class="ti ti-link"></i> Linked to Master</span>
+    <span class="vt-spacer"></span>
+    <button class="vt-edit" id="vt-edit-cover" style="display:none;"><i class="ti ti-pencil"></i> Edit letter</button>
+  </div>
+  <div class="margin-controls" id="margin-controls">
+    <span class="mc-label">Margins</span>
+    <div class="mc-fields">
+      <div class="mc-field"><span>T</span><input type="number" id="mc-top" value="52" min="0" max="200" step="2"></div>
+      <div class="mc-field"><span>R</span><input type="number" id="mc-right" value="58" min="0" max="200" step="2"></div>
+      <div class="mc-field"><span>B</span><input type="number" id="mc-bottom" value="52" min="0" max="200" step="2"></div>
+      <div class="mc-field"><span>L</span><input type="number" id="mc-left" value="58" min="0" max="200" step="2"></div>
+    </div>
+    <div class="mc-sep"></div>
+    <button class="mc-guides-btn" id="mc-guides-btn"><i class="ti ti-layout-sidebar"></i> Show guides</button>
+  </div>
   <div class="pages-wrap" id="pages-wrap"></div>
 </div>
 <div id="measure-surface"></div>
@@ -276,6 +366,21 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
   </div>
 </div>
 
+<!-- Cover letter edit modal -->
+<div class="modal-backdrop" id="cover-modal" style="display:none;">
+  <div class="modal" style="width:580px;">
+    <div class="modal-header">
+      <h3>Cover letter</h3>
+      <button class="modal-close" id="cover-modal-close"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body" id="cover-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn" id="cover-modal-cancel">Cancel</button>
+      <button class="btn btn-primary" id="cover-modal-save">Save changes</button>
+    </div>
+  </div>
+</div>
+
 <script>
 var FIXED_ROOT = ['engagement','certs','refs','skills'];
 
@@ -289,45 +394,37 @@ var MASTER = [
     ]}
   ]},
 
-  { id:'elixr_head', label:'ELIXR — Head of XR Dev', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
-    { org:'ELIXR Simulations', dates:'Sept 2025 – Present', title:'Fractional Head of XR Development', bullets:[
-      "Embedded as technical lead to build ELIXR's internal XR development capacity from scratch — created department SOPs, hiring frameworks, project management systems, tech stacks, and client communication tools.",
-      'Led XR product discovery and development for major institutional clients including NAIT, the City of Calgary, and the Edmonton Chinatown Association.',
-      'Handled full-lifecycle scoping, risk management, hiring, and client-facing communication across all active projects.'
+  { id:'elixr', label:'ELIXR', visible:true, parentId:null, type:'jobs', jobs:[
+    { org:'ELIXR Simulations', dates:'Sept 2025 – Present', title:'Senior Developer, promoted to Technical Program Director', bullets:[
+      "Embedded as technical lead to build ELIXR's internal XR development capacity from scratch, creating department SOPs, hiring frameworks, project management systems, tech stacks, and documentation libraries.",
+      'Ran the XR department and led product discovery and delivery for major institutional clients including NAIT, the City of Calgary, and the Edmonton Chinatown Association.',
+      'Owned full-lifecycle scoping, risk management, hiring, and client-facing communication across AI-enabled VR, mobile XR, and mixed reality projects.'
     ]}
   ]},
 
-  { id:'elixr_tpd', label:'ELIXR — Technical Program Director', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
-    { org:'ELIXR Simulations — XR Department Build', dates:'2023 – 2025', title:'Technical Program Director (Fractional)', bullets:[
-      "Built the internal XR development and intern program for a major Canadian not-for-profit from scratch.",
-      'Set up hiring frameworks, project management systems, development pipelines, and documentation libraries.',
-      'Sold, onboarded, led, and delivered projects for institutional clients across AI-enabled VR, mobile XR, and mixed reality.'
-    ]}
-  ]},
-
-  { id:'curling', label:'Wheelchair Curling Simulator', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
-    { org:'Red Deer Polytechnic & Alberta Sports Hall of Fame', dates:'2024', title:'Senior Technical Lead', bullets:[
+  { id:'curling', label:'Wheelchair Curling Simulator', visible:true, parentId:'elixr', type:'jobs', jobs:[
+    { org:'Red Deer Polytechnic & Alberta Sports Hall of Fame', dates:'', title:'Senior Technical Lead', bullets:[
       'Led design and development of an immersive projector-based wheelchair curling simulator for permanent installation at the Alberta Sports Hall of Fame.',
       'Planned on-site UX, led physical installation design, managed development teams across Unity simulation and OpenCV computer vision stone tracking.'
     ]}
   ]},
 
-  { id:'wave', label:'City of Calgary — WAVE XR', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
-    { org:'City of Calgary: WAVE Technology Centre', dates:'2024', title:'XR Discovery Project — Senior Technical Lead', bullets:[
+  { id:'wave', label:'City of Calgary — WAVE XR', visible:true, parentId:'elixr', type:'jobs', jobs:[
+    { org:'City of Calgary: WAVE Technology Centre', dates:'', title:'XR Discovery Project — Senior Technical Lead', bullets:[
       'Led design and delivery of four proof-of-concept XR projects: VR training simulator, collocated Mixed Reality tool, smart-glasses reporting tool, and 360 video viewer.',
       'Owned full project lifecycle from discovery and scoping through design, development, testing, and delivery.'
     ]}
   ]},
 
-  { id:'nait', label:'NAIT — AI + VR Nursing Tool', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
-    { org:'NAIT: AI + VR Nursing Training Tool', dates:'2023', title:'Senior Technical Lead', bullets:[
+  { id:'nait', label:'NAIT — AI + VR Nursing Tool', visible:true, parentId:'elixr', type:'jobs', jobs:[
+    { org:'NAIT: AI + VR Nursing Training Tool', dates:'', title:'Senior Technical Lead', bullets:[
       'Led design and development of an AI-enabled VR tool for training nurses on structured communication protocol (SBAR).',
       'Implemented an AI assessment loop grading nurses on communication proficiency in real time.'
     ]}
   ]},
 
-  { id:'chinatown', label:'Edmonton Chinatown AR App', visible:true, parentId:'chaos_studio', type:'jobs', jobs:[
-    { org:'Edmonton Chinatown Heritage Association: AR Art App', dates:'2023', title:'Senior Technical Lead', bullets:[
+  { id:'chinatown', label:'Edmonton Chinatown AR App', visible:true, parentId:'elixr', type:'jobs', jobs:[
+    { org:'Edmonton Chinatown Heritage Association: AR Art App', dates:'', title:'Senior Technical Lead', bullets:[
       'Led design and development of a phone-based AR app showcasing historic Chinatown art — users scan local murals to reveal 3D AR animations and unlock rewards from local businesses.'
     ]}
   ]},
@@ -385,7 +482,7 @@ var MASTER = [
 
   { id:'ap', label:'Adventure Portal', visible:true, parentId:null, type:'jobs', jobs:[
     { org:'Adventure Portal', dates:'2020 – Present', title:'Founder & Principal Technologist', bullets:[
-      'Founded asset-light XR software platform licensing immersive experiences to science centers, museums, and LBE venues — build once, license to hardware-owning operators.',
+      'Founded a software-only XR platform licensing immersive experiences to science centers, museums, and LBE venues, building once and licensing to hardware-owning operators.',
       'Led design and development of a collocated free-roam educational VR experience based on the James Webb Space Telescope; ran at Telus World of Science and published to 400+ VR arcades across North America and the EU.',
       'Active pilot with NASA/JPL delivering real mission science data as interactive XR experiences.',
       'TWOS pilot metrics: 603 guests · 73.5% utilization · 4.84/5 satisfaction · NPS 84.3.',
@@ -447,6 +544,116 @@ var MASTER = [
 
 var items = JSON.parse(JSON.stringify(MASTER));
 var dragId = null, editingId = null, editState = null;
+
+// ── Master / live-linking ─────────────────────────────────────────────────────
+var MASTER_DOC   = null;    // canonical resolved master {items, header, notes}
+var MASTER_NOTES = {};      // per-section plain-English notes (master mode editing)
+var masterMode   = false;   // true while editing the Master itself
+var linkToMaster = false;   // true when the current doc is a live-linked variant
+var MASTER_KEY   = '_master';
+var OVERRIDE_FIELDS = ['type','content','jobs','groups','items'];
+
+// Enforce house style: never let em-dashes or the banned term reach output
+function scrubText(s){
+  if(typeof s !== 'string') return s;
+  return s.replace(/asset-light\s*/gi, 'software-only ')
+          .replace(/\s*—\s*/g, ', ')
+          .replace(/[ \t]{2,}/g, ' ');
+}
+function scrubDeep(o){
+  if(typeof o === 'string') return scrubText(o);
+  if(Array.isArray(o)) return o.map(scrubDeep);
+  if(o && typeof o === 'object'){ var r={}; for(var k in o) r[k]=scrubDeep(o[k]); return r; }
+  return o;
+}
+
+function seedMasterDoc(){
+  // Build a clean master from the in-code defaults (used when no _master file exists)
+  return {
+    items: scrubDeep(JSON.parse(JSON.stringify(MASTER))),
+    header: scrubDeep(JSON.parse(JSON.stringify({ name: HEADER.name, title: HEADER.title, contact: HEADER.contact }))),
+    notes: {}
+  };
+}
+
+// Resolve a live-linked variant against the master: inherit everything, apply overrides.
+function resolveVariant(variant, master){
+  var mItems = JSON.parse(JSON.stringify(master.items || []));
+  var byid = {}; mItems.forEach(function(it){ byid[it.id]=it; });
+  var ov = variant.overrides || {};
+  // content overrides + custom (non-master) items
+  Object.keys(ov).forEach(function(id){
+    var o = ov[id];
+    if(byid[id]){
+      var it = byid[id];
+      if('label' in o) it.label = o.label;
+      OVERRIDE_FIELDS.forEach(function(f){ if(f in o) it[f] = JSON.parse(JSON.stringify(o[f])); });
+    } else {
+      var ni = JSON.parse(JSON.stringify(o)); ni.id = id;
+      if(!('label' in ni)) ni.label = id;
+      mItems.push(ni); byid[id] = ni;
+    }
+  });
+  // order + nesting from saved structure; new master items append at end
+  var removedSet = {}; (variant.removed || []).forEach(function(id){ removedSet[id]=1; });
+  var result;
+  if(variant.structure && variant.structure.length){
+    var seen={}; result=[];
+    variant.structure.forEach(function(st){
+      var it = byid[st.id]; if(!it) return;
+      it.parentId = ('parentId' in st) ? st.parentId : (it.parentId || null);
+      result.push(it); seen[st.id]=true;
+    });
+    // newly-added master sections flow in; sections the user removed stay out
+    mItems.forEach(function(it){ if(!seen[it.id] && !removedSet[it.id]) result.push(it); });
+  } else {
+    result = mItems.filter(function(it){ return !removedSet[it.id]; });
+  }
+  // visibility overrides
+  var vis = variant.visible || {};
+  result.forEach(function(it){ if(it.id in vis) it.visible = vis[it.id]; });
+  var hdr = variant.header || master.header;
+  return { items: result, header: JSON.parse(JSON.stringify(hdr)), coverLetter: variant.coverLetter || null };
+}
+
+// Diff the current doc against the master to produce a compact live-linked snapshot.
+function buildLinkedSnapshot(master){
+  var mById={}; (master.items||[]).forEach(function(it){ mById[it.id]=it; });
+  var overrides={}, visible={}, structure=[];
+  items.forEach(function(it){
+    structure.push({ id: it.id, parentId: it.parentId || null });
+    visible[it.id] = !!it.visible;
+    var m = mById[it.id];
+    if(!m){
+      var c = JSON.parse(JSON.stringify(it)); delete c.visible; delete c.parentId; delete c.id;
+      overrides[it.id] = c;
+    } else {
+      var o = {};
+      if(it.label !== m.label) o.label = it.label;
+      OVERRIDE_FIELDS.forEach(function(f){
+        if(f in it && JSON.stringify(it[f]) !== JSON.stringify(m[f])) o[f] = JSON.parse(JSON.stringify(it[f]));
+      });
+      if(Object.keys(o).length) overrides[it.id] = o;
+    }
+  });
+  // Master sections the user explicitly removed from this draft (so they don't silently return)
+  var present={}; items.forEach(function(it){ present[it.id]=1; });
+  var removed = (master.items||[]).filter(function(m){ return !present[m.id]; }).map(function(m){ return m.id; });
+  var snap = { base:'master', structure:structure, visible:visible, overrides:overrides, removed:removed,
+               header: JSON.parse(JSON.stringify({ name: HEADER.name, title: HEADER.title, contact: HEADER.contact })) };
+  if(COVER && !coverIsEmpty()) snap.coverLetter = JSON.parse(JSON.stringify(COVER));
+  return snap;
+}
+
+// Cover letter (optional, travels with each variant). null = none for this variant.
+var COVER = null;
+var view = 'resume'; // 'resume' | 'cover'
+var COVER_TEMPLATE = {
+  salutation: 'Dear Hiring Team,',
+  body: [''],
+  signoff: 'Sincerely,',
+  signName: ''
+};
 
 function byId(id){ return items.find(function(x){ return x.id===id; }); }
 function roots(){ return items.filter(function(x){ return !x.parentId; }); }
@@ -597,7 +804,7 @@ function sectionBody(s){
     html+='<div class="r-summary">'+esc(s.content)+'</div>';
   } else if(s.type==='jobs'){
     s.jobs.forEach(function(j){
-      html+='<div class="r-job"><div class="r-job-head"><span class="r-org">'+esc(j.org)+'</span><span class="r-dates">'+esc(j.dates)+'</span></div>'+
+      html+='<div class="r-job"><div class="r-job-head"><span class="r-org">'+esc(j.org)+'</span>'+(j.dates?'<span class="r-dates">'+esc(j.dates)+'</span>':'')+'</div>'+
         '<div class="r-jobtitle">'+esc(j.title)+'</div>'+
         '<ul class="r-bullets">'+j.bullets.map(function(b){ return '<li>'+esc(b)+'</li>'; }).join('')+'</ul></div>';
     });
@@ -611,8 +818,24 @@ function sectionBody(s){
   return html;
 }
 
-// US Letter page content height at our screen scale (760px wide, 52px top+bottom padding each)
-var PAGE_H = 984 - 52 - 52; // 880px usable
+// US Letter page content height at our screen scale (760px wide)
+var PAGE_MARGINS = { top: 52, right: 58, bottom: 52, left: 58 };
+var showMarginGuides = false;
+var PAGE_H = 984 - PAGE_MARGINS.top - PAGE_MARGINS.bottom;
+
+function pageStyleAttr(){
+  var p = PAGE_MARGINS;
+  return 'style="padding:'+p.top+'px '+p.right+'px '+p.bottom+'px '+p.left+'px;'+
+    '--mg-top:'+p.top+'px;--mg-right:'+p.right+'px;--mg-bottom:'+p.bottom+'px;--mg-left:'+p.left+'px;"';
+}
+function pageClassName(){ return 'resume-page'+(showMarginGuides?' show-guides':''); }
+function syncMeasureSurface(){
+  var ms = document.getElementById('measure-surface');
+  if(ms){
+    var p = PAGE_MARGINS;
+    ms.style.padding = p.top+'px '+p.right+'px '+p.bottom+'px '+p.left+'px';
+  }
+}
 
 var HEADER = {
   name: 'Brayden Clark',
@@ -691,6 +914,7 @@ function buildBlocks(){
 }
 
 function renderResume(){
+  syncMeasureSurface();
   var ms = document.getElementById('measure-surface');
 
   // Build a flat measure surface: each block in its own wrapper so we can measure individually
@@ -795,7 +1019,7 @@ function renderResume(){
     if(pi > 0){
       pagesHTML += '<div class="page-break-gap"><span class="page-label">Page '+(pi+1)+'</span></div>';
     }
-    pagesHTML += '<div class="resume-page" id="rpage-'+pi+'">';
+    pagesHTML += '<div class="'+pageClassName()+'" id="rpage-'+pi+'" '+pageStyleAttr()+'>';
     if(pi === 0) pagesHTML += buildHeaderHTML();
     chunks.forEach(function(ch){ pagesHTML += ch.html; });
     pagesHTML += '</div>';
@@ -811,7 +1035,129 @@ function renderResume(){
   if(headerEl) headerEl.addEventListener('click', openHeaderEdit);
 }
 
-function renderAll(){ renderSidebar(); renderResume(); }
+function renderAll(){
+  renderSidebar();
+  if(view === 'cover'){ renderCover(); } else { renderResume(); }
+  updateViewToggle();
+}
+
+function updateViewToggle(){
+  var rb = document.getElementById('vt-resume');
+  var cb = document.getElementById('vt-cover');
+  var eb = document.getElementById('vt-edit-cover');
+  if(!rb) return;
+  rb.classList.toggle('active', view === 'resume');
+  cb.classList.toggle('active', view === 'cover');
+  if(eb) eb.style.display = (view === 'cover') ? '' : 'none';
+}
+
+// Build the letter body as an array of measurable HTML blocks (no header).
+function buildCoverBlocksHTML(){
+  var blocks = [];
+  if(!COVER) return blocks;
+  if(COVER.salutation && String(COVER.salutation).trim()){
+    blocks.push('<div class="r-letter-salutation">'+esc(COVER.salutation)+'</div>');
+  }
+  (COVER.body || []).forEach(function(p){
+    if(String(p).trim()) blocks.push('<div class="r-letter-para">'+esc(p)+'</div>');
+  });
+  var sign = '';
+  if(COVER.signoff && String(COVER.signoff).trim()) sign += '<div class="r-letter-signoff">'+esc(COVER.signoff)+'</div>';
+  var nm = (COVER.signName != null && String(COVER.signName).trim()) ? COVER.signName : HEADER.name;
+  if(nm) sign += '<div class="r-letter-signname">'+esc(nm)+'</div>';
+  if(sign) blocks.push(sign);
+  return blocks;
+}
+
+function coverIsEmpty(){
+  if(!COVER) return true;
+  var hasBody = (COVER.body || []).some(function(p){ return String(p).trim(); });
+  return !hasBody && !(COVER.salutation && String(COVER.salutation).trim());
+}
+
+function renderCover(){
+  var wrap = document.getElementById('pages-wrap');
+
+  if(coverIsEmpty()){
+    wrap.innerHTML = '<div class="'+pageClassName()+'" '+pageStyleAttr()+'><div class="r-letter-empty">'+
+      'No cover letter yet for this variant.<br>Write one to match this resume to a specific job.'+
+      '<button class="btn btn-primary" id="cover-create-btn"><i class="ti ti-plus"></i> Write cover letter</button>'+
+      '</div></div>';
+    var cbn = document.getElementById('cover-create-btn');
+    if(cbn) cbn.addEventListener('click', function(){ if(!COVER) COVER = deepClone(COVER_TEMPLATE); openCoverEdit(); });
+    return;
+  }
+
+  syncMeasureSurface();
+  var ms = document.getElementById('measure-surface');
+  var blocks = buildCoverBlocksHTML();
+
+  // Measure header + each block
+  var measureHTML = buildHeaderHTML();
+  blocks.forEach(function(b, bi){ measureHTML += '<div class="measure-block" data-bi="'+bi+'">'+b+'</div>'; });
+  ms.innerHTML = measureHTML;
+
+  var hrEl = ms.querySelector('.r-hr');
+  var msRect = ms.getBoundingClientRect();
+  var headerH = hrEl ? (hrEl.getBoundingClientRect().bottom - msRect.top) : 80;
+  var heights = [];
+  ms.querySelectorAll('.measure-block').forEach(function(el, bi){ heights[bi] = el.getBoundingClientRect().height; });
+
+  // Paginate (simple: header on page 1, body blocks flow)
+  var pages = []; var cur = []; var curH = headerH;
+  blocks.forEach(function(b, bi){
+    var h = (heights[bi] || 0) + 13;
+    if(curH + h > PAGE_H && cur.length > 0){ pages.push(cur); cur = []; curH = 0; }
+    cur.push(b); curH += h;
+  });
+  if(cur.length) pages.push(cur);
+
+  var html = '';
+  pages.forEach(function(chunks, pi){
+    if(pi > 0) html += '<div class="page-break-gap"><span class="page-label">Page '+(pi+1)+'</span></div>';
+    html += '<div class="'+pageClassName()+'" id="cpage-'+pi+'" '+pageStyleAttr()+'>';
+    if(pi === 0) html += buildHeaderHTML();
+    html += '<div class="r-letter-body r-letter-block">';
+    chunks.forEach(function(c){ html += c; });
+    html += '</div></div>';
+  });
+  wrap.innerHTML = html;
+
+  var headerEl = document.getElementById('r-header-click');
+  if(headerEl) headerEl.addEventListener('click', openHeaderEdit);
+  wrap.querySelectorAll('.r-letter-block').forEach(function(el){
+    el.addEventListener('click', function(e){ e.stopPropagation(); openCoverEdit(); });
+  });
+}
+
+function openCoverEdit(){
+  if(!COVER) COVER = deepClone(COVER_TEMPLATE);
+  var body = document.getElementById('cover-modal-body');
+  var paras = (COVER.body || []).join('\n\n');
+  body.innerHTML =
+    '<div class="field-group"><label class="field-label">Salutation</label>'+
+      '<input class="field-input" id="cov-salutation" value="'+esc(COVER.salutation || '')+'"></div>'+
+    '<div class="field-group"><label class="field-label">Body (separate paragraphs with a blank line)</label>'+
+      '<textarea class="field-input" id="cov-body" rows="13" style="line-height:1.5;">'+esc(paras)+'</textarea></div>'+
+    '<div class="row-2">'+
+      '<div class="field-group"><label class="field-label">Sign-off</label>'+
+        '<input class="field-input" id="cov-signoff" value="'+esc(COVER.signoff || '')+'"></div>'+
+      '<div class="field-group"><label class="field-label">Signature name (blank uses header name)</label>'+
+        '<input class="field-input" id="cov-signname" placeholder="'+esc(HEADER.name)+'" value="'+esc(COVER.signName || '')+'"></div>'+
+    '</div>';
+  document.getElementById('cover-modal').style.display = 'flex';
+}
+
+function collectCoverEdits(){
+  if(!COVER) COVER = deepClone(COVER_TEMPLATE);
+  COVER.salutation = document.getElementById('cov-salutation').value;
+  var raw = document.getElementById('cov-body').value;
+  COVER.body = raw.split(/\n\s*\n/).map(function(s){ return s.trim(); }).filter(function(s){ return s.length; });
+  COVER.signoff = document.getElementById('cov-signoff').value;
+  COVER.signName = document.getElementById('cov-signname').value;
+}
+
+function closeCoverModal(){ document.getElementById('cover-modal').style.display = 'none'; }
 
 function openEdit(id){
   var s=byId(id); if(!s) return;
@@ -839,13 +1185,51 @@ function buildModalBody(state){
     lr2.appendChild(ta); body.appendChild(lr2);
   } else if(state.type==='skills'){
     state.groups.forEach(function(g,gi){
-      var row=document.createElement('div'); row.className='job-editor';
-      row.innerHTML='<div class="row-2">'+
-        '<div class="field-group"><label class="field-label">Category</label><input class="field-input skill-label-inp" data-gi="'+gi+'" value="'+esc(g.label)+'"></div>'+
-        '<div class="field-group"><label class="field-label">Items</label><input class="field-input skill-items-inp" data-gi="'+gi+'" value="'+esc(g.items)+'"></div>'+
-        '</div>';
-      body.appendChild(row);
+      var skills=String(g.items||'').split(',').map(function(s){return s.trim();}).filter(function(s){return s.length;});
+      var grp=document.createElement('div'); grp.className='job-editor';
+      var h='<div class="job-editor-title" style="display:flex;justify-content:space-between;align-items:center;">'+
+        '<span>Group '+(gi+1)+'</span>'+
+        '<button class="del-btn skill-group-del" data-gi="'+gi+'" title="Remove group"><i class="ti ti-trash"></i></button></div>'+
+        '<div class="field-group"><label class="field-label">Category</label>'+
+          '<input class="field-input skill-label-inp" data-gi="'+gi+'" value="'+esc(g.label)+'"></div>'+
+        '<div class="field-group"><label class="field-label">Skills</label>'+
+          '<div class="skill-chips" data-gi="'+gi+'">';
+      skills.forEach(function(sk,si){
+        h+='<span class="skill-chip"><span class="skill-chip-txt">'+esc(sk)+'</span>'+
+           '<button class="skill-chip-del" data-gi="'+gi+'" data-si="'+si+'" title="Remove">&times;</button></span>';
+      });
+      h+='</div>'+
+        '<div class="skill-add-row">'+
+          '<input class="field-input skill-add-inp" data-gi="'+gi+'" placeholder="Add a skill, press Enter">'+
+          '<button class="add-btn skill-add-btn" data-gi="'+gi+'"><i class="ti ti-plus"></i> Add</button>'+
+        '</div></div>';
+      grp.innerHTML=h; body.appendChild(grp);
     });
+    var agb=document.createElement('button'); agb.className='add-btn'; agb.id='add-skill-group-btn';
+    agb.innerHTML='<i class="ti ti-plus"></i> Add group'; body.appendChild(agb);
+    agb.addEventListener('click',function(){ collectEdits(); editState.groups.push({label:'',items:''}); buildModalBody(editState); });
+    function _gitems(gi){ return String(editState.groups[gi].items||'').split(',').map(function(s){return s.trim();}).filter(function(s){return s.length;}); }
+    body.querySelectorAll('.skill-group-del').forEach(function(btn){
+      btn.addEventListener('click',function(){ collectEdits(); editState.groups.splice(parseInt(btn.getAttribute('data-gi')),1); buildModalBody(editState); });
+    });
+    body.querySelectorAll('.skill-chip-del').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        collectEdits();
+        var gi=parseInt(btn.getAttribute('data-gi')), si=parseInt(btn.getAttribute('data-si'));
+        var arr=_gitems(gi); arr.splice(si,1); editState.groups[gi].items=arr.join(', '); buildModalBody(editState);
+      });
+    });
+    function _addSkill(gi){
+      var inp=body.querySelector('.skill-add-inp[data-gi="'+gi+'"]'); if(!inp) return;
+      var val=(inp.value||'').trim(); if(!val) return;
+      collectEdits();
+      var arr=_gitems(gi);
+      val.split(',').map(function(s){return s.trim();}).filter(function(s){return s.length;}).forEach(function(s){ arr.push(s); });
+      editState.groups[gi].items=arr.join(', '); buildModalBody(editState);
+      setTimeout(function(){ var n=body.querySelector('.skill-add-inp[data-gi="'+gi+'"]'); if(n) n.focus(); },20);
+    }
+    body.querySelectorAll('.skill-add-btn').forEach(function(btn){ btn.addEventListener('click',function(){ _addSkill(parseInt(btn.getAttribute('data-gi'))); }); });
+    body.querySelectorAll('.skill-add-inp').forEach(function(inp){ inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); _addSkill(parseInt(inp.getAttribute('data-gi'))); } }); });
   } else if(state.type==='jobs'){
     state.jobs.forEach(function(job,ji){
       var jd=document.createElement('div'); jd.className='job-editor';
@@ -865,16 +1249,25 @@ function buildModalBody(state){
     });
     var ajb=document.createElement('button'); ajb.className='add-btn'; ajb.id='add-job-btn';
     ajb.innerHTML='<i class="ti ti-plus"></i> Add role'; body.appendChild(ajb);
-    ajb.addEventListener('click',function(){ editState.jobs.push({org:'',dates:'',title:'',bullets:['']}); buildModalBody(editState); });
+    ajb.addEventListener('click',function(){ collectEdits(); editState.jobs.push({org:'',dates:'',title:'',bullets:['']}); buildModalBody(editState); });
+  }
+  // Per-project notes — master mode only, plain-English context, never printed
+  if(masterMode && editingId){
+    var nr=document.createElement('div'); nr.className='field-group notes-field';
+    nr.innerHTML='<label class="field-label">Project notes (Master only · never printed)</label>'+
+      '<textarea class="field-input" id="ed-notes" rows="5" placeholder="Plain-English context: what this project really was, scope, your role, results, who to talk to, anything that helps tailor future resumes.">'+esc(MASTER_NOTES[editingId]||'')+'</textarea>'+
+      '<div class="notes-hint">Notes live on the Master only and never appear on any resume or PDF.</div>';
+    body.appendChild(nr);
   }
   body.querySelectorAll('.del-bullet').forEach(function(btn){
     btn.addEventListener('click',function(){
+      collectEdits();
       var ji=parseInt(btn.getAttribute('data-ji')),bi=parseInt(btn.getAttribute('data-bi'));
       editState.jobs[ji].bullets.splice(bi,1); buildModalBody(editState);
     });
   });
   body.querySelectorAll('.add-bullet').forEach(function(btn){
-    btn.addEventListener('click',function(){ editState.jobs[parseInt(btn.getAttribute('data-ji'))].bullets.push(''); buildModalBody(editState); });
+    btn.addEventListener('click',function(){ collectEdits(); editState.jobs[parseInt(btn.getAttribute('data-ji'))].bullets.push(''); buildModalBody(editState); });
   });
 }
 
@@ -884,8 +1277,13 @@ function collectEdits(){
   if(editState.type==='summary'){ editState.content=document.getElementById('ed-content').value; }
   else if(editState.type==='list'){ editState.items=document.getElementById('ed-list').value.split('\n').filter(function(l){ return l.trim(); }); }
   else if(editState.type==='skills'){
-    body.querySelectorAll('.skill-label-inp').forEach(function(el){ editState.groups[parseInt(el.getAttribute('data-gi'))].label=el.value; });
-    body.querySelectorAll('.skill-items-inp').forEach(function(el){ editState.groups[parseInt(el.getAttribute('data-gi'))].items=el.value; });
+    body.querySelectorAll('.skill-label-inp').forEach(function(el){ var gi=parseInt(el.getAttribute('data-gi')); if(editState.groups[gi]) editState.groups[gi].label=el.value; });
+    body.querySelectorAll('.skill-chips').forEach(function(cont){
+      var gi=parseInt(cont.getAttribute('data-gi')); if(!editState.groups[gi]) return;
+      var chips=[];
+      cont.querySelectorAll('.skill-chip-txt').forEach(function(t){ var v=t.textContent.trim(); if(v) chips.push(v); });
+      editState.groups[gi].items=chips.join(', ');
+    });
   } else if(editState.type==='jobs'){
     body.querySelectorAll('.job-org-inp').forEach(function(el){ editState.jobs[parseInt(el.getAttribute('data-ji'))].org=el.value; });
     body.querySelectorAll('.job-dates-inp').forEach(function(el){ editState.jobs[parseInt(el.getAttribute('data-ji'))].dates=el.value; });
@@ -894,6 +1292,10 @@ function collectEdits(){
       var ji=parseInt(el.getAttribute('data-ji')),bi=parseInt(el.getAttribute('data-bi'));
       if(editState.jobs[ji]) editState.jobs[ji].bullets[bi]=el.value;
     });
+  }
+  if(masterMode && editingId){
+    var nEl=document.getElementById('ed-notes');
+    if(nEl){ if(nEl.value.trim()) MASTER_NOTES[editingId]=nEl.value; else delete MASTER_NOTES[editingId]; }
   }
 }
 
@@ -993,11 +1395,12 @@ document.getElementById('btn-pdf').addEventListener('click',function(){
     var pageContent = pg.innerHTML.replace(/<div class="r-header-wrap"[^>]*>[\s\S]*?<\/div>\s*<hr class="r-hr">/, printHeader);
     combinedHTML += '<div class="resume-page"' + (i>0 ? ' style="page-break-before:always;"' : '') + '>' + pageContent + '</div>';
   });
+  var docTitle = (view === 'cover') ? 'Brayden Clark Cover Letter' : 'Brayden Clark Resume';
   var win=window.open('','_blank');
-  win.document.write('<!DOCTYPE html><html><head><title>Brayden Clark \u2014 Resume</title><style>'+
+  win.document.write('<!DOCTYPE html><html><head><title>'+docTitle+'</title><style>'+
     '* { box-sizing: border-box; margin: 0; padding: 0; }'+
     'body { font-family: Georgia,serif; background: white; color: #111; }'+
-    '.resume-page { padding: 44px 52px; width: 100%; }'+
+    '.resume-page { padding: '+PAGE_MARGINS.top+'px '+PAGE_MARGINS.right+'px '+PAGE_MARGINS.bottom+'px '+PAGE_MARGINS.left+'px; width: 100%; }'+
     '.r-name { font-size: 26px; font-weight: 700; margin-bottom: 2px; }'+
     '.r-title { font-size: 12.5px; color: #555; margin-bottom: 8px; font-style: italic; }'+
     '.r-contact { font-size: 11px; color: #444; display: flex; flex-wrap: wrap; gap: 3px 14px; margin-bottom: 16px; }'+
@@ -1018,7 +1421,11 @@ document.getElementById('btn-pdf').addEventListener('click',function(){
     '.r-summary { font-size: 12px; color: #333; line-height: 1.62; }'+
     '.r-list { padding-left: 14px; }'+
     '.r-list li { font-size: 11.5px; color: #333; line-height: 1.55; margin-bottom: 3px; }'+
-    '@media print { @page { size: letter; margin: 0; } .resume-page { padding: 44px 52px; } }'+
+    '.r-letter-salutation { font-size: 12px; color: #222; line-height: 1.62; margin-bottom: 13px; }'+
+    '.r-letter-para { font-size: 12px; color: #333; line-height: 1.68; margin-bottom: 13px; white-space: pre-wrap; }'+
+    '.r-letter-signoff { font-size: 12px; color: #222; line-height: 1.62; margin-top: 6px; }'+
+    '.r-letter-signname { font-size: 12px; color: #111; font-weight: 700; margin-top: 2px; }'+
+    '@media print { @page { size: letter; margin: 0; } .resume-page { padding: '+PAGE_MARGINS.top+'px '+PAGE_MARGINS.right+'px '+PAGE_MARGINS.bottom+'px '+PAGE_MARGINS.left+'px; } }'+
     '</style></head><body>'+combinedHTML+'</body></html>');
   win.document.close();
   setTimeout(function(){ win.print(); },400);
@@ -1090,23 +1497,85 @@ document.getElementById('header-modal').addEventListener('click', function(e){
   if(e.target === document.getElementById('header-modal')) closeHeaderModal();
 });
 
+// ── Margin controls ────────────────────────────────────────────────────────────
+(function(){
+  var fields = { top: 'mc-top', right: 'mc-right', bottom: 'mc-bottom', left: 'mc-left' };
+  Object.keys(fields).forEach(function(side){
+    document.getElementById(fields[side]).addEventListener('change', function(){
+      var v = parseInt(this.value, 10);
+      if(isNaN(v) || v < 0) v = 0;
+      this.value = v;
+      PAGE_MARGINS[side] = v;
+      PAGE_H = 984 - PAGE_MARGINS.top - PAGE_MARGINS.bottom;
+      renderAll();
+    });
+  });
+  document.getElementById('mc-guides-btn').addEventListener('click', function(){
+    showMarginGuides = !showMarginGuides;
+    this.classList.toggle('active', showMarginGuides);
+    document.querySelectorAll('.resume-page').forEach(function(pg){
+      pg.classList.toggle('show-guides', showMarginGuides);
+    });
+  });
+})();
+
+// ── Cover letter view + editor wiring ─────────────────────────────────────────
+document.getElementById('vt-resume').addEventListener('click', function(){ view = 'resume'; renderAll(); });
+document.getElementById('vt-cover').addEventListener('click', function(){ view = 'cover'; renderAll(); });
+document.getElementById('vt-edit-cover').addEventListener('click', function(){
+  if(!COVER) COVER = deepClone(COVER_TEMPLATE);
+  openCoverEdit();
+});
+document.getElementById('cover-modal-save').addEventListener('click', function(){
+  collectCoverEdits(); closeCoverModal(); view = 'cover'; renderAll();
+});
+document.getElementById('cover-modal-cancel').addEventListener('click', closeCoverModal);
+document.getElementById('cover-modal-close').addEventListener('click', closeCoverModal);
+document.getElementById('cover-modal').addEventListener('click', function(e){
+  if(e.target === document.getElementById('cover-modal')) closeCoverModal();
+});
+
 // ── Persistence & Variations ──────────────────────────────────────────────────
 var AUTOSAVE_KEY   = 'resume_builder_v1__autosave';
 var VARIANT_PREFIX = 'resume_builder_v1__variant__';
 var currentVariant = null;
 var serverMode     = false; // flips to true if local server is detected
 
+function masterSnapshot(){
+  return {
+    items: JSON.parse(JSON.stringify(items)),
+    header: JSON.parse(JSON.stringify({ name: HEADER.name, title: HEADER.title, contact: HEADER.contact })),
+    notes: JSON.parse(JSON.stringify(MASTER_NOTES))
+  };
+}
+
 function stateSnapshot(){
-  return { items: JSON.parse(JSON.stringify(items)), header: JSON.parse(JSON.stringify(HEADER)) };
+  if(masterMode) return masterSnapshot();
+  if(linkToMaster && MASTER_DOC) return buildLinkedSnapshot(MASTER_DOC);
+  var snap = { items: JSON.parse(JSON.stringify(items)), header: JSON.parse(JSON.stringify(HEADER)) };
+  if(COVER && !coverIsEmpty()) snap.coverLetter = JSON.parse(JSON.stringify(COVER));
+  return snap;
 }
 
 function applyState(saved){
+  // Live-linked variant — resolve against the master
+  if(saved && saved.base === 'master' && MASTER_DOC){
+    var r = resolveVariant(saved, MASTER_DOC);
+    items = r.items;
+    HEADER.name = r.header.name; HEADER.title = r.header.title; HEADER.contact = r.header.contact;
+    COVER = r.coverLetter;
+    linkToMaster = true; masterMode = false;
+    return;
+  }
+  // Legacy full snapshot (existing variants stay frozen)
   if(saved.items && Array.isArray(saved.items)) items = saved.items;
   if(saved.header && saved.header.name){
     HEADER.name    = saved.header.name;
     HEADER.title   = saved.header.title;
     HEADER.contact = saved.header.contact;
   }
+  COVER = (saved.coverLetter && typeof saved.coverLetter === 'object') ? saved.coverLetter : null;
+  linkToMaster = false; masterMode = false;
 }
 
 // ── Storage back-ends ─────────────────────────────────────────────────────────
@@ -1152,6 +1621,17 @@ function ls_loadAutosave(cb){
     else cb(null, false);
   } catch(e){ cb(e, false); }
 }
+var MASTER_LS_KEY = 'resume_builder_v1__master';
+function ls_saveRaw(name, obj, cb){
+  try { localStorage.setItem(name===MASTER_KEY ? MASTER_LS_KEY : VARIANT_PREFIX+name, JSON.stringify(obj)); if(cb) cb(null); }
+  catch(e){ if(cb) cb(e); }
+}
+function ls_getRaw(name, cb){
+  try {
+    var raw = localStorage.getItem(name===MASTER_KEY ? MASTER_LS_KEY : VARIANT_PREFIX+name);
+    cb(null, raw ? JSON.parse(raw) : null);
+  } catch(e){ cb(e, null); }
+}
 
 // --- Server back-end ---
 var API = 'http://localhost:3457';
@@ -1185,11 +1665,23 @@ function srv_listVariants(cb){
   fetch(API+'/variants')
     .then(function(r){ return r.json(); })
     .then(function(data){
-      // filter out internal __autosave__ key
-      var names = (data.variants||[]).filter(function(n){ return n !== '__autosave__'; });
+      // filter out internal keys (autosave + master)
+      var names = (data.variants||[]).filter(function(n){ return n !== '__autosave__' && n !== '_master'; });
       cb(null, names);
     })
     .catch(function(e){ cb(e, []); });
+}
+function srv_saveRaw(name, obj, cb){
+  fetch(API+'/variants/'+encodeURIComponent(name), {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(obj)
+  }).then(function(r){ return r.json(); }).then(function(){ if(cb) cb(null); }).catch(function(e){ if(cb) cb(e); });
+}
+function srv_getRaw(name, cb){
+  fetch(API+'/variants/'+encodeURIComponent(name))
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(obj){ cb(null, obj); })
+    .catch(function(e){ cb(e, null); });
 }
 function srv_loadAutosave(cb){
   fetch(API+'/variants/__autosave__')
@@ -1208,7 +1700,9 @@ var storage = {
   loadVariant:  ls_loadVariant,
   deleteVariant:ls_deleteVariant,
   listVariants: ls_listVariants,
-  loadAutosave: ls_loadAutosave
+  loadAutosave: ls_loadAutosave,
+  saveRaw:      ls_saveRaw,
+  getRaw:       ls_getRaw
 };
 
 function setServerMode(folderName){
@@ -1219,7 +1713,9 @@ function setServerMode(folderName){
     loadVariant:  srv_loadVariant,
     deleteVariant:srv_deleteVariant,
     listVariants: srv_listVariants,
-    loadAutosave: srv_loadAutosave
+    loadAutosave: srv_loadAutosave,
+    saveRaw:      srv_saveRaw,
+    getRaw:       srv_getRaw
   };
   var ind = document.getElementById('storage-indicator');
   if(ind){ ind.textContent = '📁 File mode'; ind.title = 'Saving to ' + folderName + ' via local server'; }
@@ -1331,14 +1827,22 @@ function renderVariantList(){
 }
 
 document.getElementById('btn-save-as').addEventListener('click', function(){
+  if(masterMode){ showToast('Finish editing the Master first (click Done)'); return; }
   var name = prompt('Name this variation:', currentVariant || '');
   if(!name || !name.trim()) return;
   name = name.trim();
+  if(name === '_master' || name === '__autosave__'){ showToast('That name is reserved'); return; }
   storage.saveVariant(name, function(err){
     if(err) return showToast('Error saving');
     renderVariantList(); showToast('Saved "'+name+'"');
   });
 });
+
+document.getElementById('btn-master').addEventListener('click', function(){
+  if(masterMode) exitMasterMode(); else enterMasterMode();
+});
+document.getElementById('btn-new-from-master').addEventListener('click', newFromMaster);
+document.getElementById('master-banner-done').addEventListener('click', exitMasterMode);
 
 function showToast(msg){
   var t = document.createElement('div');
@@ -1350,12 +1854,81 @@ function showToast(msg){
   setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },500); },2000);
 }
 
-// Patch renderAll to autosave and refresh variant list
+// ── Master mode controls ──────────────────────────────────────────────────────
+function loadMasterDoc(cb){
+  storage.getRaw(MASTER_KEY, function(err, data){
+    MASTER_DOC = (!err && data && data.items) ? data : null;
+    if(cb) cb();
+  });
+}
+function saveMaster(cb){
+  MASTER_DOC = masterSnapshot();
+  storage.saveRaw(MASTER_KEY, MASTER_DOC, function(err){ if(cb) cb(err); });
+}
+function autoSaveRouter(){
+  if(masterMode) saveMaster();
+  else storage.autoSave();
+}
+
+var _preMaster = null;
+function enterMasterMode(){
+  if(masterMode) return;
+  _preMaster = { snap: stateSnapshot(), variant: currentVariant, view: view };
+  masterMode = true; linkToMaster = false; currentVariant = null; COVER = null; view = 'resume';
+  if(MASTER_DOC && MASTER_DOC.items){
+    items = JSON.parse(JSON.stringify(MASTER_DOC.items));
+    if(MASTER_DOC.header){ HEADER.name=MASTER_DOC.header.name; HEADER.title=MASTER_DOC.header.title; HEADER.contact=JSON.parse(JSON.stringify(MASTER_DOC.header.contact)); }
+    MASTER_NOTES = JSON.parse(JSON.stringify(MASTER_DOC.notes||{}));
+  } else {
+    var seed = seedMasterDoc();
+    items = seed.items;
+    HEADER.name=seed.header.name; HEADER.title=seed.header.title; HEADER.contact=seed.header.contact;
+    MASTER_NOTES = {}; MASTER_DOC = seed;
+    saveMaster();
+  }
+  updateMasterUI(); renderAll();
+  showToast('Editing Master — changes flow to linked variants');
+}
+function exitMasterMode(){
+  if(!masterMode) return;
+  saveMaster();
+  masterMode = false;
+  if(_preMaster){ applyState(_preMaster.snap); currentVariant = _preMaster.variant; view = _preMaster.view || 'resume'; }
+  _preMaster = null;
+  updateMasterUI(); renderAll();
+  showToast('Master saved');
+}
+function newFromMaster(){
+  if(masterMode){ saveMaster(); masterMode = false; _preMaster = null; }
+  if(!MASTER_DOC || !MASTER_DOC.items){ showToast('Open “Edit Master” once to create your master first'); updateMasterUI(); return; }
+  var r = resolveVariant({ base:'master' }, MASTER_DOC);
+  items = r.items;
+  HEADER.name=r.header.name; HEADER.title=r.header.title; HEADER.contact=r.header.contact;
+  COVER = null; linkToMaster = true; currentVariant = null; view = 'resume';
+  updateMasterUI(); renderAll();
+  showToast('New draft linked to Master — tailor it, then Save as…');
+}
+function updateMasterUI(){
+  var btn = document.getElementById('btn-master');
+  if(btn){
+    btn.classList.toggle('master-active', masterMode);
+    btn.innerHTML = masterMode ? '<i class="ti ti-check"></i> Done editing Master' : '<i class="ti ti-star"></i> Edit Master';
+  }
+  var nb = document.getElementById('btn-new-from-master');
+  if(nb) nb.style.display = masterMode ? 'none' : '';
+  var banner = document.getElementById('master-banner');
+  if(banner) banner.style.display = masterMode ? 'flex' : 'none';
+  var link = document.getElementById('link-indicator');
+  if(link) link.style.display = (linkToMaster && !masterMode) ? 'inline-flex' : 'none';
+}
+
+// Patch renderAll to autosave, refresh variant list, and keep Master UI in sync
 var _renderAll = renderAll;
 renderAll = function(){
   _renderAll();
-  storage.autoSave();
+  autoSaveRouter();
   renderVariantList();
+  updateMasterUI();
 };
 
 // Reset
@@ -1364,7 +1937,10 @@ resetBtn.replaceWith(resetBtn.cloneNode(true));
 document.getElementById('btn-reset').addEventListener('click', function(){
   if(!confirm('Reset to master defaults? This won\'t delete saved variations.')) return;
   currentVariant = null;
-  items = JSON.parse(JSON.stringify(MASTER));
+  COVER = null;
+  view = 'resume';
+  masterMode = false; linkToMaster = false; _preMaster = null;
+  items = scrubDeep(JSON.parse(JSON.stringify(MASTER)));
   HEADER.name = 'Brayden Clark';
   HEADER.title = 'XR Product Founder \u00b7 AI & Immersive Technologist \u00b7 GTM Strategist';
   HEADER.contact = [
@@ -1385,10 +1961,13 @@ fetch(API+'/ping')
   })
   .catch(function(){}) // no server = stay in localStorage mode
   .finally(function(){
-    storage.loadAutosave(function(err, restored){
-      renderAll();
-      if(restored) showToast(serverMode ? 'Restored · file mode' : 'Restored · browser mode');
-      else renderVariantList();
+    // Load the master first so live-linked variants/autosave can resolve against it
+    loadMasterDoc(function(){
+      storage.loadAutosave(function(err, restored){
+        renderAll();
+        if(restored) showToast(serverMode ? 'Restored · file mode' : 'Restored · browser mode');
+        else renderVariantList();
+      });
     });
   });
 

@@ -1,0 +1,433 @@
+{
+  "items": [
+    {
+      "id": "summary",
+      "label": "Profile",
+      "visible": true,
+      "parentId": null,
+      "type": "summary",
+      "content": "XR product and platform leader who builds spatial computing products end to end, from spec to shipped, across headset, glasses, and mobile AR and MR. Launched a free-roam XR platform that builds educational experiences for Science Centers and VR arcades, and stood up XR product and development functions from scratch for institutional clients, owning lifecycle scoping, cross-functional coordination with engineering and design, and partner integration."
+    },
+    {
+      "id": "ap",
+      "label": "Adventure Portal",
+      "visible": true,
+      "parentId": null,
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Adventure Portal",
+          "dates": "2020 – Present",
+          "title": "Founder & Principal Technologist",
+          "bullets": [
+            "Founded and own the full product lifecycle for an XR software platform that licenses immersive experiences to location-based entertainment operators,",
+            "Designed and shipped a collocated free-roam educational VR experience based on the James Webb Space Telescope, piloted live at the Telus World of Science and distributed across a 400+ location VR arcade network in North America and the EU.",
+            "Architected the system to operate on Pico and HTC headsets, and to work with MDM and content management systems.",
+            "Built a set of internal tools to facilitate rapid content creation of collocated, free-roam XR experiences.",
+            "Negotiated publishing contract with one of the largest VR Arcade publishing platforms, SynthesisVR."
+          ]
+        }
+      ],
+      "bullets": null
+    },
+    {
+      "id": "chaos_studio",
+      "label": "Chaos Inc.",
+      "visible": true,
+      "parentId": null,
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Chaos Inc., Technology & Product Consulting Studio",
+          "dates": "Aug 2019 – Present",
+          "title": "Partner & Studio Lead",
+          "bullets": [
+            "Operate a boutique technology consultancy delivering immersive XR products and fractional technical and program leadership to institutional clients, owning scoping, staffing, delivery, and partner coordination."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elixr_head",
+      "label": "ELIXR, Head of XR Dev",
+      "visible": true,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "ELIXR Simulations",
+          "dates": "Sept 2025 – Present",
+          "title": "Fractional Head of XR Development",
+          "bullets": [
+            "Stood up ELIXR's XR product and development function from scratch: department SOPs, hiring frameworks, project management systems, tech stacks, and client-facing communication tools.",
+            "Led XR product discovery and lifecycle delivery for institutional clients including NAIT, the City of Calgary, and the Edmonton Chinatown Association, coordinating directly with engineering and design counterparts.",
+            "Owned full-lifecycle scoping, risk management, dependency tracking, and partner communication across all active programs."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wave",
+      "label": "City of Calgary, WAVE XR",
+      "visible": true,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "City of Calgary: WAVE Technology Centre",
+          "dates": "2026",
+          "title": "XR Discovery Project, Senior Technical Lead",
+          "bullets": [
+            "Defined and delivered four proof-of-concept XR products in one program: a VR training simulator, a collocated mixed reality tool, a smart-glasses field reporting tool, and a 360 video viewer.",
+            "Owned the full product lifecycle from discovery and scoping through design, development, testing, and delivery, coordinating across multiple build tracks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nait",
+      "label": "NAIT, AI + VR Nursing Tool",
+      "visible": true,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "NAIT: AI + VR Nursing Training Tool",
+          "dates": "2026",
+          "title": "Senior Technical Lead",
+          "bullets": [
+            "Led design and delivery of an AI-enabled VR tool for training nurses on the SBAR structured communication protocol.",
+            "Built a real-time AI assessment loop scoring communication proficiency, integrating LLM evaluation into the spatial experience."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "curling",
+      "label": "Wheelchair Curling Simulator",
+      "visible": true,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Red Deer Polytechnic & Alberta Sports Hall of Fame",
+          "dates": "2026",
+          "title": "Senior Technical Lead",
+          "bullets": [
+            "Led product design and delivery of an immersive projector-based wheelchair curling simulator for permanent installation at the Alberta Sports Hall of Fame.",
+            "Coordinated UX, physical installation design, and engineering teams across Unity simulation and OpenCV computer-vision tracking."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chinatown",
+      "label": "Edmonton Chinatown AR App",
+      "visible": true,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Edmonton Chinatown Heritage Association: AR Art App",
+          "dates": "2025",
+          "title": "Senior Technical Lead",
+          "bullets": [
+            "Led design and delivery of a phone-based AR app where users scan local murals to trigger 3D animations and unlock rewards from nearby businesses, a consumer multi-device spatial experience."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vrcore",
+      "label": "VRCORE Education",
+      "visible": true,
+      "parentId": null,
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "VRCORE Education",
+          "dates": "2022 – 2023",
+          "title": "Senior Development & Marketing Lead",
+          "bullets": [
+            "Architected the free-roam VR software and product strategy that secured a partnership with the ISS National Laboratory.",
+            "Led product and team from concept to revenue and a $1.2M seed-stage valuation in 6 months."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "label": "Technical Skills",
+      "visible": true,
+      "parentId": null,
+      "type": "skills",
+      "groups": [
+        {
+          "label": "XR & Real-Time 3D",
+          "items": "Unity (advanced), FishNet Networking, Vive/Pico/Meta SDKs, ManageXR, ArborXR, VR/AR/MR"
+        },
+        {
+          "label": "AI & Automation",
+          "items": "Claude/OpenAI API, Midjourney, n8n"
+        },
+        {
+          "label": "Backend & Data",
+          "items": "Supabase, PostgreSQL, REST APIs, Python, SQL"
+        },
+        {
+          "label": "Frontend & Web",
+          "items": "React, Next.js, Node, Express, TypeScript, D3.js, Webflow, WordPress, Vercel, Heroku"
+        },
+        {
+          "label": "Marketing & Analytics",
+          "items": "Meta, Google, LinkedIn, TikTok, Spotify, Reddit Ads, HubSpot, CAPI, GA4, GTM, Data Studio, SEMRush"
+        },
+        {
+          "label": "Creative & Tools",
+          "items": "Adobe Suite, Canva, Blender (basic), ClickUp, Monday, Notion, GitHub"
+        }
+      ]
+    },
+    {
+      "id": "engagement",
+      "label": "Professional Engagement",
+      "visible": true,
+      "parentId": null,
+      "type": "list",
+      "items": [
+        "Lethbridge Polytechnic, Virtual and Augmented Reality Advisory Committee Member",
+        "VRARA (VR/AR Association) Calgary, Board Member",
+        "ELIXR VR Technical Mentorship Program, Virtual Reality Development Mentor",
+        "Nominated for the Telus World of Science, Science Fellow Award, 2025"
+      ]
+    },
+    {
+      "id": "certs",
+      "label": "Certifications",
+      "visible": true,
+      "parentId": null,
+      "type": "list",
+      "items": [
+        "Marketing Analytics Micromasters, UC Berkeley Online (2021)",
+        "Enterprise Selling Certificate, Queens University Online (2021)"
+      ]
+    },
+    {
+      "id": "refs",
+      "label": "References",
+      "visible": false,
+      "parentId": null,
+      "type": "list",
+      "items": [
+        "Andrea Urbina, CEO, ELIXR, andrea@elixrsim.com · 780 554 5314",
+        "Doug McNabb, CEO, Fabutan, mcnabb@fablifebrands.com · 403 816 1925",
+        "Cameron Martel, Partner, Monochrome Marketing, cam@werib.com · 403 975 1636",
+        "Micah Howell, GM, VRKADE/VRCORE Education, micahhowell94@gmail.com · 403 998 2699",
+        "Steven Bandola, Cofounder & CTO, VRKADE, bandola.steven@gmail.com · 403 715 3901"
+      ]
+    },
+    {
+      "id": "elixr_tpd",
+      "label": "ELIXR, Technical Program Director",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "ELIXR Simulations, XR Department Build",
+          "dates": "2023 – 2025",
+          "title": "Technical Program Director (Fractional)",
+          "bullets": [
+            "Built the internal XR development and intern program for a major Canadian not-for-profit from scratch.",
+            "Set up hiring frameworks, project management systems, development pipelines, and documentation libraries.",
+            "Sold, onboarded, led, and delivered projects for institutional clients across AI-enabled VR, mobile XR, and mixed reality."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vrkade",
+      "label": "VRKADE, VR Arcade Chain",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "VRKADE, Western Canada's Largest VR Arcade Chain",
+          "dates": "2021–2022",
+          "title": "Senior Marketing Lead",
+          "bullets": [
+            "Led full-funnel paid media strategy across Meta and Google, reducing customer acquisition cost from $85 to $17.",
+            "Developed high-value partnership with national mall chain driving $100k/year in incremental profit for flagship location.",
+            "Led full rebrand and online marketing overhaul; work featured by HTC."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fabutan",
+      "label": "Fabutan, 90-Location Chain",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Fabutan, Canada's Largest Tanning Chain (90+ locations)",
+          "dates": "2022–2023",
+          "title": "Senior Marketing Advisor",
+          "bullets": [
+            "Managed full audit and rebuild of marketing department including media buying plans and creative strategy.",
+            "Rebuilt paid media and attribution systems, reducing tracked acquisition cost from $72 to $22.",
+            "Designed and developed an ad automation tool reducing time to publish Meta and Google ads across 90 locations by 60%+.",
+            "Built attribution framework and custom executive reporting dashboards."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "caccia",
+      "label": "Caccia Plumbing",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Caccia Plumbing, San Francisco",
+          "dates": "2021–2023",
+          "title": "Growth Marketing Lead",
+          "bullets": [
+            "Rebuilt full Google Ads tracking, targeting, and reporting system, raising ROAS from 3.6x to 5.8x over 3 months.",
+            "Shifted reporting focus from top-of-funnel leads to booked and completed jobs via custom ServiceTitan integration.",
+            "Implemented Searchlight for cross-channel attribution across a structured 6-month measurement window."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "winston",
+      "label": "The Winston Golf Course",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "The Winston, Calgary Premium Golf Course",
+          "dates": "2021",
+          "title": "Growth Marketing Lead",
+          "bullets": [
+            "Led strategy to acquire leads for $30k shareholder memberships through paid media and email funnels.",
+            "Reduced cost per qualified lead from $300 to $90 over 6 months."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prophetic",
+      "label": "Prophetic AI, GTM",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Prophetic AI, Land Acquisition SaaS",
+          "dates": "2022",
+          "title": "GTM & Paid Advertising Lead",
+          "bullets": [
+            "Designed and built full go-to-market strategy for an AI-first property development SaaS.",
+            "Built advertising, targeting, and attribution framework; ran test campaigns across Meta, Google, and LinkedIn delivering key KPI targets."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other_clients",
+      "label": "Other Clients",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Smartcentres, National REIT",
+          "dates": "2020",
+          "title": "Marketing Automation Consultant",
+          "bullets": [
+            "Led UI design of a web-based property exploration portfolio covering 100+ mall properties across Canada."
+          ]
+        },
+        {
+          "org": "Stuttcars / Corvsport, Motorsports Media",
+          "dates": "2019–2020",
+          "title": "Growth Marketing Lead",
+          "bullets": [
+            "Paid campaign added 50k followers and 30k engaged email subscribers; built custom VIN decoding tool for list engagement."
+          ]
+        },
+        {
+          "org": "Valiant Solutions, Window Washing",
+          "dates": "2019",
+          "title": "Marketing Automation Consultant",
+          "bullets": [
+            "Designed custom quoting automation generating personalized branded PDF quotes, estimated 4% revenue lift."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "music",
+      "label": "Music Career",
+      "visible": false,
+      "parentId": null,
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Studio & Touring Musician",
+          "dates": "Jun 2013 – Oct 2019",
+          "title": "Freelance · Various Artists",
+          "bullets": [
+            "Led EP production for 2013 Miss Universe Canada, Risa Santos.",
+            "Recorded with platinum record producer Nygel Asselin (Half Moon Run).",
+            "Co-produced and performed a track on MuchMusic.",
+            "Performed 300+ shows on luxury cruise lines across Europe.",
+            "Transitioned to technology entrepreneurship applying performance discipline, systems thinking, and pattern recognition to product development."
+          ]
+        }
+      ]
+    }
+  ],
+  "header": {
+    "name": "Brayden Clark",
+    "title": "XR Product & Platform Lead | Spatial Computing & Developer Enablement",
+    "contact": [
+      {
+        "text": "brayden.k.clark@outlook.com",
+        "url": "mailto:brayden.k.clark@outlook.com"
+      },
+      {
+        "text": "(587) 434-2697",
+        "url": ""
+      },
+      {
+        "text": "Calgary, AB",
+        "url": ""
+      },
+      {
+        "text": "LinkedIn",
+        "url": "https://linkedin.com/in/braydenclark"
+      },
+      {
+        "text": "GitHub",
+        "url": "https://github.com/braydenclark"
+      }
+    ]
+  },
+  "coverLetter": {
+    "salutation": "Dear Google XR Team,",
+    "body": [
+      "I am applying for the Product Manager, Enterprise Platform and Ecosystem for XR role. For the last several years I have founded and owned the full lifecycle of a software-only XR platform built on a license-to-operator ecosystem model, the same platform-and-ecosystem thinking this role calls for, applied directly to spatial computing.",
+      "Much of my work maps to what you are building. I stood up XR product and development functions from scratch at ELIXR, owning discovery through delivery with risk and dependency tracking and direct coordination with engineering and design. In one City of Calgary program I defined and shipped four XR prototypes including a smart-glasses field reporting simulator, and across my platform I architected a multiplayer XR runtime, integrated APIs and generative AI tooling into production pipelines, and negotiated partner integration and licensing structures with hardware-owning operators. The flagship pilot ran at Telus World of Science (603 guests, 73.5% utilization, 4.84/5 satisfaction, NPS 84.3) and the experience is distributed across a 400+ location arcade network in North America and the EU.",
+      "What draws me to Google XR specifically is the convergence of AI and XR across lightweight glasses and headsets, and the chance to make that portfolio secure, manageable, and genuinely productive for enterprises. I am comfortable translating business, OEM, and partner needs into PRDs and technical specs, coordinating across platform and security teams, and driving developer-facing APIs and tooling through delivery. I would welcome the chance to do that work on Android XR."
+    ],
+    "signoff": "Sincerely,",
+    "signName": ""
+  }
+}

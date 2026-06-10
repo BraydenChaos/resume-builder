@@ -1,0 +1,428 @@
+{
+  "items": [
+    {
+      "id": "summary",
+      "label": "Profile",
+      "visible": true,
+      "parentId": null,
+      "type": "summary",
+      "content": "Marketing leader with 9+ years building demand generation and revenue-linked growth for B2B SaaS, home-services, and consumer brands. Builds repeatable go-to-market engines end to end: ICP definition, positioning, multi-channel paid acquisition, and attribution that ties spend to booked revenue rather than vanity traffic. Repeatedly cut acquisition cost and cost per qualified lead while lifting conversion and deal quality (CAC $85 to $17, CPL $300 to $90, ROAS 3.6x to 5.8x). Comfortable owning a number, building executive reporting and forecasts, and partnering directly with a founder or CEO."
+    },
+    {
+      "id": "chaos_studio",
+      "label": "Chaos Inc.",
+      "visible": true,
+      "parentId": null,
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Chaos Inc., Growth & Performance Marketing Studio",
+          "dates": "Aug 2019 – Present",
+          "title": "Partner & Studio Lead",
+          "bullets": [
+            "Operate a boutique growth and performance marketing consultancy, leading paid acquisition, demand generation, attribution, and go-to-market strategy for SaaS, home-services, and consumer brands while owning client strategy, team staffing, and revenue-linked reporting."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "caccia",
+      "label": "Caccia Plumbing",
+      "visible": true,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Caccia Plumbing, San Francisco",
+          "dates": "2021–2023",
+          "title": "Growth Marketing Lead",
+          "bullets": [
+            "Rebuilt the full paid acquisition and tracking system for a home-services contractor, raising ROAS from 3.6x to 5.8x in three months.",
+            "Shifted the funnel from top-of-funnel lead volume to booked and completed jobs via a custom ServiceTitan integration, improving lead-to-revenue quality.",
+            "Stood up cross-channel attribution (Searchlight) across a structured six-month measurement window to make spend decisions on real pipeline, not vanity traffic."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prophetic",
+      "label": "Prophetic AI, GTM",
+      "visible": true,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Prophetic AI, Land Acquisition SaaS",
+          "dates": "2022",
+          "title": "GTM & Paid Advertising Lead",
+          "bullets": [
+            "Built the full go-to-market motion for a B2B SaaS product from scratch: ICP definition, positioning, channel strategy, and demand generation.",
+            "Stood up the advertising, targeting, and attribution framework and ran multi-channel test campaigns across Meta, Google, and LinkedIn, hitting target KPIs."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fabutan",
+      "label": "Fabutan, 90-Location Chain",
+      "visible": true,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Fabutan, Canada's Largest Tanning Chain (90+ locations)",
+          "dates": "2022–2023",
+          "title": "Senior Marketing Advisor",
+          "bullets": [
+            "Led a full audit and rebuild of the marketing function across a 90+ location brand, owning media strategy, creative direction, and reporting.",
+            "Rebuilt paid media and attribution systems, cutting tracked acquisition cost from $72 to $22.",
+            "Built executive reporting dashboards and a custom ad automation tool that cut time to publish Meta and Google ads across 90 locations by 60%+."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vrkade",
+      "label": "VRKADE, VR Arcade Chain",
+      "visible": true,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "VRKADE, Western Canada's Largest VR Arcade Chain",
+          "dates": "2021–2022",
+          "title": "Senior Marketing Lead",
+          "bullets": [
+            "Led full-funnel paid media strategy across Meta and Google, cutting customer acquisition cost from $85 to $17.",
+            "Developed a national mall-chain partnership driving $100k/year in incremental profit for the flagship location.",
+            "Led a full rebrand and online marketing overhaul; work featured by HTC."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "winston",
+      "label": "The Winston Golf Course",
+      "visible": true,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "The Winston, Calgary Premium Golf Course",
+          "dates": "2021",
+          "title": "Growth Marketing Lead",
+          "bullets": [
+            "Led paid media and email funnels to acquire leads for $30k shareholder memberships.",
+            "Cut cost per qualified lead from $300 to $90 over six months while raising lead quality."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other_clients",
+      "label": "Other Clients",
+      "visible": true,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Stuttcars / Corvsport, Motorsports Media",
+          "title": "Growth Marketing Lead",
+          "dates": "2019–2020",
+          "bullets": [
+            "Ran paid campaigns that added 50k followers and 30k engaged email subscribers; built a custom VIN-decoding tool to drive list engagement."
+          ]
+        },
+        {
+          "org": "Valiant Solutions, Window Washing (Home Services)",
+          "title": "Marketing Automation Consultant",
+          "dates": "2019",
+          "bullets": [
+            "Designed custom quoting automation generating personalized branded PDF quotes, an estimated 4% revenue lift."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "label": "Technical Skills",
+      "visible": true,
+      "parentId": null,
+      "type": "skills",
+      "groups": [
+        {
+          "label": "Marketing & Analytics",
+          "items": "Meta, Google, LinkedIn, TikTok, Spotify, Reddit Ads, HubSpot, CAPI, Searchlight, ServiceTitan, GA4, GTM, Data Studio, SEMRush"
+        },
+        {
+          "label": "AI & Automation",
+          "items": "Claude API, ComfyUI, generative AI pipelines, n8n, LLM integration, OpenCV, prompt engineering"
+        },
+        {
+          "label": "Creative & Tools",
+          "items": "Adobe Suite, Canva, Blender (basic), ClickUp, Monday, Notion, GitHub"
+        },
+        {
+          "label": "Frontend & Web",
+          "items": "React, Next.js, Node, Express, TypeScript, D3.js, Webflow, WordPress, Tailwind, Vercel, Heroku"
+        },
+        {
+          "label": "Backend & Data",
+          "items": "Supabase, PostgreSQL, REST APIs, Python, SQL, UDP networking"
+        },
+        {
+          "label": "XR & Real-Time 3D",
+          "items": "Unity (advanced), FishNet Networking, PolySpatial, WebXR, Cesium, SignalR, HTC Vive Business, Springboard, HeroZone, VR/AR/MR, UPM packages, MaterialPropertyBlock"
+        }
+      ]
+    },
+    {
+      "id": "certs",
+      "label": "Certifications",
+      "visible": true,
+      "parentId": null,
+      "type": "list",
+      "items": [
+        "Marketing Analytics Micromasters, UC Berkeley Online (2021)",
+        "Enterprise Selling Certificate, Queens University Online (2021)"
+      ]
+    },
+    {
+      "id": "engagement",
+      "label": "Professional Engagement",
+      "visible": false,
+      "parentId": null,
+      "type": "list",
+      "items": [
+        "Lethbridge Polytechnic, Virtual and Augmented Reality Advisory Committee Member",
+        "VRARA (VR/AR Association) Calgary, Board Member",
+        "ELIXR VR Technical Mentorship Program, Virtual Reality Development Mentor",
+        "GamesCon Canada, LBE Panel Speaker (Brent Bushnell / Two Bit Circus)"
+      ]
+    },
+    {
+      "id": "refs",
+      "label": "References",
+      "visible": false,
+      "parentId": null,
+      "type": "list",
+      "items": [
+        "Andrea Urbina, CEO, ELIXR, andrea@elixrsim.com · 780 554 5314",
+        "Doug McNabb, CEO, Fabutan, mcnabb@fablifebrands.com · 403 816 1925",
+        "Cameron Martel, Partner, Monochrome Marketing, cam@werib.com · 403 975 1636",
+        "Micah Howell, GM, VRKADE/VRCORE Education, micahhowell94@gmail.com · 403 998 2699",
+        "Steven Bandola, Cofounder & CTO, VRKADE, bandola.steven@gmail.com · 403 715 3901"
+      ]
+    },
+    {
+      "id": "ap",
+      "label": "Adventure Portal",
+      "visible": false,
+      "parentId": null,
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Adventure Portal",
+          "dates": "2020 – Present",
+          "title": "Founder & Principal Technologist",
+          "bullets": [
+            "Founded asset-light XR software platform licensing immersive experiences to science centers, museums, and LBE venues, build once, license to hardware-owning operators.",
+            "Led design and development of a collocated free-roam educational VR experience based on the James Webb Space Telescope; ran at Telus World of Science and published to 400+ VR arcades across North America and the EU.",
+            "Active pilot with NASA/JPL delivering real mission science data as interactive XR experiences.",
+            "TWOS pilot metrics: 603 guests · 73.5% utilization · 4.84/5 satisfaction · NPS 84.3.",
+            "Architected multiplayer VR in Unity with FishNet networking: ownership transfer for grabbable objects, NetworkTransform, SyncObject/ScriptableObject two-layer architecture.",
+            "Integrated Claude API, generative AI tooling, and n8n automation into production content and operations pipelines.",
+            "Negotiated LBE partnership structures including time-limited, performance-gated exclusivity terms.",
+            "Invited to speak on LBE panel at GamesCon Canada (Brent Bushnell / Two Bit Circus)."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elixr_head",
+      "label": "ELIXR, Head of XR Dev",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "ELIXR Simulations",
+          "dates": "Sept 2025 – Present",
+          "title": "Fractional Head of XR Development",
+          "bullets": [
+            "Embedded as technical lead to build ELIXR's internal XR development capacity from scratch, created department SOPs, hiring frameworks, project management systems, tech stacks, and client communication tools.",
+            "Led XR product discovery and development for major institutional clients including NAIT, the City of Calgary, and the Edmonton Chinatown Association.",
+            "Handled full-lifecycle scoping, risk management, hiring, and client-facing communication across all active projects."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elixr_tpd",
+      "label": "ELIXR, Technical Program Director",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "ELIXR Simulations, XR Department Build",
+          "dates": "2023 – 2025",
+          "title": "Technical Program Director (Fractional)",
+          "bullets": [
+            "Built the internal XR development and intern program for a major Canadian not-for-profit from scratch.",
+            "Set up hiring frameworks, project management systems, development pipelines, and documentation libraries.",
+            "Sold, onboarded, led, and delivered projects for institutional clients across AI-enabled VR, mobile XR, and mixed reality."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wave",
+      "label": "City of Calgary, WAVE XR",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "City of Calgary: WAVE Technology Centre",
+          "dates": "2024",
+          "title": "XR Discovery Project, Senior Technical Lead",
+          "bullets": [
+            "Led design and delivery of four proof-of-concept XR projects: VR training simulator, collocated Mixed Reality tool, smart-glasses reporting tool, and 360 video viewer.",
+            "Owned full project lifecycle from discovery and scoping through design, development, testing, and delivery."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nait",
+      "label": "NAIT, AI + VR Nursing Tool",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "NAIT: AI + VR Nursing Training Tool",
+          "dates": "2023",
+          "title": "Senior Technical Lead",
+          "bullets": [
+            "Led design and development of an AI-enabled VR tool for training nurses on structured communication protocol (SBAR).",
+            "Implemented an AI assessment loop grading nurses on communication proficiency in real time."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "curling",
+      "label": "Wheelchair Curling Simulator",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Red Deer Polytechnic & Alberta Sports Hall of Fame",
+          "dates": "2024",
+          "title": "Senior Technical Lead",
+          "bullets": [
+            "Led design and development of an immersive projector-based wheelchair curling simulator for permanent installation at the Alberta Sports Hall of Fame.",
+            "Planned on-site UX, led physical installation design, managed development teams across Unity simulation and OpenCV computer vision stone tracking."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chinatown",
+      "label": "Edmonton Chinatown AR App",
+      "visible": false,
+      "parentId": "chaos_studio",
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Edmonton Chinatown Heritage Association: AR Art App",
+          "dates": "2023",
+          "title": "Senior Technical Lead",
+          "bullets": [
+            "Led design and development of a phone-based AR app showcasing historic Chinatown art, users scan local murals to reveal 3D AR animations and unlock rewards from local businesses."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vrcore",
+      "label": "VRCORE Education",
+      "visible": false,
+      "parentId": null,
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "VRCORE Education",
+          "dates": "2017 – 2020",
+          "title": "Senior Development & Marketing Lead",
+          "bullets": [
+            "Led marketing and development teams from concept to revenue and a $1.2M seed-stage valuation in 6 months.",
+            "Architected the free-roam VR software and marketing strategy that secured a partnership with the ISS National Laboratory.",
+            "Drove sustained ticket demand for multi-location VR attractions through paid media and partnership development.",
+            "Content deployed with operators across the EU, Australia, the US, and Canada."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "music",
+      "label": "Music Career",
+      "visible": false,
+      "parentId": null,
+      "type": "jobs",
+      "jobs": [
+        {
+          "org": "Studio & Touring Musician",
+          "dates": "Jun 2013 – Oct 2019",
+          "title": "Freelance · Various Artists",
+          "bullets": [
+            "Led EP production for 2013 Miss Universe Canada, Risa Santos.",
+            "Recorded with platinum record producer Nygel Asselin (Half Moon Run).",
+            "Co-produced and performed a track on MuchMusic.",
+            "Performed 300+ shows on luxury cruise lines across Europe.",
+            "Transitioned to technology entrepreneurship applying performance discipline, systems thinking, and pattern recognition to product development."
+          ]
+        }
+      ]
+    }
+  ],
+  "header": {
+    "name": "Brayden Clark",
+    "title": "Head of Marketing | Demand Generation & Revenue-Linked GTM",
+    "contact": [
+      {
+        "text": "brayden.k.clark@outlook.com",
+        "url": "mailto:brayden.k.clark@outlook.com"
+      },
+      {
+        "text": "(587) 434-2697",
+        "url": ""
+      },
+      {
+        "text": "Calgary, AB",
+        "url": ""
+      },
+      {
+        "text": "LinkedIn",
+        "url": "https://linkedin.com/in/braydenclark"
+      },
+      {
+        "text": "GitHub",
+        "url": "https://github.com/braydenclark"
+      }
+    ]
+  },
+  "coverLetter": {
+    "salutation": "Dear PaintScout Team,",
+    "body": [
+      "I am applying for the Head of Marketing role. I build revenue-linked demand generation engines for B2B SaaS and field-service businesses, including a home-services contractor where I shifted the funnel from raw lead volume to booked, completed jobs through a custom ServiceTitan integration and raised ROAS from 3.6x to 5.8x. That is exactly the demand-that-converts, not vanity-traffic mandate this role describes.",
+      "I have built go-to-market motions from scratch and rebuilt them at scale. At an AI-first land-acquisition SaaS I owned the full GTM motion (ICP, positioning, channel strategy, and an attribution framework that hit target KPIs), and across a 90+ location brand I rebuilt the marketing function with executive reporting dashboards and cut tracked acquisition cost from $72 to $22. In full-funnel performance work I have driven CAC from $85 to $17 and cost per qualified lead from $300 to $90, landed a $100k per year partnership, and led full rebrands, all while working hand in hand with founders and owners.",
+      "PaintScout stands out to me: a founder-led, profitable SaaS with real product-market fit, building the operating system for professional painting contractors. I have done a lot of this work in trades and home services, from plumbing to window washing, and I think in systems rather than silos. I would focus on making growth intentional and measurable, keeping Marketing and Sales in lock-step, and building a durable engine that turns interest into qualified, well-forecasted pipeline."
+    ],
+    "signoff": "Sincerely,",
+    "signName": ""
+  }
+}
