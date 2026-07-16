@@ -45,15 +45,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .btn-save-as { background: none; border: 0.5px dashed #ccc; border-radius: 6px; cursor: pointer; color: #888; font-size: 11px; padding: 3px 8px; display: flex; align-items: center; gap: 4px; }
 .btn-save-as:hover { background: #f0eeea; color: #333; border-color: #aaa; }
 .folder-row { display: flex; gap: 5px; align-items: center; margin-bottom: 8px; }
-.folder-input { flex: 1; padding: 5px 8px; border-radius: 6px; border: 1px solid #e0ddd8; background: white; color: #222; font-size: 11px; font-family: 'SF Mono', 'Consolas', monospace; min-width: 0; }
-.folder-input:focus { outline: none; border-color: #4A6CF7; }
-.folder-input.ls-mode { background: #fafaf8; color: #bbb; }
-.btn-folder-go { background: #111; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; padding: 5px 9px; display: flex; align-items: center; flex-shrink: 0; }
-.btn-folder-go:hover { background: #333; }
-.btn-folder-go:disabled { background: #ccc; cursor: default; }
-.btn-folder-browse { background: white; color: #555; border: 1px solid #e0ddd8; border-radius: 6px; cursor: pointer; font-size: 12px; padding: 5px 8px; display: flex; align-items: center; flex-shrink: 0; }
-.btn-folder-browse:hover { background: #f0eeea; color: #111; }
-.btn-folder-browse:disabled { color: #ccc; cursor: default; }
+.btn-io { font-size: 11.5px; padding: 5px 8px; }
+/* Job-description build tray (sidebar bottom) */
+.jd-tray { border-top: 1px solid #d8d5d0; padding: 12px 12px 14px; display: flex; flex-direction: column; gap: 8px; background: #f5f4f1; }
+.jd-head { font-size: 11px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 6px; }
+.jd-head i { color: #4A6CF7; font-size: 14px; }
+.jd-sub { font-size: 10.5px; color: #aaa; line-height: 1.5; margin: -2px 0 2px; }
+.jd-input { width: 100%; height: 96px; resize: vertical; padding: 8px 9px; border-radius: 8px; border: 1px solid #e0ddd8; background: white; color: #222; font-size: 11.5px; font-family: -apple-system, sans-serif; line-height: 1.45; }
+.jd-input:focus { outline: none; border-color: #4A6CF7; }
+.jd-tray .btn { font-size: 12px; }
+.jd-tray .btn:disabled { opacity: 0.5; cursor: default; }
+.jd-tray .btn:disabled:hover { background: #111; }
 .variant-list { display: flex; flex-direction: column; gap: 4px; max-height: 150px; overflow-y: auto; }
 .variant-row { display: flex; align-items: center; gap: 5px; padding: 5px 8px; border-radius: 6px; border: 1px solid #e8e5e0; background: white; }
 .variant-row.active-variant { border-color: #4A6CF7; background: #f0f3ff; }
@@ -138,7 +140,27 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .r-summary { font-size: 12px; color: #333; line-height: 1.62; }
 .r-list { padding-left: 14px; }
 .r-list li { font-size: 11.5px; color: #333; line-height: 1.55; margin-bottom: 3px; }
-/* View toggle (Resume / Cover Letter) */
+/* Center column: toolbar fixed on top, preview scrolls beneath it */
+.center-col { flex: 1; min-width: 0; display: flex; flex-direction: column; overflow: hidden; }
+/* Unified top toolbar */
+.topbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 9px 16px; background: #f5f4f1; border-bottom: 1px solid #d8d5d0; font-family: -apple-system, sans-serif; flex-shrink: 0; }
+.tb-group { display: flex; align-items: center; gap: 5px; }
+.tb-sep { width: 1px; height: 20px; background: #d8d5d0; flex-shrink: 0; }
+.tb-spacer { flex: 1 1 auto; }
+.tb-btn { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; padding: 6px 11px; border: 1px solid #d8d5d0; background: white; color: #333; border-radius: 7px; cursor: pointer; white-space: nowrap; }
+.tb-btn:hover { background: #eceae6; color: #111; }
+.tb-btn i { font-size: 14px; }
+.tb-btn.primary { background: #111; color: #fff; border-color: #111; }
+.tb-btn.primary:hover { background: #333; }
+.tb-btn.danger:hover { color: #c0392b; border-color: #e5b3ab; background: #fdf3f1; }
+.tb-btn:disabled { opacity: 0.45; cursor: default; }
+.tb-btn:disabled:hover { background: white; color: #333; }
+.tb-seg { display: inline-flex; border: 1px solid #d8d5d0; border-radius: 7px; overflow: hidden; }
+.tb-seg button { font-family: inherit; font-size: 12px; padding: 6px 14px; border: none; background: white; color: #555; cursor: pointer; }
+.tb-seg button + button { border-left: 1px solid #d8d5d0; }
+.tb-seg button.active { background: #111; color: #fff; }
+.tb-context { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #2b3a8c; background: #eef1fe; border: 1px solid #d4dbfb; border-radius: 7px; padding: 5px 10px; }
+/* View toggle (Resume / Cover Letter) — legacy, superseded by .topbar */
 .view-toggle { width: 760px; margin: 0 auto 14px; display: flex; gap: 6px; align-items: center; }
 .view-toggle .vt-btn { font-family: -apple-system, sans-serif; font-size: 12px; padding: 6px 14px; border: 1px solid #c8c5c0; background: #f2f0ec; color: #555; border-radius: 6px; cursor: pointer; }
 .view-toggle .vt-btn:hover { background: #ebe9e4; }
@@ -162,6 +184,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .modal-header h3 { font-size: 14px; font-weight: 600; color: #111; }
 .modal-close { background: none; border: none; cursor: pointer; color: #aaa; font-size: 20px; display: flex; align-items: center; }
 .modal-close:hover { color: #333; }
+.modal-autosave-hint { margin-right: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: #8a9a8a; font-family: -apple-system, sans-serif; }
+.modal-autosave-hint i { color: #4CAF7D; font-size: 14px; }
 .modal-body { flex: 1; overflow-y: auto; padding: 16px 18px; display: flex; flex-direction: column; gap: 13px; }
 .field-group { display: flex; flex-direction: column; gap: 5px; }
 .field-label { font-size: 10.5px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -183,6 +207,36 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .skill-chip { display: inline-flex; align-items: center; gap: 4px; background: #eef1fe; border: 1px solid #d4dbfb; color: #2b3a8c; font-size: 12px; font-family: -apple-system, sans-serif; padding: 4px 6px 4px 10px; border-radius: 14px; }
 .skill-chip-del { background: none; border: none; cursor: pointer; color: #8b94c9; font-size: 15px; line-height: 1; padding: 0 2px; display: flex; align-items: center; }
 .skill-chip-del:hover { color: #e74c3c; }
+.skill-chip[draggable=true] { cursor: grab; }
+.skill-chip.dragging { opacity: 0.4; }
+.skill-chips.drag-over { outline: 1px dashed #b9c2f5; outline-offset: 3px; border-radius: 8px; }
+.skill-chip-grip { color: #9aa3d6; font-size: 12px; cursor: grab; display: inline-flex; margin-right: 1px; }
+/* Proofread feedback */
+.proof-fb { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; color: #333; line-height: 1.6; }
+.proof-fb h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #111; margin: 14px 0 6px; }
+.proof-fb p { margin: 0 0 9px; }
+.proof-fb ul { margin: 0 0 9px; padding-left: 18px; }
+.proof-fb li { margin-bottom: 5px; }
+.proof-fb strong { color: #111; }
+.proof-loading { display: flex; align-items: center; gap: 10px; color: #777; font-size: 13px; font-family: -apple-system, sans-serif; padding: 18px 4px; }
+.proof-spinner { width: 16px; height: 16px; border: 2px solid #e0ddd8; border-top-color: #4A6CF7; border-radius: 50%; animation: proof-spin 0.7s linear infinite; }
+@keyframes proof-spin { to { transform: rotate(360deg); } }
+.proof-note { background: #fbf7e9; border: 1px solid #f0e6c5; color: #7a6a32; font-size: 12.5px; line-height: 1.55; padding: 12px 14px; border-radius: 8px; font-family: -apple-system, sans-serif; }
+/* Proofread findings — checkbox list, grouped by category */
+.proof-jd-row { display: flex; gap: 6px; align-items: flex-start; margin-bottom: 14px; }
+.proof-jd-row textarea { flex: 1; min-height: 46px; font-size: 12px; }
+.proof-group-title { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #888; margin: 16px 0 8px; display: flex; align-items: center; gap: 8px; }
+.proof-group-title:first-child { margin-top: 0; }
+.proof-select-all { font-size: 10.5px; font-weight: 500; text-transform: none; letter-spacing: 0; color: #4A6CF7; cursor: pointer; background: none; border: none; padding: 0; }
+.proof-select-all:hover { text-decoration: underline; }
+.proof-finding { display: flex; gap: 10px; align-items: flex-start; padding: 9px 10px; border: 1px solid #e8e5e0; border-radius: 8px; margin-bottom: 6px; background: #fafaf8; font-family: -apple-system, sans-serif; }
+.proof-finding.applied { opacity: 0.5; background: #f0f7f0; border-color: #cfe6cf; }
+.proof-finding input[type=checkbox] { margin-top: 3px; flex-shrink: 0; width: 15px; height: 15px; accent-color: #4A6CF7; }
+.proof-finding .pf-body { flex: 1; min-width: 0; }
+.proof-finding .pf-issue { font-size: 12.5px; color: #333; line-height: 1.5; margin-bottom: 4px; }
+.proof-finding .pf-suggestion { font-size: 11.5px; color: #4A6CF7; background: #eef1fe; border-radius: 5px; padding: 4px 7px; line-height: 1.5; white-space: pre-wrap; }
+.proof-finding .pf-applied-tag { font-size: 10px; color: #2e6b2e; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+.proof-none { color: #999; font-size: 12.5px; font-family: -apple-system, sans-serif; padding: 10px 2px; }
 .skill-add-row { display: flex; gap: 6px; align-items: stretch; }
 .skill-add-row .field-input { flex: 1; }
 .skill-add-row .add-btn { width: auto; flex-shrink: 0; padding: 6px 12px; margin-top: 0; }
@@ -223,6 +277,76 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .mc-guides-btn { background: none; border: 1px solid #e0ddd8; border-radius: 5px; cursor: pointer; color: #aaa; font-size: 11px; padding: 3px 9px; font-family: -apple-system, sans-serif; display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-left: auto; }
 .mc-guides-btn:hover { border-color: #4A6CF7; color: #4A6CF7; }
 .mc-guides-btn.active { background: #eef1fe; border-color: #4A6CF7; color: #4A6CF7; }
+/* ── Inline editing ─────────────────────────────────────────────────────── */
+[data-ie] { cursor: text; border-radius: 2px; transition: background 0.12s; }
+[data-ie]:hover { background: rgba(74,108,247,0.08); box-shadow: 0 0 0 3px rgba(74,108,247,0.08); }
+[data-ie].ie-editing { background: #fffdf0; box-shadow: 0 0 0 3px #f5e9b8; outline: none; cursor: text; white-space: pre-wrap; }
+.r-section:hover { outline-color: rgba(74,108,247,0.35); }
+/* ── Claude chat panel ──────────────────────────────────────────────────── */
+.chat-panel { width: 360px; min-width: 360px; border-left: 1px solid #d8d5d0; background: #f5f4f1; display: flex; flex-direction: column; overflow: hidden; font-family: -apple-system, sans-serif; }
+.chat-panel.collapsed { display: none; }
+.chat-header { padding: 11px 14px; border-bottom: 1px solid #d8d5d0; display: flex; align-items: center; gap: 8px; }
+.chat-header h2 { font-size: 12px; font-weight: 600; color: #333; flex: 1; display: flex; align-items: center; gap: 6px; }
+.chat-header .chat-dot { width: 7px; height: 7px; border-radius: 50%; background: #d97706; }
+.chat-header button { background: none; border: none; cursor: pointer; color: #aaa; font-size: 15px; padding: 3px; display: flex; align-items: center; border-radius: 5px; }
+.chat-header button:hover { color: #333; background: #eceae5; }
+.chat-messages { flex: 1; overflow-y: auto; padding: 14px 12px; display: flex; flex-direction: column; gap: 10px; }
+.chat-empty { color: #aaa; font-size: 12px; line-height: 1.6; text-align: center; padding: 40px 16px; }
+.chat-msg { max-width: 92%; font-size: 12.5px; line-height: 1.55; border-radius: 10px; padding: 8px 11px; word-wrap: break-word; }
+.chat-msg.user { align-self: flex-end; background: #111; color: #fff; }
+.chat-msg.assistant { align-self: flex-start; background: white; border: 1px solid #e0ddd8; color: #222; }
+.chat-msg.assistant p { margin: 0 0 7px; } .chat-msg.assistant p:last-child { margin-bottom: 0; }
+.chat-msg.assistant ul { margin: 4px 0 7px; padding-left: 17px; }
+.chat-msg.assistant li { margin-bottom: 3px; }
+.chat-msg.assistant h4 { font-size: 12px; margin: 8px 0 4px; color: #111; }
+.chat-msg.assistant code { background: #f2f0ec; border-radius: 3px; padding: 0 3px; font-size: 11.5px; }
+.chat-msg .msg-quote { border-left: 3px solid rgba(255,255,255,0.4); padding: 2px 8px; margin-bottom: 6px; font-size: 11px; opacity: 0.85; font-style: italic; white-space: pre-wrap; }
+.chat-msg.assistant .msg-quote { border-left-color: #c8c5c0; }
+.chat-thinking { align-self: flex-start; color: #999; font-size: 11.5px; padding: 2px 4px; display: flex; align-items: center; gap: 7px; }
+/* Change chips — one per edit Claude applies, with an Undo button */
+.chat-edit { align-self: stretch; display: flex; align-items: center; gap: 8px; background: #f0f7f0; border: 1px solid #cfe6cf; border-radius: 9px; padding: 6px 8px 6px 10px; font-size: 11.5px; color: #2e6b2e; font-family: -apple-system, sans-serif; }
+.chat-edit.undone { background: #f6f4f1; border-color: #e0ddd8; color: #999; }
+.chat-edit .ce-ico { flex-shrink: 0; font-size: 13px; }
+.chat-edit .ce-label { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chat-edit .ce-label b { font-weight: 600; }
+.chat-edit .ce-undo { flex-shrink: 0; background: white; border: 1px solid #cfe6cf; border-radius: 6px; cursor: pointer; color: #2e6b2e; font-size: 11px; padding: 3px 9px; font-family: -apple-system, sans-serif; }
+.chat-edit .ce-undo:hover { background: #2e6b2e; color: white; border-color: #2e6b2e; }
+.chat-edit.undone .ce-undo { display: none; }
+.chat-edit .ce-done { flex-shrink: 0; font-size: 10.5px; color: #aaa; font-style: italic; }
+.chat-spinner { width: 11px; height: 11px; border: 2px solid #ddd; border-top-color: #888; border-radius: 50%; animation: chatspin 0.8s linear infinite; }
+@keyframes chatspin { to { transform: rotate(360deg); } }
+.chat-quote-bar { padding: 8px 12px 0; }
+.chat-quote-chip { background: #eef1fe; border: 1px solid #d4dbfb; border-radius: 8px; padding: 6px 9px; font-size: 11px; color: #2b3a8c; display: flex; gap: 8px; align-items: flex-start; }
+.chat-quote-chip .q-text { flex: 1; max-height: 60px; overflow: hidden; font-style: italic; line-height: 1.45; }
+.chat-quote-chip button { background: none; border: none; cursor: pointer; color: #8b94c9; font-size: 14px; line-height: 1; padding: 0; }
+.chat-quote-chip button:hover { color: #e74c3c; }
+.chat-input-row { padding: 10px 12px 12px; display: flex; gap: 7px; align-items: flex-end; }
+.chat-input { flex: 1; resize: none; border: 1px solid #ddd; border-radius: 9px; padding: 8px 10px; font-size: 12.5px; font-family: -apple-system, sans-serif; background: white; color: #111; max-height: 130px; line-height: 1.45; }
+.chat-input:focus { outline: none; border-color: #4A6CF7; }
+.chat-send { background: #111; color: white; border: none; border-radius: 9px; cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.chat-send:hover { background: #333; }
+.chat-send:disabled { background: #ccc; cursor: default; }
+.chat-note { padding: 8px 14px; font-size: 10.5px; color: #b58b00; background: #fff8e0; border-top: 1px solid #f0e6c0; line-height: 1.5; }
+.chat-fab { position: fixed; bottom: 22px; right: 22px; width: 46px; height: 46px; border-radius: 50%; background: #111; color: #fff; border: none; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 18px rgba(0,0,0,0.3); z-index: 150; }
+.chat-fab:hover { background: #333; }
+/* Selection → chat popover */
+.sel-pop { position: fixed; z-index: 180; background: #111; color: #fff; border: none; border-radius: 7px; padding: 6px 11px; font-size: 11.5px; font-family: -apple-system, sans-serif; cursor: pointer; display: flex; align-items: center; gap: 5px; box-shadow: 0 3px 14px rgba(0,0,0,0.3); }
+.sel-pop:hover { background: #333; }
+/* ── Variant browser modal ──────────────────────────────────────────────── */
+.vb-search-row { display: flex; gap: 8px; align-items: center; margin-bottom: 4px; }
+.vb-search { flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; font-size: 13px; font-family: -apple-system, sans-serif; }
+.vb-search:focus { outline: none; border-color: #4A6CF7; }
+.vb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+.vb-card { border: 1px solid #e0ddd8; border-radius: 10px; background: #fafaf8; padding: 12px 12px 10px; display: flex; flex-direction: column; gap: 8px; }
+.vb-card.active-variant { border-color: #4A6CF7; background: #f0f3ff; }
+.vb-card-name { font-size: 12.5px; font-weight: 600; color: #222; line-height: 1.35; word-break: break-word; }
+.vb-card.active-variant .vb-card-name { color: #2b3a8c; }
+.vb-card-badge { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #4A6CF7; }
+.vb-card-actions { display: flex; gap: 5px; margin-top: auto; }
+.vb-card-actions .btn { width: auto; flex: 1; padding: 5px 8px; font-size: 11px; border-radius: 6px; }
+.vb-card-actions .vb-del { flex: 0 0 auto; color: #ccc; }
+.vb-card-actions .vb-del:hover { color: #e74c3c; border-color: #e74c3c; }
+.vb-none { color: #aaa; font-size: 12.5px; padding: 26px 0; text-align: center; grid-column: 1 / -1; }
 </style>
 </head>
 <body>
@@ -230,50 +354,53 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 <div class="sidebar">
   <div class="sidebar-header">
     <h2>Sections</h2>
-    <p>Drag to reorder · drop on center to nest · click to edit</p>
+    <p>Drag to reorder · drop on center to nest · click text on the page to edit it in place</p>
     <p id="storage-indicator" title="Using browser localStorage (open via server.js for file mode)" style="margin-top:5px;font-size:10px;color:#bbb;">🌐 Browser mode</p>
   </div>
   <div class="section-list" id="section-list"></div>
-  <div class="variations-panel">
-    <div class="variations-header">
-      <h3>Variations</h3>
-      <button class="btn-save-as" id="btn-save-as"><i class="ti ti-device-floppy"></i> Save as…</button>
-    </div>
-    <div class="master-actions">
-      <button class="btn" id="btn-master"><i class="ti ti-star"></i> Edit Master</button>
-      <button class="btn" id="btn-new-from-master"><i class="ti ti-copy"></i> New from Master</button>
-    </div>
-    <div class="folder-row" id="folder-row">
-      <input class="folder-input ls-mode" id="folder-input" placeholder="variants/2025-june" title="Active variants folder (server mode only)" disabled>
-      <button class="btn-folder-browse" id="btn-folder-browse" title="Browse for folder…" disabled><i class="ti ti-folder-open"></i></button>
-      <button class="btn-folder-go" id="btn-folder-go" title="Switch folder" disabled><i class="ti ti-arrow-right"></i></button>
-    </div>
-    <div class="variant-list" id="variant-list"></div>
-  </div>
-  <div class="sidebar-actions">
-    <button class="btn" id="btn-add-section"><i class="ti ti-plus"></i> Add section</button>
-    <button class="btn" id="btn-reset"><i class="ti ti-refresh"></i> Reset all</button>
-    <button class="btn btn-primary" id="btn-pdf"><i class="ti ti-download"></i> Export PDF</button>
-  </div>
-  <div class="notice">
-    Top / bottom edge → reorder<br>
-    Center of chip → nest as subsection<br>
-    ↩ icon on child → move back to root
+  <div class="jd-tray">
+    <div class="jd-head"><i class="ti ti-sparkles"></i> Build from job description</div>
+    <p class="jd-sub">Paste a role. Claude drafts a tailored resume from your Master, then you Save&nbsp;as.</p>
+    <textarea id="jd-input" class="jd-input" placeholder="Paste a job description here…"></textarea>
+    <button class="btn btn-primary" id="jd-build"><i class="ti ti-wand"></i> Build tailored resume</button>
   </div>
 </div>
 
+<div class="center-col">
+  <div class="topbar" id="topbar">
+    <div class="tb-seg">
+      <button id="vt-resume" class="active">Resume</button>
+      <button id="vt-cover">Cover Letter</button>
+    </div>
+    <div class="tb-sep"></div>
+    <div class="tb-group">
+      <button class="tb-btn" id="btn-open"><i class="ti ti-folder-open"></i> Open</button>
+      <button class="tb-btn" id="btn-save"><i class="ti ti-device-floppy"></i> Save</button>
+      <button class="tb-btn" id="btn-save-as"><i class="ti ti-copy"></i> Save as</button>
+    </div>
+    <div class="tb-sep"></div>
+    <div class="tb-group">
+      <button class="tb-btn" id="btn-master"><i class="ti ti-star"></i> Edit Master</button>
+      <button class="tb-btn" id="btn-new-from-master"><i class="ti ti-copy"></i> New from Master</button>
+    </div>
+    <div class="tb-sep"></div>
+    <div class="tb-group">
+      <button class="tb-btn" id="btn-add-section"><i class="ti ti-plus"></i> Section</button>
+      <button class="tb-btn" id="btn-proofread"><i class="ti ti-eye-check"></i> Proofread</button>
+    </div>
+    <span class="tb-context" id="link-indicator" style="display:none;"><i class="ti ti-link"></i> Linked to Master</span>
+    <button class="tb-btn" id="vt-edit-cover" style="display:none;"><i class="ti ti-pencil"></i> Edit letter</button>
+    <span class="tb-spacer"></span>
+    <div class="tb-group">
+      <button class="tb-btn danger" id="btn-reset"><i class="ti ti-refresh"></i> Reset</button>
+      <button class="tb-btn primary" id="btn-pdf"><i class="ti ti-download"></i> PDF</button>
+    </div>
+  </div>
 <div class="preview-area" id="preview-area">
   <div class="master-banner" id="master-banner" style="display:none;">
     <span class="mb-dot"></span>
     <span class="mb-text"><b>Editing your Master resume.</b> This holds every project and skill plus private notes. Edits here flow into any resume linked to the Master.</span>
     <button class="mb-done" id="master-banner-done">Done</button>
-  </div>
-  <div class="view-toggle" id="view-toggle">
-    <button class="vt-btn active" id="vt-resume">Resume</button>
-    <button class="vt-btn" id="vt-cover">Cover Letter</button>
-    <span id="link-indicator" class="vt-edit" style="display:none;cursor:default;border-color:#d4dbfb;color:#2b3a8c;background:#eef1fe;"><i class="ti ti-link"></i> Linked to Master</span>
-    <span class="vt-spacer"></span>
-    <button class="vt-edit" id="vt-edit-cover" style="display:none;"><i class="ti ti-pencil"></i> Edit letter</button>
   </div>
   <div class="margin-controls" id="margin-controls">
     <span class="mc-label">Margins</span>
@@ -288,7 +415,50 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
   </div>
   <div class="pages-wrap" id="pages-wrap"></div>
 </div>
+</div>
+
+<!-- Claude chat panel -->
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-header">
+    <h2><span class="chat-dot"></span> Claude</h2>
+    <button id="chat-clear" title="Clear conversation"><i class="ti ti-eraser"></i></button>
+    <button id="chat-collapse" title="Hide panel"><i class="ti ti-layout-sidebar-right-collapse"></i></button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-empty">Ask Claude anything about this resume.<br><br>Tip: highlight any text on the page and click <b>"Ask Claude"</b> to discuss it directly.</div>
+  </div>
+  <div class="chat-note" id="chat-note" style="display:none;"></div>
+  <div class="chat-quote-bar" id="chat-quote-bar" style="display:none;">
+    <div class="chat-quote-chip">
+      <i class="ti ti-quote" style="margin-top:1px;"></i>
+      <span class="q-text" id="chat-quote-text"></span>
+      <button id="chat-quote-clear" title="Remove">&times;</button>
+    </div>
+  </div>
+  <div class="chat-input-row">
+    <textarea class="chat-input" id="chat-input" rows="1" placeholder="Ask about your resume…"></textarea>
+    <button class="chat-send" id="chat-send" title="Send"><i class="ti ti-arrow-up"></i></button>
+  </div>
+</div>
+<button class="chat-fab" id="chat-fab" title="Chat with Claude" style="display:none;"><i class="ti ti-message-circle"></i></button>
+
 <div id="measure-surface"></div>
+
+<!-- Variant browser modal -->
+<div class="modal-backdrop" id="variants-modal" style="display:none;">
+  <div class="modal" style="width:760px;">
+    <div class="modal-header">
+      <h3 id="vb-title">All variants</h3>
+      <button class="modal-close" id="vb-close"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="vb-search-row">
+        <input class="vb-search" id="vb-search" placeholder="Search variants…">
+      </div>
+      <div class="vb-grid" id="vb-grid"></div>
+    </div>
+  </div>
+</div>
 
 <!-- Confirm delete dialog -->
 <div class="confirm-backdrop" id="confirm-dialog" style="display:none;">
@@ -344,8 +514,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     </div>
     <div class="modal-body" id="modal-body"></div>
     <div class="modal-footer">
-      <button class="btn" id="modal-cancel">Cancel</button>
-      <button class="btn btn-primary" id="modal-save">Save changes</button>
+      <span class="modal-autosave-hint"><i class="ti ti-circle-check"></i> Changes save automatically</span>
+      <button class="btn" id="modal-cancel">Cancel &amp; revert</button>
+      <button class="btn btn-primary" id="modal-save">Done</button>
     </div>
   </div>
 </div>
@@ -366,6 +537,21 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
   </div>
 </div>
 
+<!-- Proofread modal (read-only) -->
+<div class="modal-backdrop" id="proof-modal" style="display:none;">
+  <div class="modal" style="width:620px;">
+    <div class="modal-header">
+      <h3><i class="ti ti-eye-check"></i> Proofread</h3>
+      <button class="modal-close" id="proof-modal-close"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body" id="proof-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn" id="proof-modal-ok">Close</button>
+      <button class="btn btn-primary" id="proof-apply-btn" style="width:auto;display:none;"><i class="ti ti-check"></i> Apply selected</button>
+    </div>
+  </div>
+</div>
+
 <!-- Cover letter edit modal -->
 <div class="modal-backdrop" id="cover-modal" style="display:none;">
   <div class="modal" style="width:580px;">
@@ -375,8 +561,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     </div>
     <div class="modal-body" id="cover-modal-body"></div>
     <div class="modal-footer">
-      <button class="btn" id="cover-modal-cancel">Cancel</button>
-      <button class="btn btn-primary" id="cover-modal-save">Save changes</button>
+      <span class="modal-autosave-hint"><i class="ti ti-circle-check"></i> Changes save automatically</span>
+      <button class="btn" id="cover-modal-cancel">Cancel &amp; revert</button>
+      <button class="btn btn-primary" id="cover-modal-save">Done</button>
     </div>
   </div>
 </div>
@@ -543,7 +730,7 @@ var MASTER = [
 ];
 
 var items = JSON.parse(JSON.stringify(MASTER));
-var dragId = null, editingId = null, editState = null;
+var dragId = null, editingId = null, editState = null, editOriginal = null;
 
 // ── Master / live-linking ─────────────────────────────────────────────────────
 var MASTER_DOC   = null;    // canonical resolved master {items, header, notes}
@@ -647,6 +834,7 @@ function buildLinkedSnapshot(master){
 
 // Cover letter (optional, travels with each variant). null = none for this variant.
 var COVER = null;
+var coverOriginal = null; // snapshot for Cancel & revert in the cover editor
 var view = 'resume'; // 'resume' | 'cover'
 var COVER_TEMPLATE = {
   salutation: 'Dear Hiring Team,',
@@ -660,6 +848,8 @@ function roots(){ return items.filter(function(x){ return !x.parentId; }); }
 function kids(pid){ return items.filter(function(x){ return x.parentId===pid; }); }
 function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+// Like esc(), but renders inline **bold** as <strong>. Use for any text where bold is allowed.
+function fmt(s){ return esc(s).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>'); }
 
 function renderSidebar(){
   var list = document.getElementById('section-list');
@@ -800,20 +990,23 @@ function setupDrag(){
 
 function sectionBody(s){
   var html='';
+  var sid=esc(s.id);
   if(s.type==='summary'){
-    html+='<div class="r-summary">'+esc(s.content)+'</div>';
+    html+='<div class="r-summary" data-ie="summary" data-sid="'+sid+'">'+fmt(s.content)+'</div>';
   } else if(s.type==='jobs'){
-    s.jobs.forEach(function(j){
-      html+='<div class="r-job"><div class="r-job-head"><span class="r-org">'+esc(j.org)+'</span>'+(j.dates?'<span class="r-dates">'+esc(j.dates)+'</span>':'')+'</div>'+
-        '<div class="r-jobtitle">'+esc(j.title)+'</div>'+
-        '<ul class="r-bullets">'+j.bullets.map(function(b){ return '<li>'+esc(b)+'</li>'; }).join('')+'</ul></div>';
+    s.jobs.forEach(function(j,ji){
+      html+='<div class="r-job"><div class="r-job-head"><span class="r-org" data-ie="job-org" data-sid="'+sid+'" data-ji="'+ji+'">'+fmt(j.org)+'</span>'+
+        (j.dates?'<span class="r-dates" data-ie="job-dates" data-sid="'+sid+'" data-ji="'+ji+'">'+esc(j.dates)+'</span>':'')+'</div>'+
+        '<div class="r-jobtitle" data-ie="job-title" data-sid="'+sid+'" data-ji="'+ji+'">'+esc(j.title)+'</div>'+
+        '<ul class="r-bullets">'+j.bullets.map(function(b,bi){ return '<li data-ie="job-bullet" data-sid="'+sid+'" data-ji="'+ji+'" data-bi="'+bi+'">'+fmt(b)+'</li>'; }).join('')+'</ul></div>';
     });
   } else if(s.type==='skills'){
-    html+='<div class="r-skills-grid">'+s.groups.map(function(g){
-      return '<div><div class="r-skill-label">'+esc(g.label)+'</div><div class="r-skill-items">'+esc(g.items)+'</div></div>';
+    html+='<div class="r-skills-grid">'+s.groups.map(function(g,gi){
+      return '<div><div class="r-skill-label" data-ie="skill-label" data-sid="'+sid+'" data-gi="'+gi+'">'+esc(g.label)+'</div>'+
+        '<div class="r-skill-items" data-ie="skill-items" data-sid="'+sid+'" data-gi="'+gi+'">'+esc(g.items)+'</div></div>';
     }).join('')+'</div>';
   } else if(s.type==='list'){
-    html+='<ul class="r-list">'+s.items.map(function(it){ return '<li>'+esc(it)+'</li>'; }).join('')+'</ul>';
+    html+='<ul class="r-list">'+s.items.map(function(it,li){ return '<li data-ie="list-item" data-sid="'+sid+'" data-li="'+li+'">'+fmt(it)+'</li>'; }).join('')+'</ul>';
   }
   return html;
 }
@@ -822,6 +1015,9 @@ function sectionBody(s){
 var PAGE_MARGINS = { top: 52, right: 58, bottom: 52, left: 58 };
 var showMarginGuides = false;
 var PAGE_H = 984 - PAGE_MARGINS.top - PAGE_MARGINS.bottom;
+// Overflow tolerance: lets a borderline entry stay on the page instead of bumping
+// to the next one over a few px of estimation slack. Stays within the bottom margin.
+var PAGE_TOL = 26;
 
 function pageStyleAttr(){
   var p = PAGE_MARGINS;
@@ -850,13 +1046,14 @@ var HEADER = {
 };
 
 function buildHeaderHTML(){
-  var contactSpans = HEADER.contact.map(function(c){
-    if(c.url) return '<a href="'+esc(c.url)+'" style="color:inherit;text-decoration:none;">'+esc(c.text)+'</a>';
-    return '<span>'+esc(c.text)+'</span>';
+  var contactSpans = HEADER.contact.map(function(c, ci){
+    var inner = '<span data-ie="h-contact" data-ci="'+ci+'">'+esc(c.text)+'</span>';
+    if(c.url) return '<a href="'+esc(c.url)+'" style="color:inherit;text-decoration:none;">'+inner+'</a>';
+    return inner;
   }).join('');
-  return '<div class="r-header-wrap" id="r-header-click" style="cursor:pointer;" title="Click to edit header">'+
-    '<div class="r-name">'+esc(HEADER.name)+'</div>'+
-    '<div class="r-title">'+esc(HEADER.title)+'</div>'+
+  return '<div class="r-header-wrap" id="r-header-click" style="cursor:pointer;" title="Click text to edit · click elsewhere for full header editor">'+
+    '<div class="r-name" data-ie="h-name">'+esc(HEADER.name)+'</div>'+
+    '<div class="r-title" data-ie="h-title">'+esc(HEADER.title)+'</div>'+
     '<div class="r-contact">'+contactSpans+'</div>'+
     '</div>'+
     '<hr class="r-hr">';
@@ -887,7 +1084,7 @@ function buildBlocks(){
       blocks.push({
         id: r.id,
         isParentHeader: true,
-        html: '<div class="r-section r-section-open" data-id="'+r.id+'"><div class="r-section-title">'+esc(r.label)+'</div>'+sectionBody(r)
+        html: '<div class="r-section r-section-open" data-id="'+r.id+'"><div class="r-section-title" data-ie="label" data-sid="'+esc(r.id)+'">'+esc(r.label)+'</div>'+sectionBody(r)
         // NOTE: deliberately left open — will be closed after last child or on page break
       });
       // Each child is its own block
@@ -906,7 +1103,7 @@ function buildBlocks(){
       blocks.push({
         id: r.id,
         isParentHeader: false,
-        html: '<div class="r-section" data-id="'+r.id+'"><div class="r-section-title">'+esc(r.label)+'</div>'+sectionBody(r)+'</div>'
+        html: '<div class="r-section" data-id="'+r.id+'"><div class="r-section-title" data-ie="label" data-sid="'+esc(r.id)+'">'+esc(r.label)+'</div>'+sectionBody(r)+'</div>'
       });
     }
   });
@@ -969,9 +1166,13 @@ function renderResume(){
     var h = (blockHeights[bi] || 0) + 16; // +16 buffer
 
     if(b.isParentHeader){
-      // Orphan prevention: if we can't fit header + at least one child, page-break before
-      var nextH = bi+1 < blockHeights.length ? (blockHeights[bi+1]||0)+16 : 0;
-      if(curH + h + nextH > PAGE_H && curChunks.length > 0){
+      // Orphan prevention: keep the header from being stranded alone at the bottom, but only
+      // require the header plus a small slice of the first child (~its first lines) to fit, not
+      // the entire (possibly tall, multi-bullet) child. Otherwise a big first entry pushes the
+      // whole section to the next page and leaves a large gap.
+      var nextFull = bi+1 < blockHeights.length ? (blockHeights[bi+1]||0)+16 : 0;
+      var nextH = Math.min(nextFull, 48);
+      if(curH + h + nextH > PAGE_H + PAGE_TOL && curChunks.length > 0){
         newPage();
       }
       // Open the section on this page
@@ -979,7 +1180,7 @@ function renderResume(){
       openSectionOnPage = true;
 
     } else if(b.isChild){
-      if(curH + h > PAGE_H && curChunks.length > 0){
+      if(curH + h > PAGE_H + PAGE_TOL && curChunks.length > 0){
         // Close the open section before breaking
         if(openSectionOnPage && curChunks.length){
           curChunks[curChunks.length-1].html += '</div>';
@@ -1001,7 +1202,7 @@ function renderResume(){
 
     } else {
       // Standalone block
-      if(curH + h > PAGE_H && curChunks.length > 0) newPage();
+      if(curH + h > PAGE_H + PAGE_TOL && curChunks.length > 0) newPage();
       push(b.html, h);
     }
   });
@@ -1056,15 +1257,15 @@ function buildCoverBlocksHTML(){
   var blocks = [];
   if(!COVER) return blocks;
   if(COVER.salutation && String(COVER.salutation).trim()){
-    blocks.push('<div class="r-letter-salutation">'+esc(COVER.salutation)+'</div>');
+    blocks.push('<div class="r-letter-salutation" data-ie="c-sal">'+esc(COVER.salutation)+'</div>');
   }
-  (COVER.body || []).forEach(function(p){
-    if(String(p).trim()) blocks.push('<div class="r-letter-para">'+esc(p)+'</div>');
+  (COVER.body || []).forEach(function(p, pi){
+    if(String(p).trim()) blocks.push('<div class="r-letter-para" data-ie="c-para" data-pi="'+pi+'">'+esc(p)+'</div>');
   });
   var sign = '';
-  if(COVER.signoff && String(COVER.signoff).trim()) sign += '<div class="r-letter-signoff">'+esc(COVER.signoff)+'</div>';
+  if(COVER.signoff && String(COVER.signoff).trim()) sign += '<div class="r-letter-signoff" data-ie="c-signoff">'+esc(COVER.signoff)+'</div>';
   var nm = (COVER.signName != null && String(COVER.signName).trim()) ? COVER.signName : HEADER.name;
-  if(nm) sign += '<div class="r-letter-signname">'+esc(nm)+'</div>';
+  if(nm) sign += '<div class="r-letter-signname" data-ie="c-signname">'+esc(nm)+'</div>';
   if(sign) blocks.push(sign);
   return blocks;
 }
@@ -1132,6 +1333,7 @@ function renderCover(){
 
 function openCoverEdit(){
   if(!COVER) COVER = deepClone(COVER_TEMPLATE);
+  coverOriginal = deepClone(COVER);
   var body = document.getElementById('cover-modal-body');
   var paras = (COVER.body || []).join('\n\n');
   body.innerHTML =
@@ -1161,7 +1363,7 @@ function closeCoverModal(){ document.getElementById('cover-modal').style.display
 
 function openEdit(id){
   var s=byId(id); if(!s) return;
-  editingId=id; editState=deepClone(s);
+  editingId=id; editState=deepClone(s); editOriginal=deepClone(s);
   document.getElementById('modal-title').textContent='Edit: '+s.label;
   buildModalBody(editState);
   document.getElementById('modal').style.display='flex';
@@ -1195,7 +1397,9 @@ function buildModalBody(state){
         '<div class="field-group"><label class="field-label">Skills</label>'+
           '<div class="skill-chips" data-gi="'+gi+'">';
       skills.forEach(function(sk,si){
-        h+='<span class="skill-chip"><span class="skill-chip-txt">'+esc(sk)+'</span>'+
+        h+='<span class="skill-chip" draggable="true" data-gi="'+gi+'" data-si="'+si+'">'+
+           '<span class="skill-chip-grip" title="Drag to reorder"><i class="ti ti-grip-vertical"></i></span>'+
+           '<span class="skill-chip-txt">'+esc(sk)+'</span>'+
            '<button class="skill-chip-del" data-gi="'+gi+'" data-si="'+si+'" title="Remove">&times;</button></span>';
       });
       h+='</div>'+
@@ -1230,6 +1434,42 @@ function buildModalBody(state){
     }
     body.querySelectorAll('.skill-add-btn').forEach(function(btn){ btn.addEventListener('click',function(){ _addSkill(parseInt(btn.getAttribute('data-gi'))); }); });
     body.querySelectorAll('.skill-add-inp').forEach(function(inp){ inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); _addSkill(parseInt(inp.getAttribute('data-gi'))); } }); });
+    // Drag-to-reorder chips within a group. collectEdits() reads chip DOM order, so we just
+    // reorder nodes inside the same container, then resync editState and rebuild for clean indices.
+    var _drag=null;
+    function _chipAfter(cont, x, y){
+      var els=[].slice.call(cont.querySelectorAll('.skill-chip:not(.dragging)'));
+      var best=null, bestD=Infinity, bestBefore=true;
+      els.forEach(function(el){
+        var b=el.getBoundingClientRect(), cx=b.left+b.width/2, cy=b.top+b.height/2;
+        var dx=x-cx, dy=y-cy, d=dx*dx+dy*dy;
+        if(d<bestD){ bestD=d; best=el; bestBefore=(y<b.top+b.height/2-2)||(y<=b.bottom&&x<cx); }
+      });
+      return { el:best, before:bestBefore };
+    }
+    body.querySelectorAll('.skill-chips').forEach(function(cont){
+      cont.addEventListener('dragstart',function(e){
+        var chip=e.target.closest('.skill-chip'); if(!chip||chip.parentNode!==cont) return;
+        _drag=chip; chip.classList.add('dragging');
+        try{ e.dataTransfer.effectAllowed='move'; e.dataTransfer.setData('text/plain','chip'); }catch(_){}
+      });
+      cont.addEventListener('dragover',function(e){
+        if(!_drag||_drag.parentNode!==cont) return; // only reorder within the same group
+        e.preventDefault(); cont.classList.add('drag-over');
+        var pos=_chipAfter(cont, e.clientX, e.clientY);
+        if(!pos.el){ cont.appendChild(_drag); return; }
+        if(pos.before) cont.insertBefore(_drag, pos.el);
+        else cont.insertBefore(_drag, pos.el.nextSibling);
+      });
+      cont.addEventListener('dragleave',function(e){ if(e.target===cont) cont.classList.remove('drag-over'); });
+      cont.addEventListener('drop',function(e){ e.preventDefault(); cont.classList.remove('drag-over'); });
+      cont.addEventListener('dragend',function(){
+        if(!_drag) return;
+        _drag.classList.remove('dragging'); _drag=null;
+        collectEdits();            // sync new chip order into editState
+        buildModalBody(editState); // rebuild so data-si indices stay correct
+      });
+    });
   } else if(state.type==='jobs'){
     state.jobs.forEach(function(job,ji){
       var jd=document.createElement('div'); jd.className='job-editor';
@@ -1299,17 +1539,36 @@ function collectEdits(){
   }
 }
 
-function closeModal(){ document.getElementById('modal').style.display='none'; editingId=null; editState=null; }
-
-document.getElementById('modal-save').addEventListener('click',function(){
+function hideModalUI(){ document.getElementById('modal').style.display='none'; editingId=null; editState=null; editOriginal=null; }
+// Commit the modal's working state into the live resume (this is what makes it auto-save).
+function commitEdit(){
+  if(editingId==null || !editState) return;
   collectEdits();
   var idx=items.findIndex(function(x){ return x.id===editingId; });
-  if(idx>=0) items[idx]=editState;
-  closeModal(); renderAll();
-});
-document.getElementById('modal-cancel').addEventListener('click',closeModal);
-document.getElementById('modal-close').addEventListener('click',closeModal);
-document.getElementById('modal').addEventListener('click',function(e){ if(e.target===document.getElementById('modal')) closeModal(); });
+  if(idx>=0) items[idx]=deepClone(editState);
+}
+// Keep edits and close (used by Done, the X, and clicking the backdrop — nothing is lost).
+function commitAndClose(){ commitEdit(); hideModalUI(); renderAll(); }
+// Explicit discard: restore the section to how it was when the editor opened.
+function cancelEdit(){
+  if(editingId!=null && editOriginal){
+    var idx=items.findIndex(function(x){ return x.id===editingId; });
+    if(idx>=0) items[idx]=editOriginal;
+  }
+  hideModalUI(); renderAll();
+}
+// Live auto-save: commit + re-render shortly after you stop typing.
+var _editSaveTimer=null;
+function scheduleEditSave(){
+  if(_editSaveTimer) clearTimeout(_editSaveTimer);
+  _editSaveTimer=setTimeout(function(){ _editSaveTimer=null; if(editingId!=null && editState){ commitEdit(); renderAll(); } }, 300);
+}
+document.getElementById('modal-body').addEventListener('input', scheduleEditSave);
+document.getElementById('modal-save').addEventListener('click', commitAndClose);  // "Done"
+document.getElementById('modal-cancel').addEventListener('click', cancelEdit);     // "Cancel & revert"
+document.getElementById('modal-close').addEventListener('click', commitAndClose);  // X keeps your work
+// Clicking the dimmed backdrop keeps your work (auto-saved) instead of discarding it.
+document.getElementById('modal').addEventListener('click', function(e){ if(e.target===document.getElementById('modal')) commitAndClose(); });
 document.getElementById('confirm-cancel').addEventListener('click', function(){
   document.getElementById('confirm-dialog').style.display = 'none';
 });
@@ -1342,6 +1601,212 @@ document.getElementById('add-modal-close').addEventListener('click', closeAddMod
 document.getElementById('add-modal-cancel').addEventListener('click', closeAddModal);
 document.getElementById('add-modal').addEventListener('click', function(e){
   if(e.target === document.getElementById('add-modal')) closeAddModal();
+});
+
+// ── Proofread (read-only AI feedback) ───────────────────────────────────────
+function buildProofreadText(){
+  var L=[];
+  var H=(typeof HEADER!=='undefined'&&HEADER)?HEADER:{};
+  if(H.name) L.push(H.name);
+  if(H.title) L.push(H.title);
+  L.push('');
+  function plain(s){ return String(s||'').replace(/\*\*(.+?)\*\*/g,'$1'); }
+  function renderSection(s, depth){
+    if(!s || !s.visible) return;
+    var pad = depth ? '  ' : '';
+    if(s.type==='summary'){ L.push('PROFILE'); L.push(plain(s.content)); L.push(''); return; }
+    if(s.type==='skills'){
+      L.push(String(s.label||'Skills').toUpperCase());
+      (s.groups||[]).forEach(function(g){ L.push(plain(g.label)+': '+plain(g.items)); });
+      L.push(''); return;
+    }
+    if(s.type==='list'){
+      L.push(String(s.label||'').toUpperCase());
+      (s.items||[]).forEach(function(it){ L.push('- '+plain(it)); });
+      L.push(''); return;
+    }
+    if(s.type==='jobs'){
+      if(!depth) L.push(String(s.label||'').toUpperCase());
+      (s.jobs||[]).forEach(function(j){
+        var head=plain(j.org); if(j.dates) head+='  ('+j.dates+')';
+        L.push(pad+head);
+        if(j.title) L.push(pad+plain(j.title));
+        (j.bullets||[]).forEach(function(b){ L.push(pad+'- '+plain(b)); });
+        L.push(''); // separate multiple roles within one section
+      });
+      L.push('');
+    }
+  }
+  roots().forEach(function(r){
+    renderSection(r, 0);
+    kids(r.id).forEach(function(c){ renderSection(c, 1); });
+  });
+  if(typeof COVER!=='undefined' && COVER && (COVER.salutation || (COVER.body && COVER.body.join('').trim()))){
+    L.push('COVER LETTER');
+    if(COVER.salutation) L.push(plain(COVER.salutation));
+    (COVER.body||[]).forEach(function(p){ if(p && p.trim()) L.push(plain(p)); });
+    if(COVER.signoff) L.push(plain(COVER.signoff));
+  }
+  return L.join('\n').replace(/\n{3,}/g,'\n\n').trim();
+}
+
+function renderProofFeedback(text){
+  var esc2=function(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
+  var lines=String(text).split('\n'), html='', inList=false;
+  function closeList(){ if(inList){ html+='</ul>'; inList=false; } }
+  lines.forEach(function(raw){
+    var line=raw.trim();
+    if(!line){ closeList(); return; }
+    var b=esc2(line).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    if(/^[-*•]\s+/.test(line)){ if(!inList){ html+='<ul>'; inList=true; } html+='<li>'+b.replace(/^[-*•]\s+/,'')+'</li>'; return; }
+    closeList();
+    if(/^#{1,4}\s+/.test(line)){ html+='<h4>'+b.replace(/^#{1,4}\s+/,'')+'</h4>'; return; }
+    if(/:$/.test(line) && line.length<60){ html+='<h4>'+b.replace(/:$/,'')+'</h4>'; return; }
+    html+='<p>'+b+'</p>';
+  });
+  closeList();
+  return '<div class="proof-fb">'+html+'</div>';
+}
+
+function openProofModal(){ document.getElementById('proof-modal').style.display='flex'; }
+function closeProofModal(){ document.getElementById('proof-modal').style.display='none'; }
+document.getElementById('proof-modal-close').addEventListener('click', closeProofModal);
+document.getElementById('proof-modal-ok').addEventListener('click', closeProofModal);
+document.getElementById('proof-modal').addEventListener('click', function(e){ if(e.target===document.getElementById('proof-modal')) closeProofModal(); });
+
+// ── Proofread — one-shot structured findings, checkbox-select, deterministic apply ──
+// Each finding carries the AI's own exact suggested text, so Apply writes it directly
+// with no second AI call — same principle as the JD build fix.
+var proofFindings = [];   // last fetched findings, each tagged with a client-side _fid
+var proofFidSeq = 0;
+
+function currentDocId(){
+  if(!currentVariant) return null;
+  return idByName[String(currentVariant).toLowerCase()] || null;
+}
+
+function proofRenderFindings(){
+  var bodyEl = document.getElementById('proof-modal-body');
+  var applyBtn = document.getElementById('proof-apply-btn');
+  if(!proofFindings.length){
+    bodyEl.innerHTML = '<div class="proof-note">Looks clean — no issues found.</div>';
+    applyBtn.style.display = 'none';
+    return;
+  }
+  var groups = { technical: [], alignment: [] };
+  proofFindings.forEach(function(f){ (groups[f.category] || groups.technical).push(f); });
+  var labels = { technical: 'Technical & accuracy', alignment: 'Job alignment' };
+  var html = '';
+  ['technical','alignment'].forEach(function(cat){
+    var list = groups[cat];
+    if(!list.length) return;
+    html += '<div class="proof-group-title">'+labels[cat]+' ('+list.length+')'+
+      '<button class="proof-select-all" data-select-cat="'+cat+'">select all</button></div>';
+    list.forEach(function(f){
+      html += '<div class="proof-finding'+(f._applied ? ' applied' : '')+'" data-fid="'+f._fid+'">'+
+        (f._applied
+          ? '<span class="pf-applied-tag" style="margin-top:3px;">✓</span>'
+          : '<input type="checkbox" data-check="'+f._fid+'">')+
+        '<div class="pf-body">'+
+          '<div class="pf-issue">'+esc(f.issue||'')+'</div>'+
+          '<div class="pf-suggestion">'+esc(f.suggestion||'')+'</div>'+
+          (f._applied ? '<div class="pf-applied-tag">Applied</div>' : '')+
+        '</div></div>';
+    });
+  });
+  bodyEl.innerHTML = html;
+  applyBtn.style.display = proofFindings.some(function(f){ return !f._applied; }) ? '' : 'none';
+}
+
+document.getElementById('proof-modal-body').addEventListener('click', function(e){
+  var sel = e.target.closest ? e.target.closest('[data-select-cat]') : null;
+  if(!sel) return;
+  var cat = sel.getAttribute('data-select-cat');
+  document.querySelectorAll('#proof-modal-body [data-fid]').forEach(function(row){
+    var f = proofFindings.find(function(x){ return x._fid === row.getAttribute('data-fid'); });
+    if(f && f.category === cat && !f._applied){
+      var cb = row.querySelector('[data-check]'); if(cb) cb.checked = true;
+    }
+  });
+});
+
+// Deterministic write of one finding's suggested text into the live document.
+function applyProofFinding(f){
+  var s = f.section_id ? byId(f.section_id) : null;
+  switch(f.field){
+    case 'summary':            if(s) s.content = f.suggestion; break;
+    case 'header_name':        HEADER.name = f.suggestion; break;
+    case 'header_title':       HEADER.title = f.suggestion; break;
+    case 'job_org':            if(s && s.jobs && s.jobs[f.job_index]) s.jobs[f.job_index].org = f.suggestion; break;
+    case 'job_title':          if(s && s.jobs && s.jobs[f.job_index]) s.jobs[f.job_index].title = f.suggestion; break;
+    case 'job_dates':          if(s && s.jobs && s.jobs[f.job_index]) s.jobs[f.job_index].dates = f.suggestion; break;
+    case 'bullet':             if(s && s.jobs && s.jobs[f.job_index] && s.jobs[f.job_index].bullets) s.jobs[f.job_index].bullets[f.bullet_index] = f.suggestion; break;
+    case 'list_item':          if(s && s.items) s.items[f.list_index] = f.suggestion; break;
+    case 'skill_group_label':  if(s && s.groups && s.groups[f.group_index]) s.groups[f.group_index].label = f.suggestion; break;
+    case 'skill_group_items':  if(s && s.groups && s.groups[f.group_index]) s.groups[f.group_index].items = f.suggestion; break;
+  }
+}
+
+document.getElementById('proof-apply-btn').addEventListener('click', function(){
+  var checked = Array.prototype.slice.call(document.querySelectorAll('#proof-modal-body [data-check]:checked'));
+  if(!checked.length){ showToast('Select at least one finding'); return; }
+  var before = chatDocSnapshot();
+  var count = 0;
+  checked.forEach(function(cb){
+    var fid = cb.getAttribute('data-check');
+    var f = proofFindings.find(function(x){ return x._fid === fid; });
+    if(!f || f._applied) return;
+    applyProofFinding(f);
+    f._applied = true;
+    count++;
+  });
+  if(!count) return;
+  renderAll(); // apply on the page + autosave + revision
+  proofRenderFindings();
+  setChatOpen(true);
+  chatHistory.push({
+    role: 'assistant',
+    content: '✅ Applied ' + count + ' proofread change' + (count === 1 ? '' : 's') + '.',
+    edits: [ chatMakeDocChip('Applied ' + count + ' proofread change' + (count === 1 ? '' : 's'), before) ]
+  });
+  renderChat();
+  showToast('Applied ' + count + ' change' + (count === 1 ? '' : 's'));
+});
+
+document.getElementById('btn-proofread').addEventListener('click', function(){
+  var bodyEl=document.getElementById('proof-modal-body');
+  var applyBtn = document.getElementById('proof-apply-btn');
+  var doc = chatGetDocument();
+  if(!doc || !doc.sections || !doc.sections.length){ bodyEl.innerHTML='<div class="proof-note">Nothing to proofread yet.</div>'; applyBtn.style.display='none'; openProofModal(); return; }
+
+  var jdText = (document.getElementById('jd-input') || {}).value || '';
+  bodyEl.innerHTML='<div class="proof-loading"><span class="proof-spinner"></span> Reading through your resume'+(jdText.trim() ? ' and the job description' : '')+'…</div>';
+  applyBtn.style.display = 'none';
+  openProofModal();
+
+  // Store the JD alongside this document (fire-and-forget) so it's there next time.
+  var docId = currentDocId();
+  if(docId && jdText.trim()){
+    fetch(API+'/documents/'+encodeURIComponent(docId)+'/jd', {
+      method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ jd_text: jdText })
+    }).catch(function(){});
+  }
+
+  fetch(API+'/proofread',{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ doc: doc, jd_text: jdText }) })
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if(res && res.ok){
+        proofFindings = (res.findings || []).map(function(f){ f._fid = 'pf'+(proofFidSeq++); f._applied = false; return f; });
+        var u = res.usage || {};
+        console.log('[proofread] tokens  in=' + (u.input_tokens||0) + '  out=' + (u.output_tokens||0) + '  (single request, ' + proofFindings.length + ' findings)');
+        proofRenderFindings();
+      } else if(res && res.error === 'rate_limit') {
+        bodyEl.innerHTML='<div class="proof-note">Rate limited — try again in about '+(res.retryAfter||30)+'s.</div>';
+      } else {
+        bodyEl.innerHTML='<div class="proof-note">'+((res&&res.message)?esc(res.message):'Proofread is unavailable right now.')+'</div>';
+      }
+    })
+    .catch(function(){ bodyEl.innerHTML='<div class="proof-note">Could not reach the proofread service. Make sure the local server (node server.js) is running.</div>'; });
 });
 
 document.getElementById('add-modal-ok').addEventListener('click', function(){
@@ -1526,20 +1991,32 @@ document.getElementById('vt-edit-cover').addEventListener('click', function(){
   if(!COVER) COVER = deepClone(COVER_TEMPLATE);
   openCoverEdit();
 });
-document.getElementById('cover-modal-save').addEventListener('click', function(){
-  collectCoverEdits(); closeCoverModal(); view = 'cover'; renderAll();
-});
-document.getElementById('cover-modal-cancel').addEventListener('click', closeCoverModal);
-document.getElementById('cover-modal-close').addEventListener('click', closeCoverModal);
+function coverModalOpen(){ return document.getElementById('cover-modal').style.display !== 'none'; }
+// Keep edits and close (Done, X, backdrop). collectCoverEdits() writes the fields into COVER.
+function commitAndCloseCover(){ collectCoverEdits(); closeCoverModal(); view = 'cover'; renderAll(); }
+// Explicit discard: restore the letter to how it was when the editor opened.
+function cancelCoverEdit(){ if(coverOriginal) COVER = coverOriginal; closeCoverModal(); renderAll(); }
+// Live auto-save while typing in the cover editor.
+var _coverSaveTimer=null;
+function scheduleCoverSave(){
+  if(_coverSaveTimer) clearTimeout(_coverSaveTimer);
+  _coverSaveTimer=setTimeout(function(){ _coverSaveTimer=null; if(coverModalOpen()){ collectCoverEdits(); view='cover'; renderAll(); } }, 300);
+}
+document.getElementById('cover-modal-body').addEventListener('input', scheduleCoverSave);
+document.getElementById('cover-modal-save').addEventListener('click', commitAndCloseCover);  // "Done"
+document.getElementById('cover-modal-cancel').addEventListener('click', cancelCoverEdit);     // "Cancel & revert"
+document.getElementById('cover-modal-close').addEventListener('click', commitAndCloseCover);  // X keeps your work
+// Clicking the dimmed backdrop keeps your work (auto-saved) instead of discarding it.
 document.getElementById('cover-modal').addEventListener('click', function(e){
-  if(e.target === document.getElementById('cover-modal')) closeCoverModal();
+  if(e.target === document.getElementById('cover-modal')) commitAndCloseCover();
 });
 
 // ── Persistence & Variations ──────────────────────────────────────────────────
 var AUTOSAVE_KEY   = 'resume_builder_v1__autosave';
 var VARIANT_PREFIX = 'resume_builder_v1__variant__';
 var currentVariant = null;
-var serverMode     = false; // flips to true if local server is detected
+var serverMode     = false; // true = storage is Supabase (server up AND db reachable)
+var serverUp       = false; // true = local server reachable at all; gates chat, which needs no DB
 
 function masterSnapshot(){
   return {
@@ -1633,61 +2110,150 @@ function ls_getRaw(name, cb){
   } catch(e){ cb(e, null); }
 }
 
-// --- Server back-end ---
+// --- Server back-end (Supabase via the local server) ---
+// Resumes live in Postgres, keyed by uuid. The rest of the app has always addressed
+// variants by name, and the DB enforces unique variant names, so the id lookup is
+// kept inside this adapter rather than leaking uuids into every call site.
 var API = 'http://localhost:3457';
 
+var idByName = {};   // lowercased variant name -> uuid
+var docMeta  = {};   // lowercased variant name -> { company, role, status, updatedAt }
+
+// Returns a promise as well as invoking cb, so callers can either await the index
+// or fire and forget.
+function srv_refreshIndex(cb){
+  return fetch(API+'/documents')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(!data.ok) throw new Error(data.error || 'Could not list documents');
+      idByName = {}; docMeta = {};
+      (data.variants||[]).forEach(function(d){
+        idByName[d.name.toLowerCase()] = d.id;
+        docMeta[d.name.toLowerCase()] = d;
+      });
+      if(cb) cb(null, (data.variants||[]).map(function(d){ return d.name; }));
+    })
+    .catch(function(e){ if(cb) cb(e, []); });
+}
+
+// Map the app's document shape to the API payload. stateSnapshot() already emits
+// { items, header, coverLetter, notes }, which is exactly what the server expects.
 function srv_autoSave(){
-  fetch(API+'/variants/__autosave__', {
-    method:'POST', headers:{'Content-Type':'application/json'},
+  fetch(API+'/autosave', {
+    method:'PUT', headers:{'Content-Type':'application/json'},
     body: JSON.stringify(stateSnapshot())
   }).catch(function(){});
 }
+
 function srv_saveVariant(name, cb){
-  fetch(API+'/variants/'+encodeURIComponent(name), {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify(stateSnapshot())
-  }).then(function(r){ return r.json(); })
-    .then(function(){ currentVariant = name; cb(null); })
-    .catch(cb);
+  var snap = stateSnapshot();
+  var id = idByName[String(name).toLowerCase()];
+  var req = id
+    ? fetch(API+'/documents/'+encodeURIComponent(id), {
+        method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify(snap) })
+    : fetch(API+'/documents', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(Object.assign({ name: name }, snap)) });
+
+  req.then(function(r){ return r.json(); })
+     .then(function(data){
+       if(!data.ok) throw new Error(data.error || 'Save failed');
+       if(data.doc){ idByName[data.doc.name.toLowerCase()] = data.doc.id; docMeta[data.doc.name.toLowerCase()] = data.doc; }
+       currentVariant = name;
+       cb(null);
+     })
+     .catch(cb);
 }
+
 function srv_loadVariant(name, cb){
-  fetch(API+'/variants/'+encodeURIComponent(name))
-    .then(function(r){ return r.json(); })
-    .then(function(saved){ applyState(saved); currentVariant = name; cb(null); })
-    .catch(cb);
-}
-function srv_deleteVariant(name, cb){
-  fetch(API+'/variants/'+encodeURIComponent(name), { method:'DELETE' })
-    .then(function(){ currentVariant = null; cb(null); })
-    .catch(cb);
-}
-function srv_listVariants(cb){
-  fetch(API+'/variants')
+  var id = idByName[String(name).toLowerCase()];
+  if(!id) return cb(new Error('Unknown variant: '+name));
+  fetch(API+'/documents/'+encodeURIComponent(id))
     .then(function(r){ return r.json(); })
     .then(function(data){
-      // filter out internal keys (autosave + master)
-      var names = (data.variants||[]).filter(function(n){ return n !== '__autosave__' && n !== '_master'; });
-      cb(null, names);
+      if(!data.ok || !data.doc) throw new Error(data.error || 'Not found');
+      applyState(data.doc);
+      currentVariant = name;
+      loadJDForCurrentDoc();
+      cb(null);
     })
-    .catch(function(e){ cb(e, []); });
+    .catch(cb);
 }
+
+// Load the job description stored alongside the currently loaded variant into the
+// JD tray textarea, or clear it if this document has none / isn't saved yet.
+function loadJDForCurrentDoc(){
+  var ta = document.getElementById('jd-input');
+  if(!ta) return;
+  var id = currentDocId();
+  if(!id){ ta.value = ''; return; }
+  fetch(API+'/documents/'+encodeURIComponent(id)+'/jd')
+    .then(function(r){ return r.json(); })
+    .then(function(data){ ta.value = (data && data.ok && data.jd && data.jd.jd_text) || ''; })
+    .catch(function(){});
+}
+
+function srv_deleteVariant(name, cb){
+  var id = idByName[String(name).toLowerCase()];
+  if(!id) return cb(new Error('Unknown variant: '+name));
+  fetch(API+'/documents/'+encodeURIComponent(id), { method:'DELETE' })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(!data.ok) throw new Error(data.error || 'Delete failed');
+      delete idByName[String(name).toLowerCase()];
+      delete docMeta[String(name).toLowerCase()];
+      currentVariant = null;
+      cb(null);
+    })
+    .catch(cb);
+}
+
+function srv_listVariants(cb){ srv_refreshIndex(cb); }
+
+// saveRaw/getRaw address the master singleton by MASTER_KEY, and variants by name.
 function srv_saveRaw(name, obj, cb){
-  fetch(API+'/variants/'+encodeURIComponent(name), {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify(obj)
-  }).then(function(r){ return r.json(); }).then(function(){ if(cb) cb(null); }).catch(function(e){ if(cb) cb(e); });
+  if(name === MASTER_KEY){
+    fetch(API+'/master', { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(obj) })
+      .then(function(r){ return r.json(); })
+      .then(function(data){ if(!data.ok) throw new Error(data.error); if(cb) cb(null); })
+      .catch(function(e){ if(cb) cb(e); });
+    return;
+  }
+  var id = idByName[String(name).toLowerCase()];
+  var req = id
+    ? fetch(API+'/documents/'+encodeURIComponent(id), {
+        method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify(obj) })
+    : fetch(API+'/documents', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(Object.assign({ name: name }, obj)) });
+  req.then(function(r){ return r.json(); })
+     .then(function(data){
+       if(!data.ok) throw new Error(data.error);
+       if(data.doc) idByName[data.doc.name.toLowerCase()] = data.doc.id;
+       if(cb) cb(null);
+     })
+     .catch(function(e){ if(cb) cb(e); });
 }
+
 function srv_getRaw(name, cb){
-  fetch(API+'/variants/'+encodeURIComponent(name))
-    .then(function(r){ return r.ok ? r.json() : null; })
-    .then(function(obj){ cb(null, obj); })
+  var url = (name === MASTER_KEY)
+    ? API+'/master'
+    : (function(){
+        var id = idByName[String(name).toLowerCase()];
+        return id ? API+'/documents/'+encodeURIComponent(id) : null;
+      })();
+  if(!url) return cb(null, null);
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(data){ cb(null, (data && data.ok) ? data.doc : null); })
     .catch(function(e){ cb(e, null); });
 }
+
 function srv_loadAutosave(cb){
-  fetch(API+'/variants/__autosave__')
-    .then(function(r){ return r.ok ? r.json() : null; })
-    .then(function(saved){
-      if(saved){ applyState(saved); cb(null, true); }
+  fetch(API+'/autosave')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(data && data.ok && data.doc){ applyState(data.doc); cb(null, true); }
       else cb(null, false);
     })
     .catch(function(){ cb(null, false); });
@@ -1705,7 +2271,7 @@ var storage = {
   getRaw:       ls_getRaw
 };
 
-function setServerMode(folderName){
+function setServerMode(){
   serverMode = true;
   storage = {
     autoSave:     srv_autoSave,
@@ -1718,66 +2284,31 @@ function setServerMode(folderName){
     getRaw:       srv_getRaw
   };
   var ind = document.getElementById('storage-indicator');
-  if(ind){ ind.textContent = '📁 File mode'; ind.title = 'Saving to ' + folderName + ' via local server'; }
+  if(ind){ ind.textContent = '☁️ Supabase'; ind.title = 'Saving to the resume_builder schema in Postgres'; }
+}
 
-  // Enable folder input
-  var inp = document.getElementById('folder-input');
-  var goBtn = document.getElementById('btn-folder-go');
-  var browseBtn = document.getElementById('btn-folder-browse');
-  if(inp){
-    inp.disabled = false;
-    inp.classList.remove('ls-mode');
-    inp.value = folderName;
+// ── Document controls: Open · Save · Save as ──────────────────────────────────
+// Everything lives in Postgres now; these are the only save/load affordances.
+document.getElementById('btn-open').addEventListener('click', function(){ openVariantsModal(); });
+
+document.getElementById('btn-save').addEventListener('click', function(){
+  if(masterMode){ saveMaster(function(){ showToast('Master saved'); }); return; }
+  if(currentVariant){
+    storage.saveVariant(currentVariant, function(err){
+      if(err) return showToast('Error saving');
+      renderVariantList(); showToast('Saved “'+currentVariant+'”');
+    });
+    return;
   }
-  if(goBtn) goBtn.disabled = false;
-  if(browseBtn) browseBtn.disabled = false;
-}
-
-function switchFolder(folderPath){
-  fetch(API+'/folder', {
-    method: 'PUT',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({ folder: folderPath })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(data){
-    if(!data.ok){ showToast('Could not switch folder'); return; }
-    var inp = document.getElementById('folder-input');
-    var ind = document.getElementById('storage-indicator');
-    if(inp) inp.value = data.folderName;
-    if(ind) ind.textContent = '📁 ' + data.folderName;
-    showToast('Folder → ' + data.folderName);
-    renderVariantList();
-  })
-  .catch(function(){ showToast('Error switching folder'); });
-}
-
-// Folder go button
-document.getElementById('btn-folder-go').addEventListener('click', function(){
-  var val = document.getElementById('folder-input').value.trim();
-  if(!val) return;
-  switchFolder(val);
-});
-document.getElementById('folder-input').addEventListener('keydown', function(e){
-  if(e.key === 'Enter'){ e.preventDefault(); switchFolder(this.value.trim()); }
-});
-
-// Folder browse button — opens native OS folder picker via server
-document.getElementById('btn-folder-browse').addEventListener('click', function(){
-  fetch(API+'/pick-folder')
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if(data.cancelled || !data.folder) return;
-      document.getElementById('folder-input').value = data.folder;
-      switchFolder(data.folder);
-    })
-    .catch(function(){ showToast('Folder picker unavailable'); });
+  // Nothing loaded yet — fall through to Save as so the draft gets a home.
+  document.getElementById('btn-save-as').click();
 });
 
 // ── UI ────────────────────────────────────────────────────────────────────────
 
 function renderVariantList(){
   var list = document.getElementById('variant-list');
+  if(!list) return; // sidebar variant list was removed; browse via the Open dialog
   storage.listVariants(function(err, names){
     if(!names || !names.length){
       list.innerHTML = '<div class="no-variants">No saved variations yet</div>';
@@ -1844,6 +2375,85 @@ document.getElementById('btn-master').addEventListener('click', function(){
 document.getElementById('btn-new-from-master').addEventListener('click', newFromMaster);
 document.getElementById('master-banner-done').addEventListener('click', exitMasterMode);
 
+// ── Build from job description ────────────────────────────────────────────────
+// One-shot JD build. Spin up a fresh draft from the Master, send it plus the JD in
+// a SINGLE structured API call, and apply the returned tailoring plan locally. No
+// agentic loop, so no transcript re-sending — the whole build is one request.
+function buildFromJD(){
+  var ta = document.getElementById('jd-input');
+  var jd = ta.value.trim();
+  if(!jd){ showToast('Paste a job description first'); ta.focus(); return; }
+  if(!serverUp){ showToast('Building needs the local server + API key'); return; }
+  if(jdBuilding){ showToast('A build is already running'); return; }
+  if(!MASTER_DOC || !MASTER_DOC.items){ showToast('Create your Master first (Edit Master)'); return; }
+
+  // Fresh full draft from the master; snapshot it so the build is undoable.
+  newFromMaster();
+  var before = chatDocSnapshot();
+  var doc = chatGetDocument();
+
+  jdBuilding = true;
+  var btn = document.getElementById('jd-build');
+  var origHtml = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader-2"></i> Building…';
+  showToast('Building tailored resume…');
+
+  fetch(API+'/build', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ doc: doc, jd: jd })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if(!data.ok){ showToast(data.message || data.error || 'Build failed'); return; }
+    applyBuildPlan(data.plan);
+    ta.value = '';
+    var u = data.usage || {};
+    console.log('[build] tokens  in=' + (u.input_tokens||0) + '  cacheRead=' + (u.cache_read_input_tokens||0) + '  out=' + (u.output_tokens||0) +
+                '  (single request)');
+    // Surface the result + a one-click undo in the chat panel.
+    setChatOpen(true);
+    chatHistory.push({
+      role: 'assistant',
+      content: '✅ Built a tailored draft. ' + (data.plan.summary_of_changes || '') + '\n\nReview it, then use **Save as** to name it.',
+      edits: [ chatMakeDocChip('Built tailored resume', before) ]
+    });
+    renderChat();
+    showToast('Tailored ✓ · ' + ((u.input_tokens||0) + (u.output_tokens||0)) + ' tokens, 1 request');
+  })
+  .catch(function(){ showToast('Build failed — is the server running?'); })
+  .then(function(){
+    jdBuilding = false;
+    btn.disabled = false;
+    btn.innerHTML = origHtml;
+  });
+}
+
+// Apply a tailoring plan (from /build) to the live document, deterministically.
+function applyBuildPlan(plan){
+  if(!plan) return;
+  var visSet = {};
+  (plan.visible_ids || []).forEach(function(id){ visSet[id] = 1; });
+  items.forEach(function(it){ it.visible = !!visSet[it.id]; });
+  if(plan.summary && String(plan.summary).trim()){
+    var sum = items.find(function(i){ return i.type === 'summary'; });
+    if(sum) sum.content = String(plan.summary);
+  }
+  if(plan.title && String(plan.title).trim()) HEADER.title = String(plan.title);
+  (plan.bullets || []).forEach(function(b){
+    var s = byId(b.section_id);
+    if(s && s.type === 'jobs' && s.jobs && s.jobs[b.job_index] && Array.isArray(b.bullets)){
+      s.jobs[b.job_index].bullets = b.bullets.map(String);
+    }
+  });
+  renderAll(); // apply on the page + autosave the draft
+}
+document.getElementById('jd-build').addEventListener('click', buildFromJD);
+document.getElementById('jd-input').addEventListener('keydown', function(e){
+  // Cmd/Ctrl+Enter to build without leaving the textarea
+  if((e.metaKey || e.ctrlKey) && e.key === 'Enter'){ e.preventDefault(); buildFromJD(); }
+});
+
 function showToast(msg){
   var t = document.createElement('div');
   t.textContent = msg;
@@ -1875,6 +2485,7 @@ function enterMasterMode(){
   if(masterMode) return;
   _preMaster = { snap: stateSnapshot(), variant: currentVariant, view: view };
   masterMode = true; linkToMaster = false; currentVariant = null; COVER = null; view = 'resume';
+  loadJDForCurrentDoc(); // no variant loaded in master mode — clears the JD tray
   if(MASTER_DOC && MASTER_DOC.items){
     items = JSON.parse(JSON.stringify(MASTER_DOC.items));
     if(MASTER_DOC.header){ HEADER.name=MASTER_DOC.header.name; HEADER.title=MASTER_DOC.header.title; HEADER.contact=JSON.parse(JSON.stringify(MASTER_DOC.header.contact)); }
@@ -1895,6 +2506,7 @@ function exitMasterMode(){
   masterMode = false;
   if(_preMaster){ applyState(_preMaster.snap); currentVariant = _preMaster.variant; view = _preMaster.view || 'resume'; }
   _preMaster = null;
+  loadJDForCurrentDoc(); // restore the JD tray for whichever variant we returned to
   updateMasterUI(); renderAll();
   showToast('Master saved');
 }
@@ -1905,6 +2517,7 @@ function newFromMaster(){
   items = r.items;
   HEADER.name=r.header.name; HEADER.title=r.header.title; HEADER.contact=r.header.contact;
   COVER = null; linkToMaster = true; currentVariant = null; view = 'resume';
+  loadJDForCurrentDoc(); // fresh draft has no saved id yet — clears the JD tray
   updateMasterUI(); renderAll();
   showToast('New draft linked to Master — tailor it, then Save as…');
 }
@@ -1950,6 +2563,7 @@ document.getElementById('btn-reset').addEventListener('click', function(){
     { text: 'LinkedIn', url: 'https://linkedin.com/in/braydenclark' },
     { text: 'GitHub', url: 'https://github.com/braydenclark' }
   ];
+  loadJDForCurrentDoc(); // no variant loaded after a reset — clears the JD tray
   renderAll();
 });
 
@@ -1957,19 +2571,853 @@ document.getElementById('btn-reset').addEventListener('click', function(){
 fetch(API+'/ping')
   .then(function(r){ return r.json(); })
   .then(function(d){
-    if(d.ok) setServerMode(d.folderName || 'variants');
+    // Any JSON response means the local server is up. Chat only needs the server
+    // and an API key — never the database — so gate it on this, not on Supabase.
+    serverUp = true;
+    updateChatAvailability();
+
+    if(d.ok && d.storage === 'supabase'){ setServerMode(); return srv_refreshIndex(function(){}); }
+    // Server is up but the DB isn't reachable — say why instead of silently
+    // falling back to localStorage and appearing to lose every variant.
+    if(d.storage === 'supabase' && d.error){
+      showToast('Supabase not connected yet — retrying…');
+      retrySupabase();
+    }
+    else if(d.storage === 'none') showToast('Supabase not configured — using browser storage');
   })
-  .catch(function(){}) // no server = stay in localStorage mode
+  .catch(function(){}) // no server at all = stay in localStorage mode
   .finally(function(){
     // Load the master first so live-linked variants/autosave can resolve against it
     loadMasterDoc(function(){
       storage.loadAutosave(function(err, restored){
         renderAll();
-        if(restored) showToast(serverMode ? 'Restored · file mode' : 'Restored · browser mode');
+        if(restored) showToast(serverMode ? 'Restored · Supabase' : 'Restored · browser mode');
         else renderVariantList();
       });
     });
+    // Chat availability note (server mode flips asynchronously above)
+    setTimeout(updateChatAvailability, 800);
   });
+
+// ══════════════════════════════════════════════════════════════════════════
+// Inline editing — click any text on the page to edit it in place.
+// Structural edits (add/remove jobs, reorder) still live in the section modal,
+// reached by clicking a section's whitespace.
+// ══════════════════════════════════════════════════════════════════════════
+var ieActive = null; // { el, acc, orig, kind }
+var IE_MULTILINE = { 'c-para': true };
+
+function ieSelector(el){
+  var sel = '[data-ie="'+el.getAttribute('data-ie')+'"]';
+  ['data-sid','data-ji','data-bi','data-gi','data-li','data-pi','data-ci'].forEach(function(a){
+    var v = el.getAttribute(a);
+    if(v !== null) sel += '['+a+'="'+v.replace(/"/g,'\\"')+'"]';
+  });
+  return '#pages-wrap '+sel;
+}
+
+// Maps a [data-ie] element to get/set accessors on the data model.
+// addAfter (bullets & list items) inserts a sibling and returns its selector.
+function ieAccessor(el){
+  var kind = el.getAttribute('data-ie');
+  var sid = el.getAttribute('data-sid');
+  var ji = parseInt(el.getAttribute('data-ji')||'-1',10);
+  var bi = parseInt(el.getAttribute('data-bi')||'-1',10);
+  var gi = parseInt(el.getAttribute('data-gi')||'-1',10);
+  var li = parseInt(el.getAttribute('data-li')||'-1',10);
+  var pi = parseInt(el.getAttribute('data-pi')||'-1',10);
+  var ci = parseInt(el.getAttribute('data-ci')||'-1',10);
+  var s = sid ? byId(sid) : null;
+  switch(kind){
+    case 'label':      return s && { get:function(){return s.label;}, set:function(v){ s.label = v || s.label; } };
+    case 'summary':    return s && { get:function(){return s.content;}, set:function(v){ s.content = v; } };
+    case 'job-org':    return (s&&s.jobs&&s.jobs[ji]) && { get:function(){return s.jobs[ji].org;}, set:function(v){ s.jobs[ji].org = v; } };
+    case 'job-dates':  return (s&&s.jobs&&s.jobs[ji]) && { get:function(){return s.jobs[ji].dates;}, set:function(v){ s.jobs[ji].dates = v; } };
+    case 'job-title':  return (s&&s.jobs&&s.jobs[ji]) && { get:function(){return s.jobs[ji].title;}, set:function(v){ s.jobs[ji].title = v; } };
+    case 'job-bullet': return (s&&s.jobs&&s.jobs[ji]) && {
+      get:function(){ return s.jobs[ji].bullets[bi]; },
+      set:function(v){ if(v.trim()==='') s.jobs[ji].bullets.splice(bi,1); else s.jobs[ji].bullets[bi] = v; },
+      addAfter:function(){
+        s.jobs[ji].bullets.splice(bi+1, 0, '');
+        return '#pages-wrap [data-ie="job-bullet"][data-sid="'+sid+'"][data-ji="'+ji+'"][data-bi="'+(bi+1)+'"]';
+      }
+    };
+    case 'skill-label': return (s&&s.groups&&s.groups[gi]) && { get:function(){return s.groups[gi].label;}, set:function(v){ s.groups[gi].label = v; } };
+    case 'skill-items': return (s&&s.groups&&s.groups[gi]) && { get:function(){return s.groups[gi].items;}, set:function(v){ s.groups[gi].items = v; } };
+    case 'list-item': return (s&&s.items&&li>=0) && {
+      get:function(){ return s.items[li]; },
+      set:function(v){ if(v.trim()==='') s.items.splice(li,1); else s.items[li] = v; },
+      addAfter:function(){
+        s.items.splice(li+1, 0, '');
+        return '#pages-wrap [data-ie="list-item"][data-sid="'+sid+'"][data-li="'+(li+1)+'"]';
+      }
+    };
+    case 'h-name':    return { get:function(){return HEADER.name;}, set:function(v){ HEADER.name = v || HEADER.name; } };
+    case 'h-title':   return { get:function(){return HEADER.title;}, set:function(v){ HEADER.title = v; } };
+    case 'h-contact': return (HEADER.contact[ci]) && { get:function(){return HEADER.contact[ci].text;}, set:function(v){ if(v.trim()==='') HEADER.contact.splice(ci,1); else HEADER.contact[ci].text = v; } };
+    case 'c-sal':      return COVER && { get:function(){return COVER.salutation;}, set:function(v){ COVER.salutation = v; } };
+    case 'c-para':     return (COVER&&COVER.body&&pi>=0) && {
+      get:function(){ return COVER.body[pi]; },
+      set:function(v){ if(v.trim()==='') COVER.body.splice(pi,1); else COVER.body[pi] = v; }
+    };
+    case 'c-signoff':  return COVER && { get:function(){return COVER.signoff;}, set:function(v){ COVER.signoff = v; } };
+    case 'c-signname': return COVER && { get:function(){return (COVER.signName&&COVER.signName.trim())?COVER.signName:HEADER.name;}, set:function(v){ COVER.signName = v; } };
+  }
+  return null;
+}
+
+function ieStart(el){
+  var selPath = ieSelector(el);
+  if(ieActive){
+    if(ieActive.el === el) return;
+    ieCommit(); // triggers renderAll — el may now be detached
+  }
+  if(!document.contains(el)){
+    el = document.querySelector(selPath);
+    if(!el) return;
+  }
+  var acc = ieAccessor(el);
+  if(!acc) return;
+  var orig = String(acc.get() == null ? '' : acc.get());
+  el.classList.add('ie-editing');
+  try { el.setAttribute('contenteditable', 'plaintext-only'); } catch(e){}
+  if(!el.isContentEditable) el.setAttribute('contenteditable', 'true');
+  el.textContent = orig; // edit the raw source (keeps **bold** markers visible)
+  ieActive = { el: el, acc: acc, orig: orig, kind: el.getAttribute('data-ie') };
+  el.focus();
+  var range = document.createRange();
+  range.selectNodeContents(el);
+  range.collapse(false);
+  var sel = window.getSelection();
+  sel.removeAllRanges(); sel.addRange(range);
+}
+
+function ieReadValue(a){
+  var v = a.el.innerText.replace(new RegExp(String.fromCharCode(160),'g'), ' ');
+  if(!IE_MULTILINE[a.kind]) v = v.replace(/\s*\n\s*/g, ' ');
+  return v.replace(/\n{3,}/g, '\n\n');
+}
+
+function ieCommit(){
+  if(!ieActive) return;
+  var a = ieActive; ieActive = null;
+  var val = ieReadValue(a);
+  a.el.removeAttribute('contenteditable');
+  a.el.classList.remove('ie-editing');
+  if(val !== a.orig) a.acc.set(val);
+  renderAll(); // re-render restores formatted display (and autosaves on change)
+}
+
+// Enter on a bullet / list item: commit it, insert a new empty sibling, keep typing.
+function ieCommitAndAdd(){
+  if(!ieActive || !ieActive.acc.addAfter){ ieCommit(); return; }
+  var a = ieActive; ieActive = null;
+  var val = ieReadValue(a);
+  a.el.removeAttribute('contenteditable');
+  a.el.classList.remove('ie-editing');
+  a.acc.set(val);
+  var nextSel = (val.trim() === '') ? null : a.acc.addAfter();
+  renderAll();
+  if(nextSel){
+    var nxt = document.querySelector(nextSel);
+    if(nxt) ieStart(nxt);
+  }
+}
+
+function ieCancel(){
+  if(!ieActive) return;
+  var a = ieActive; ieActive = null;
+  a.el.removeAttribute('contenteditable');
+  a.el.classList.remove('ie-editing');
+  renderAll(); // restore original display, nothing was written
+}
+
+(function(){
+  var wrap = document.getElementById('pages-wrap');
+  // Capture phase so we beat the section/header click handlers that open modals
+  wrap.addEventListener('click', function(e){
+    // A mouseup at the end of a text selection also fires click — the user is
+    // highlighting (for "Ask Claude"), not clicking to edit. Swallow it so
+    // neither inline edit nor the section modal steals the selection.
+    var sel = window.getSelection();
+    if(sel && !sel.isCollapsed && sel.toString().trim()){
+      e.stopPropagation();
+      return;
+    }
+    var el = e.target.closest ? e.target.closest('[data-ie]') : null;
+    if(!el) return;
+    e.preventDefault();
+    e.stopPropagation();
+    ieStart(el);
+  }, true);
+  wrap.addEventListener('keydown', function(e){
+    if(!ieActive || !ieActive.el.contains(e.target)) return;
+    if(e.key === 'Escape'){ e.preventDefault(); ieCancel(); return; }
+    if(e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      if(ieActive.acc.addAfter) ieCommitAndAdd();
+      else ieCommit();
+    }
+  }, true);
+  wrap.addEventListener('focusout', function(e){
+    // Commit when focus truly leaves the edited element (not on re-render churn)
+    if(ieActive && e.target === ieActive.el) ieCommit();
+  });
+})();
+
+// ══════════════════════════════════════════════════════════════════════════
+// Claude chat panel
+// ══════════════════════════════════════════════════════════════════════════
+// Each entry maps to an Anthropic message via {role, content}. content is a string
+// for plain turns, or an array of blocks for assistant tool_use turns and the
+// hidden user turns that carry tool_results. Extra fields (display/quote/edits/
+// hidden) are display-only and never sent to the API.
+var chatHistory = [];
+var chatEditSeq = 0;    // unique id per applied edit (for undo chips)
+var chatQuote = null;   // highlighted resume text attached to the next message
+var chatBusy = false;
+var jdBuilding = false;  // a one-shot JD build is in flight
+
+function chatOpen(){ return !document.getElementById('chat-panel').classList.contains('collapsed'); }
+function setChatOpen(open){
+  document.getElementById('chat-panel').classList.toggle('collapsed', !open);
+  document.getElementById('chat-fab').style.display = open ? 'none' : 'flex';
+  try { localStorage.setItem('resume_builder_v1__chat_open', open ? '1' : '0'); } catch(e){}
+  if(open) renderChat();
+}
+
+function updateChatAvailability(){
+  var note = document.getElementById('chat-note');
+  // Chat needs the server + API key, NOT the database. Gate on serverUp so a
+  // Supabase hiccup never disables chat.
+  if(!serverUp){
+    note.textContent = 'Chat needs the local server. Run "node server.js" (with ANTHROPIC_API_KEY set) and reload.';
+    note.style.display = 'block';
+  } else {
+    note.style.display = 'none';
+  }
+}
+
+// Supabase settings (exposed schemas) can take a minute to deploy after saving.
+// Poll a few times so the app upgrades itself to DB storage the moment it lands,
+// instead of making the user reload.
+var _supaTries = 0;
+function retrySupabase(){
+  if(serverMode || _supaTries >= 20) return; // stop once connected or after ~2 min
+  _supaTries++;
+  setTimeout(function(){
+    fetch(API+'/ping').then(function(r){ return r.json(); }).then(function(d){
+      if(d.ok && d.storage === 'supabase'){
+        setServerMode();
+        srv_refreshIndex(function(){ renderVariantList(); });
+        showToast('Connected to Supabase');
+      } else {
+        retrySupabase();
+      }
+    }).catch(function(){ retrySupabase(); });
+  }, 6000);
+}
+
+// Display text of an assistant turn whose content may be a string or a block array.
+function assistantText(content){
+  if(typeof content === 'string') return content;
+  if(Array.isArray(content)) return content.filter(function(b){ return b.type === 'text'; }).map(function(b){ return b.text; }).join('');
+  return '';
+}
+
+function renderChat(){
+  var box = document.getElementById('chat-messages');
+  if(!chatHistory.length && !chatBusy){
+    box.innerHTML = '<div class="chat-empty">Ask Claude anything about this resume, or ask it to make changes directly.<br><br>Tip: highlight any text on the page and click <b>"Ask Claude"</b> to discuss it directly.</div>';
+    return;
+  }
+  var html = '';
+  chatHistory.forEach(function(m){
+    if(m.hidden) return; // tool_result turns are for the model, not the reader
+    if(m.role === 'user'){
+      html += '<div class="chat-msg user">'+
+        (m.quote ? '<div class="msg-quote">'+esc(m.quote)+'</div>' : '')+
+        esc(m.display != null ? m.display : m.content)+'</div>';
+    } else {
+      var txt = assistantText(m.content);
+      if(txt.trim()) html += '<div class="chat-msg assistant">'+renderProofFeedback(txt)+'</div>';
+      // Change chips: one per edit Claude applied in this turn
+      (m.edits || []).forEach(function(ed){
+        html += '<div class="chat-edit'+(ed.undone ? ' undone' : '')+'">'+
+          '<span class="ce-ico"><i class="ti ti-pencil"></i></span>'+
+          '<span class="ce-label">'+ed.label+'</span>'+
+          (ed.undone
+            ? '<span class="ce-done">undone</span>'
+            : '<button class="ce-undo" data-edit="'+ed.id+'">Undo</button>')+
+          '</div>';
+      });
+    }
+  });
+  if(chatBusy) html += '<div class="chat-thinking"><span class="chat-spinner"></span> Thinking…</div>';
+  box.innerHTML = html;
+  box.scrollTop = box.scrollHeight;
+}
+
+function updateQuoteBar(){
+  var bar = document.getElementById('chat-quote-bar');
+  if(chatQuote){
+    document.getElementById('chat-quote-text').textContent = chatQuote;
+    bar.style.display = 'block';
+  } else {
+    bar.style.display = 'none';
+  }
+}
+
+function chatSend(){
+  if(chatBusy) return;
+  var inp = document.getElementById('chat-input');
+  var text = inp.value.trim();
+  if(!text) return;
+  if(!serverUp){ updateChatAvailability(); showToast('Chat needs the local server (node server.js)'); return; }
+
+  var quote = chatQuote;
+  chatQuote = null; updateQuoteBar();
+  var content = quote
+    ? 'Regarding this excerpt from my resume:\n"""\n'+quote+'\n"""\n\n'+text
+    : text;
+  chatHistory.push({ role:'user', content: content, display: text, quote: quote });
+  inp.value = ''; chatAutoGrow(inp);
+  chatBusy = true;
+  document.getElementById('chat-send').disabled = true;
+  renderChat();
+  chatRunLoop(0);
+}
+
+// Agentic loop: stream one assistant turn; if it ends by calling tools, run them,
+// feed the results back, and continue until Claude stops calling tools.
+// Compact document outline — section ids/labels/types only, no full content. A
+// fraction of the size of the whole resume, and sent just once per request (turn 0)
+// so it never multiplies across a tool loop. The model calls get_document for detail.
+function chatOutline(){
+  try {
+    var lines = items.map(function(it){
+      var v = (it.visible === false) ? ' (hidden)' : '';
+      var extra = '';
+      if(it.type === 'jobs' && it.jobs){
+        extra = ' — ' + it.jobs.map(function(j){ return j.org; }).filter(Boolean).slice(0,3).join('; ');
+      }
+      return '- ' + it.id + ' [' + it.type + '] ' + (it.label || '') + v + extra;
+    });
+    return 'Header: ' + (HEADER.name||'') + ' — ' + (HEADER.title||'') + '\nSections:\n' + lines.join('\n');
+  } catch(e){ return ''; }
+}
+
+function chatRunLoop(depth, retries){
+  retries = retries || 0;
+  if(depth > 16){ // safety valve; a full JD build legitimately takes many tool turns
+    chatHistory.push({ role:'assistant', content:'⚠ Stopped after too many tool steps.' });
+    return chatEndLoop();
+  }
+
+  var apiMsgs = chatHistory.map(function(m){ return { role: m.role, content: m.content }; });
+  var asst = { role:'assistant', content:'' }; // live placeholder; finalized on stream end
+  chatHistory.push(asst);
+  renderChat();
+
+  var blocks = {};      // index -> content block being streamed
+  var toolJson = {};    // index -> accumulated input_json string
+  var stopReason = null;
+  var streamErr = null;
+
+  var reqBody = { messages: apiMsgs };
+  if(depth === 0) reqBody.outline = chatOutline(); // orientation, first turn only
+
+  fetch(API+'/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(reqBody)
+  })
+  .then(function(r){
+    var ct = r.headers.get('content-type') || '';
+    if(ct.indexOf('text/event-stream') < 0){
+      return r.json().then(function(j){
+        // Rate limited: wait the server's retry-after, then resume the SAME turn.
+        // The build pauses instead of failing; up to 6 waits before giving up.
+        if(j && j.error === 'rate_limit' && retries < 6){
+          var wait = Math.max(2, j.retryAfter || 30);
+          var idx = chatHistory.indexOf(asst);
+          if(idx >= 0) chatHistory.splice(idx, 1); // drop the placeholder; the retry re-adds one
+          showToast('Rate limited — retrying in ' + wait + 's…');
+          renderChat();
+          setTimeout(function(){ chatRunLoop(depth, retries + 1); }, wait * 1000);
+          return '__RETRY__';
+        }
+        throw new Error((j && j.message) || 'Chat is unavailable right now.');
+      });
+    }
+    var reader = r.body.getReader();
+    var dec = new TextDecoder();
+    var buf = '';
+    function pump(){
+      return reader.read().then(function(step){
+        if(step.done) return;
+        buf += dec.decode(step.value, { stream: true });
+        var lines = buf.split('\n');
+        buf = lines.pop();
+        lines.forEach(function(line){
+          if(line.indexOf('data:') !== 0) return;
+          var payload = line.slice(5).trim();
+          if(!payload) return;
+          var ev; try { ev = JSON.parse(payload); } catch(e){ return; }
+
+          if(ev.type === 'content_block_start'){
+            var cb = ev.content_block || {};
+            if(cb.type === 'text') blocks[ev.index] = { type:'text', text:'' };
+            else if(cb.type === 'tool_use'){ blocks[ev.index] = { type:'tool_use', id: cb.id, name: cb.name, input:{} }; toolJson[ev.index] = ''; }
+          } else if(ev.type === 'content_block_delta'){
+            var d = ev.delta || {};
+            if(d.type === 'text_delta' && blocks[ev.index]){
+              blocks[ev.index].text += d.text;
+              asst.content = orderedText(blocks);
+              renderChat();
+            } else if(d.type === 'input_json_delta'){
+              toolJson[ev.index] = (toolJson[ev.index] || '') + (d.partial_json || '');
+            }
+          } else if(ev.type === 'message_delta' && ev.delta && ev.delta.stop_reason){
+            stopReason = ev.delta.stop_reason;
+          } else if(ev.type === 'error' && ev.error){
+            streamErr = ev.error.message || 'stream error';
+          }
+        });
+        return pump();
+      });
+    }
+    return pump();
+  })
+  .then(function(result){
+    if(result === '__RETRY__') return; // rate-limit retry scheduled; do nothing this pass
+    if(streamErr) throw new Error(streamErr);
+
+    // Finalize this assistant turn into an ordered block array.
+    var ordered = orderedBlocks(blocks, toolJson);
+    var toolUses = ordered.filter(function(b){ return b.type === 'tool_use'; });
+
+    if(toolUses.length){
+      asst.content = ordered;          // structured content (text + tool_use) for the API
+      asst.edits = asst.edits || [];
+      var results = [], applied = 0;
+      toolUses.forEach(function(tu){
+        var out = chatExecTool(tu.name, tu.input || {});
+        results.push({ type:'tool_result', tool_use_id: tu.id,
+          content: typeof out.result === 'string' ? out.result : JSON.stringify(out.result),
+          is_error: !out.ok });
+        if(out.chip){ asst.edits.push(out.chip); applied++; }
+      });
+      // Persist to the durable target so the change sticks and lands in revision
+      // history. renderAll() already saved (autosave, or the master in master mode);
+      // a loaded variant additionally needs its own row written. This is what makes
+      // a chat edit undoable across sessions, not just within this one.
+      if(applied && !masterMode && currentVariant){
+        storage.saveVariant(currentVariant, function(){});
+      }
+      // Hidden user turn carrying the results, then continue the loop.
+      chatHistory.push({ role:'user', content: results, hidden:true });
+      renderChat();
+      return chatRunLoop(depth + 1);
+    }
+
+    // Plain answer, no tools — collapse to a string.
+    asst.content = orderedText(blocks);
+    chatEndLoop();
+  })
+  .catch(function(e){
+    asst.content = '⚠ ' + (e.message || 'Could not reach Claude. Is the local server running?');
+    chatEndLoop();
+  });
+}
+
+function chatEndLoop(){
+  chatBusy = false;
+  var sendBtn = document.getElementById('chat-send');
+  if(sendBtn) sendBtn.disabled = false;
+  var last = chatHistory[chatHistory.length-1];
+  if(last && last.role === 'assistant' && !assistantText(last.content).trim() && !(last.edits && last.edits.length)){
+    last.content = '⚠ No response received. Check the server logs.';
+  }
+  renderChat();
+}
+
+// Ordered helpers: stream indices are contiguous from 0, but sort defensively.
+function orderedText(blocks){
+  return Object.keys(blocks).sort(function(a,b){ return a - b; })
+    .map(function(k){ return blocks[k].type === 'text' ? blocks[k].text : ''; }).join('');
+}
+function orderedBlocks(blocks, toolJson){
+  return Object.keys(blocks).sort(function(a,b){ return a - b; }).map(function(k){
+    var b = blocks[k];
+    if(b.type === 'tool_use'){
+      try { b.input = toolJson[k] ? JSON.parse(toolJson[k]) : {}; } catch(e){ b.input = {}; }
+    }
+    return b;
+  });
+}
+
+// ── Tool executors ────────────────────────────────────────────────────────────
+// These run in the browser against the live document, then renderAll() applies the
+// change on the page AND persists it (autosave/master), which creates a DB revision.
+
+function chatDocSnapshot(){
+  return {
+    items:  JSON.parse(JSON.stringify(items)),
+    header: { name: HEADER.name, title: HEADER.title, contact: JSON.parse(JSON.stringify(HEADER.contact || [])) },
+    cover:  COVER ? JSON.parse(JSON.stringify(COVER)) : null
+  };
+}
+function chatDocRestore(s){
+  items = JSON.parse(JSON.stringify(s.items));
+  HEADER.name = s.header.name; HEADER.title = s.header.title;
+  HEADER.contact = JSON.parse(JSON.stringify(s.header.contact));
+  COVER = s.cover ? JSON.parse(JSON.stringify(s.cover)) : null;
+  renderAll();
+}
+
+function chatGetDocument(){
+  var secs = items.map(function(it){
+    var s = { id: it.id, label: it.label, type: it.type, visible: it.visible !== false };
+    if(it.parentId) s.parent_id = it.parentId;
+    if(it.type === 'summary') s.text = it.content || '';
+    else if(it.type === 'list') s.items = (it.items || []).slice();
+    else if(it.type === 'skills') s.groups = (it.groups || []).map(function(g){ return { label: g.label, items: g.items }; });
+    else if(it.type === 'jobs') s.jobs = (it.jobs || []).map(function(j, ji){
+      return { index: ji, org: j.org, title: j.title, dates: j.dates, bullets: (j.bullets || []).slice() };
+    });
+    return s;
+  });
+  var doc = { header: { name: HEADER.name, title: HEADER.title }, sections: secs };
+  if(COVER) doc.cover_letter = { salutation: COVER.salutation, body: (COVER.body || []).slice(), signoff: COVER.signoff, signName: COVER.signName };
+  return doc;
+}
+
+// ── Master (background) editing helpers ───────────────────────────────────────
+// The master is a separate document from the visible variant. When the user is IN
+// master mode, the live items/MASTER_NOTES ARE the master, so edits go through the
+// normal path. Otherwise we edit MASTER_DOC directly and save it in the background.
+function chatMasterTarget(){
+  if(masterMode) return { items: items, notes: MASTER_NOTES, live:true, save: function(cb){ saveMaster(cb); } };
+  if(!MASTER_DOC || !MASTER_DOC.items) return null;
+  if(!MASTER_DOC.notes) MASTER_DOC.notes = {};
+  return { items: MASTER_DOC.items, notes: MASTER_DOC.notes, live:false,
+           save: function(cb){ storage.saveRaw(MASTER_KEY, MASTER_DOC, cb || function(){}); } };
+}
+function chatMasterSnapshot(t){
+  if(t.live) return { live:true, items: JSON.parse(JSON.stringify(items)), notes: JSON.parse(JSON.stringify(MASTER_NOTES)) };
+  return { live:false, doc: JSON.parse(JSON.stringify(MASTER_DOC)) };
+}
+function chatMasterRestore(snap){
+  if(snap.live){
+    items = JSON.parse(JSON.stringify(snap.items));
+    MASTER_NOTES = JSON.parse(JSON.stringify(snap.notes));
+    saveMaster(function(){}); renderAll();
+  } else {
+    MASTER_DOC = JSON.parse(JSON.stringify(snap.doc));
+    if(!MASTER_DOC.notes) MASTER_DOC.notes = {};
+    storage.saveRaw(MASTER_KEY, MASTER_DOC, function(){});
+  }
+}
+
+function chatGetMaster(){
+  var src = null;
+  if(masterMode) src = { items: items, header: { name: HEADER.name, title: HEADER.title }, notes: MASTER_NOTES };
+  else if(MASTER_DOC && MASTER_DOC.items) src = MASTER_DOC;
+  if(!src) return { error:'No master exists yet. The user should open "Edit Master" once to create it.' };
+  var notes = src.notes || {};
+  var secs = (src.items || []).map(function(it){
+    var s = { id: it.id, label: it.label, type: it.type };
+    if(it.parentId) s.parent_id = it.parentId;
+    if(it.type === 'summary') s.text = it.content || '';
+    else if(it.type === 'list') s.items = (it.items || []).slice();
+    else if(it.type === 'skills') s.groups = (it.groups || []).map(function(g){ return { label: g.label, items: g.items }; });
+    else if(it.type === 'jobs') s.jobs = (it.jobs || []).map(function(j, ji){
+      return { index: ji, org: j.org, title: j.title, dates: j.dates, bullets: (j.bullets || []).slice() };
+    });
+    if(notes[it.id]) s.context = notes[it.id];
+    return s;
+  });
+  return { sections: secs, header: { name: src.header && src.header.name, title: src.header && src.header.title } };
+}
+
+// Chip builders: each carries a domain and a self-contained restore() closure.
+function chatMakeDocChip(label, before){
+  return { id:'e'+(chatEditSeq++), label: label, undone:false, domain:'doc',
+    restore: function(){
+      chatDocRestore(before);
+      if(!masterMode && currentVariant) storage.saveVariant(currentVariant, function(){});
+    } };
+}
+function chatMakeMasterChip(label, snap){
+  return { id:'e'+(chatEditSeq++), label: label, undone:false, domain:'master',
+    restore: function(){ chatMasterRestore(snap); } };
+}
+
+function chatExecTool(name, input){
+  try {
+    if(name === 'get_document') return { ok:true, result: chatGetDocument() };
+    if(name === 'get_master'){ var gm = chatGetMaster(); return gm.error ? { ok:false, result: gm.error } : { ok:true, result: gm }; }
+
+    // ── Master edits: background, on a different document than the visible variant ──
+    if(name === 'edit_master' || name === 'edit_master_context'){
+      var t = chatMasterTarget();
+      if(!t) return { ok:false, result:'No master exists yet. Ask the user to open "Edit Master" once to create it.' };
+      var msec = t.items.find(function(x){ return x.id === input.section_id; });
+      if(!msec) return { ok:false, result:'No master section with id "'+input.section_id+'". Call get_master for valid ids.' };
+      var msnap = chatMasterSnapshot(t);
+
+      if(name === 'edit_master_context'){
+        if(input.context == null || !String(input.context).trim()) delete t.notes[input.section_id];
+        else t.notes[input.section_id] = String(input.context);
+        t.save();
+        if(t.live) renderAll();
+        return { ok:true, result:'Updated master context.', chip: chatMakeMasterChip('Master context · <b>'+esc(msec.label)+'</b>', msnap) };
+      }
+
+      // edit_master content — apply the fields relevant to this section's type
+      if(msec.type === 'summary'){ if(input.text != null) msec.content = String(input.text); }
+      else if(msec.type === 'jobs'){
+        var mj = (msec.jobs || [])[input.job_index];
+        if(!mj) return { ok:false, result:'No job at index '+input.job_index+' in master section "'+input.section_id+'".' };
+        if(input.org   != null) mj.org   = String(input.org);
+        if(input.title != null) mj.title = String(input.title);
+        if(input.dates != null) mj.dates = String(input.dates);
+        if(Array.isArray(input.bullets)) mj.bullets = input.bullets.map(String);
+      }
+      else if(msec.type === 'list'){ if(Array.isArray(input.items)) msec.items = input.items.map(String); }
+      else if(msec.type === 'skills'){ if(Array.isArray(input.groups)) msec.groups = input.groups.map(function(g){ return { label: String(g.label || ''), items: String(g.items || '') }; }); }
+      t.save();
+      if(t.live) renderAll();
+      return { ok:true, result:'Applied to master.', chip: chatMakeMasterChip('Master · <b>'+esc(msec.label)+'</b>', msnap) };
+    }
+
+    // ── Visible-document edits ──────────────────────────────────────────────────
+    var before = chatDocSnapshot();
+    var label = null, s;
+
+    if(name === 'set_summary'){
+      s = byId(input.section_id);
+      if(!s || s.type !== 'summary') return { ok:false, result:'No summary section with id "'+input.section_id+'".' };
+      s.content = String(input.text == null ? '' : input.text);
+      label = 'Rewrote <b>'+esc(s.label)+'</b>';
+
+    } else if(name === 'update_job'){
+      s = byId(input.section_id);
+      if(!s || s.type !== 'jobs') return { ok:false, result:'No jobs section with id "'+input.section_id+'".' };
+      var j = (s.jobs || [])[input.job_index];
+      if(!j) return { ok:false, result:'No job at index '+input.job_index+' in section "'+input.section_id+'".' };
+      if(input.org   != null) j.org   = String(input.org);
+      if(input.title != null) j.title = String(input.title);
+      if(input.dates != null) j.dates = String(input.dates);
+      if(Array.isArray(input.bullets)) j.bullets = input.bullets.map(String);
+      label = 'Updated <b>'+esc(j.org || s.label)+'</b>';
+
+    } else if(name === 'set_list_items'){
+      s = byId(input.section_id);
+      if(!s || s.type !== 'list') return { ok:false, result:'No list section with id "'+input.section_id+'".' };
+      if(!Array.isArray(input.items)) return { ok:false, result:'items must be an array of strings.' };
+      s.items = input.items.map(String);
+      label = 'Updated <b>'+esc(s.label)+'</b>';
+
+    } else if(name === 'set_skill_groups'){
+      s = byId(input.section_id);
+      if(!s || s.type !== 'skills') return { ok:false, result:'No skills section with id "'+input.section_id+'".' };
+      if(!Array.isArray(input.groups)) return { ok:false, result:'groups must be an array.' };
+      s.groups = input.groups.map(function(g){ return { label: String(g.label || ''), items: String(g.items || '') }; });
+      label = 'Updated <b>'+esc(s.label)+'</b>';
+
+    } else if(name === 'set_section_visibility'){
+      s = byId(input.section_id);
+      if(!s) return { ok:false, result:'No section with id "'+input.section_id+'".' };
+      s.visible = !!input.visible;
+      label = (input.visible ? 'Showed' : 'Hid') + ' <b>'+esc(s.label)+'</b>';
+
+    } else if(name === 'update_header'){
+      if(input.name  != null) HEADER.name  = String(input.name);
+      if(input.title != null) HEADER.title = String(input.title);
+      label = 'Updated <b>header</b>';
+
+    } else if(name === 'update_cover_letter'){
+      if(!COVER) COVER = deepClone(COVER_TEMPLATE);
+      if(input.salutation != null) COVER.salutation = String(input.salutation);
+      if(Array.isArray(input.body)) COVER.body = input.body.map(String);
+      if(input.signoff  != null) COVER.signoff  = String(input.signoff);
+      if(input.signName != null) COVER.signName = String(input.signName);
+      label = 'Updated <b>cover letter</b>';
+
+    } else {
+      return { ok:false, result:'Unknown tool "'+name+'".' };
+    }
+
+    renderAll(); // live apply + autosave + DB revision
+    return { ok:true, result:'Applied.', chip: chatMakeDocChip(label, before) };
+  } catch(e){
+    return { ok:false, result:'Error applying change: '+(e.message || e) };
+  }
+}
+
+// Undo an applied edit via its self-contained restore(). Restoring a snapshot also
+// discards later edits IN THE SAME DOMAIN (doc vs master), so those chips are marked
+// undone too; edits in the other domain are independent and untouched.
+function chatUndoEdit(editId){
+  var target = null, hitList = [];
+  chatHistory.forEach(function(m){ (m.edits || []).forEach(function(e){ hitList.push(e); if(e.id === editId) target = e; }); });
+  if(!target || target.undone) return;
+  if(typeof target.restore === 'function') target.restore();
+  var reached = false;
+  hitList.forEach(function(e){
+    if(e.id === editId) reached = true;
+    if(reached && e.domain === target.domain) e.undone = true;
+  });
+  renderChat();
+  showToast('Reverted: ' + target.label.replace(/<[^>]+>/g, ''));
+}
+
+function chatAutoGrow(t){
+  t.style.height = 'auto';
+  t.style.height = Math.min(130, t.scrollHeight) + 'px';
+}
+
+(function(){
+  var inp = document.getElementById('chat-input');
+  document.getElementById('chat-send').addEventListener('click', chatSend);
+  inp.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); chatSend(); }
+  });
+  inp.addEventListener('input', function(){ chatAutoGrow(inp); });
+  // Delegated: Undo buttons on change chips (chat-messages is re-rendered wholesale)
+  document.getElementById('chat-messages').addEventListener('click', function(e){
+    var btn = e.target.closest ? e.target.closest('.ce-undo') : null;
+    if(btn) chatUndoEdit(btn.getAttribute('data-edit'));
+  });
+  document.getElementById('chat-clear').addEventListener('click', function(){
+    chatHistory = []; chatQuote = null; updateQuoteBar(); renderChat();
+  });
+  document.getElementById('chat-collapse').addEventListener('click', function(){ setChatOpen(false); });
+  document.getElementById('chat-fab').addEventListener('click', function(){ setChatOpen(true); });
+  document.getElementById('chat-quote-clear').addEventListener('click', function(){ chatQuote = null; updateQuoteBar(); });
+  var saved = null;
+  try { saved = localStorage.getItem('resume_builder_v1__chat_open'); } catch(e){}
+  setChatOpen(saved !== '0');
+})();
+
+// ── Highlight text → "Ask Claude" popover ───────────────────────────────────
+var selPopEl = null;
+function removeSelPop(){ if(selPopEl){ selPopEl.remove(); selPopEl = null; } }
+
+document.addEventListener('mouseup', function(e){
+  if(e.target.closest && e.target.closest('.sel-pop')) return;
+  setTimeout(function(){
+    removeSelPop();
+    if(ieActive) return; // not while inline-editing
+    var sel = window.getSelection();
+    if(!sel || sel.isCollapsed || !sel.rangeCount) return;
+    var text = sel.toString().trim();
+    if(!text || text.length < 3) return;
+    var node = sel.anchorNode;
+    var el = node && (node.nodeType === 1 ? node : node.parentElement);
+    if(!el || !el.closest('.resume-page')) return;
+    var rect = sel.getRangeAt(0).getBoundingClientRect();
+    var btn = document.createElement('button');
+    btn.className = 'sel-pop';
+    btn.innerHTML = '<i class="ti ti-message-circle"></i> Ask Claude';
+    btn.style.left = Math.min(window.innerWidth - 150, Math.max(8, rect.left + rect.width/2 - 55)) + 'px';
+    btn.style.top = Math.max(8, rect.top - 40) + 'px';
+    btn.addEventListener('mousedown', function(ev){ ev.preventDefault(); ev.stopPropagation(); });
+    btn.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      chatQuote = text.slice(0, 1500);
+      updateQuoteBar();
+      setChatOpen(true);
+      removeSelPop();
+      try { window.getSelection().removeAllRanges(); } catch(_){}
+      document.getElementById('chat-input').focus();
+    });
+    document.body.appendChild(btn);
+    selPopEl = btn;
+  }, 10);
+});
+document.getElementById('preview-area').addEventListener('scroll', removeSelPop);
+document.addEventListener('mousedown', function(e){
+  if(!(e.target.closest && e.target.closest('.sel-pop'))) removeSelPop();
+});
+
+// ══════════════════════════════════════════════════════════════════════════
+// Variant browser — searchable grid of all saved variants (the "Open" dialog)
+// ══════════════════════════════════════════════════════════════════════════
+var vbFilter = '';
+
+function openVariantsModal(){
+  vbFilter = '';
+  var se = document.getElementById('vb-search');
+  se.value = '';
+  document.getElementById('variants-modal').style.display = 'flex';
+  renderVariantBrowser();
+  setTimeout(function(){ se.focus(); }, 60);
+}
+function closeVariantsModal(){ document.getElementById('variants-modal').style.display = 'none'; }
+
+function renderVariantBrowser(){
+  storage.listVariants(function(err, names){
+    names = names || [];
+    var f = vbFilter.toLowerCase();
+    var shown = names.filter(function(n){ return n.toLowerCase().indexOf(f) >= 0; });
+    document.getElementById('vb-title').textContent = 'All variants ('+names.length+')';
+    var grid = document.getElementById('vb-grid');
+    if(!shown.length){
+      grid.innerHTML = '<div class="vb-none">'+(names.length ? 'No variants match "'+esc(vbFilter)+'"' : 'No saved variants yet — use Save as… to create one')+'</div>';
+      return;
+    }
+    grid.innerHTML = shown.map(function(name){
+      var act = name === currentVariant;
+      return '<div class="vb-card'+(act ? ' active-variant' : '')+'">'+
+        (act ? '<span class="vb-card-badge">Currently open</span>' : '')+
+        '<div class="vb-card-name">'+esc(name)+'</div>'+
+        '<div class="vb-card-actions">'+
+          (act
+            ? '<button class="btn" data-vb-overwrite="'+esc(name)+'"><i class="ti ti-device-floppy"></i> Save</button>'
+            : '<button class="btn btn-primary" data-vb-load="'+esc(name)+'"><i class="ti ti-upload"></i> Load</button>')+
+          '<button class="btn vb-del" data-vb-del="'+esc(name)+'" title="Delete"><i class="ti ti-trash"></i></button>'+
+        '</div></div>';
+    }).join('');
+
+    grid.querySelectorAll('[data-vb-load]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var name = btn.getAttribute('data-vb-load');
+        storage.loadVariant(name, function(err){
+          if(err) return showToast('Error loading "'+name+'"');
+          renderAll(); closeVariantsModal(); showToast('Loaded "'+name+'"');
+        });
+      });
+    });
+    grid.querySelectorAll('[data-vb-overwrite]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var name = btn.getAttribute('data-vb-overwrite');
+        storage.saveVariant(name, function(err){
+          if(err) return showToast('Error saving');
+          renderVariantBrowser(); renderVariantList(); showToast('Saved "'+name+'"');
+        });
+      });
+    });
+    grid.querySelectorAll('[data-vb-del]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var name = btn.getAttribute('data-vb-del');
+        if(!confirm('Delete variation "'+name+'"?')) return;
+        storage.deleteVariant(name, function(err){
+          if(err) return showToast('Error deleting');
+          renderVariantBrowser(); renderVariantList();
+        });
+      });
+    });
+  });
+}
+
+document.getElementById('vb-close').addEventListener('click', closeVariantsModal);
+document.getElementById('vb-search').addEventListener('input', function(){ vbFilter = this.value.trim(); renderVariantBrowser(); });
+document.getElementById('variants-modal').addEventListener('click', function(e){
+  if(e.target === document.getElementById('variants-modal')) closeVariantsModal();
+});
 
 </script>
 
