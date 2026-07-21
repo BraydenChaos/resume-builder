@@ -215,6 +215,36 @@ const RESUME_TOOLS = [
       required: ['section_id', 'context'],
     },
   },
+  {
+    name: 'add_master_section',
+    description: 'Add a brand-new entry to the MASTER resume\'s background: a company/employer, or a client/project nested under an existing company. Call get_master first to see existing ids (use one as parent_id to nest a client under a company). Only a "jobs" type entry may have a parent.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        label: { type: 'string', description: 'Section label shown in the sidebar, e.g. the company or project name.' },
+        type: { type: 'string', enum: ['jobs', 'summary', 'list'], description: 'Almost always "jobs" for a company or client entry.' },
+        parent_id: { type: 'string', description: 'Id of an existing master section to nest this under (e.g. add a client under its company). Omit for a top-level entry.' },
+        org: { type: 'string', description: 'Jobs type only: organization/client name. Defaults to label.' },
+        title: { type: 'string', description: 'Jobs type only: role/title.' },
+        dates: { type: 'string', description: 'Jobs type only: date range.' },
+        bullets: { type: 'array', items: { type: 'string' }, description: 'Jobs type only: bullet points.' },
+      },
+      required: ['label', 'type'],
+    },
+  },
+  {
+    name: 'reorder_master_section',
+    description: 'Move a MASTER section to a new position, and optionally re-parent it (e.g. move a client to sit under a different company, or promote it to a top-level entry). Call get_master first for valid ids. Some fixed sections (skills/certifications/engagements/references) cannot be re-parented.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        section_id: { type: 'string', description: 'Id of the master section to move.' },
+        parent_id: { type: 'string', description: 'Id of the new parent section, so this becomes its child (e.g. a client under a company). Pass empty string to make it a top-level entry.' },
+        after_id: { type: 'string', description: 'Id of the sibling (within the same parent) to place this section immediately after. Omit to place it first among its siblings.' },
+      },
+      required: ['section_id'],
+    },
+  },
 ];
 
 // Structured-output schema for the proofread findings. Each finding carries the
@@ -648,27 +678,52 @@ const server = http.createServer(async (req, res) => {
       'Make the smallest edit that satisfies the request; never rewrite sections the user did not ask about. After editing, confirm what you changed in one short line. ' +
       'When the user only asks a question or wants advice, just answer — do not edit. ' +
       'To tailor a resume to a specific role, use set_section_visibility to hide the projects and sections that are not relevant and keep the ones that are, then sharpen the summary and the most relevant bullets and align the header title. ' +
-      'The MASTER is the canonical resume every variant draws from. When the user shares background about a role or project (its real scope, their actual role, results, metrics, context) rather than requesting a specific edit to the visible resume, quietly record it on the master with edit_master_context so future tailoring benefits — call get_master first to see the section ids and existing notes, and append to what is already there. Use edit_master to improve the master\'s actual content when a change should apply to every future variant, not just this one. These master tools work in the background and do not alter the variant the user is viewing. ' +
+      'The MASTER is the canonical resume every variant draws from. When the user shares background about a role or project (its real scope, their actual role, results, metrics, context) rather than requesting a specific edit to the visible resume, quietly record it on the master with edit_master_context so future tailoring benefits — call get_master first to see the section ids and existing notes, and append to what is already there. Use edit_master to improve the master\'s actual content when a change should apply to every future variant, not just this one. Use add_master_section to record a brand-new company or client the user tells you about (nest a client under its company with parent_id), and reorder_master_section to reorder or re-parent entries (e.g. move a client under a different company, or reorder companies/clients). These master tools work in the background and do not alter the variant the user is viewing. ' +
+      'If a job description is included below (the user pasted/saved one for this resume), use it to answer questions about the role and to judge how well the resume aligns — quote or reference it directly, no need to ask the user to repaste it. ' +
       'Be concise — this renders in a narrow side panel. Use short paragraphs and bullets. Never use em-dashes.';
 
     const system = [{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }];
-    // Optional lightweight outline (section ids/labels/types, no full content),
-    // sent by the client only on the first turn of a request. It sits AFTER the
-    // cache breakpoint so it never invalidates the cached prefix, and gives the
-    // model orientation so simple questions don't always need a get_document call.
+    // The JD is stable for the whole editing session (it only changes if the user
+    // edits the JD tray), unlike the outline below which changes every turn as the
+    // document is edited. Give it its own cache breakpoint, placed BEFORE the
+    // volatile outline, so identical JD text across turns is a cheap cache read
+    // instead of full-price input tokens — if the outline came first, its churn
+    // would break the prefix match and the JD would never actually hit cache.
+    const jd = String(data.jd || '').slice(0, 12000);
+    if (jd) system.push({ type: 'text', text: 'The job description the user has pasted/saved for this resume, in case they ask about it or want the resume aligned to it:\n' + jd, cache_control: { type: 'ephemeral' } });
+    // Lightweight outline (section ids/labels/types, no full content), sent by the
+    // client only on the first turn of a request. It sits AFTER both cache
+    // breakpoints so it never invalidates the cached prefix, and gives the model
+    // orientation so simple questions don't always need a get_document call.
     const outline = String(data.outline || '').slice(0, 4000);
     if (outline) system.push({ type: 'text', text: 'Outline of the document currently on screen (ids and headings only — call get_document for full content):\n' + outline });
 
     const model = process.env.ANTHROPIC_CHAT_MODEL || 'claude-opus-4-8';
     // Extended thinking is intentionally off: preserving signed thinking blocks
     // through a client-driven tool loop is fragile, and these edits don't need it.
+    const messages = history.map(m => ({ role: m.role, content: m.content }));
+    // Cache the whole prefix (system + tool schemas + conversation-so-far) by marking
+    // the last content block of the last message. Every subsequent roundtrip in this
+    // same agentic loop (get_document -> edit -> confirm, etc.) then re-reads that
+    // prefix from cache instead of re-billing it as fresh input tokens — without this,
+    // a multi-step edit re-sends and pays full price for the growing transcript,
+    // including large get_document/get_master dumps, on every single roundtrip.
+    if (messages.length) {
+      const last = messages[messages.length - 1];
+      if (typeof last.content === 'string') {
+        last.content = [{ type: 'text', text: last.content, cache_control: { type: 'ephemeral' } }];
+      } else if (Array.isArray(last.content) && last.content.length) {
+        const lastBlock = last.content[last.content.length - 1];
+        last.content = last.content.slice(0, -1).concat([Object.assign({}, lastBlock, { cache_control: { type: 'ephemeral' } })]);
+      }
+    }
     const payload = JSON.stringify({
       model,
       max_tokens: 8192,
       stream: true,
       system,
       tools: RESUME_TOOLS,
-      messages: history.map(m => ({ role: m.role, content: m.content })),
+      messages,
     });
 
     const https = require('https');
